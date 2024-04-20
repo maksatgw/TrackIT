@@ -1,6 +1,11 @@
 using Microsoft.EntityFrameworkCore;
+using TrackIT.Business.Abstract;
+using TrackIT.Business.Concrete;
 using TrackIT.Business.Model;
+using TrackIT.DataAccess.Abstract;
 using TrackIT.DataAccess.Concrete;
+using TrackIT.DataAccess.Entity;
+using TrackIT.UI.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +19,9 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 });
 //Identity Eklenmiþ Oluyor
 builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<AppDbContext>();
+
+//Dependency Inject için bir extension yazdýk.
+builder.Services.DIContainer();
 
 var app = builder.Build();
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using TrackIT.Business.Abstract;
 using TrackIT.UI.Models;
 
 namespace TrackIT.UI.Controllers
@@ -8,14 +9,18 @@ namespace TrackIT.UI.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IProductService _service;
+        
+        public HomeController(ILogger<HomeController> logger, IProductService service)
         {
             _logger = logger;
+            _service = service;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var values = _service.TGet();
+            return View(values);
         }
 
         public IActionResult Privacy()

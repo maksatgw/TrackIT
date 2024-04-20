@@ -20,4 +20,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TrackIT.DataAccess\TrackIT.DataAccess.csproj" />
+    <ProjectReference Include="..\TrackIT.Entity\TrackIT.Entity.csproj" />
+  </ItemGroup>
+
 </Project>
