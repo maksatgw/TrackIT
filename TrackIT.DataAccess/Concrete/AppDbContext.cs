@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TrackIT.Business.Model;
+using TrackIT.Entity.Model;
 
 namespace TrackIT.DataAccess.Concrete
 {
@@ -14,8 +15,11 @@ namespace TrackIT.DataAccess.Concrete
         //Hangi database provider kullanacağımızı karar vermek için (program.cs) bir options parametresi göndereceğiz.
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) //<- base ile miras aldığımız sınıfın constructoruna parametre gönderiyoruz.
         {
-
         }
-
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Product> Product { get; set; }
+        public DbSet<ProductRegistiration> ProductRegistirations { get; set; }
+        public DbSet<ProductRegistirationHistory> RegistirationHistorys { get; set; }
     }
+
 }
