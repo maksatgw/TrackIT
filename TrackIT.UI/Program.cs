@@ -18,7 +18,7 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
     opt.UseSqlServer(builder.Configuration.GetConnectionString("SqlConn"));
 });
 //Identity Eklenmiþ Oluyor
-builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<AppDbContext>();
+//builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<AppDbContext>();
 
 //Dependency Inject için bir extension yazdýk.
 builder.Services.DIContainer();
