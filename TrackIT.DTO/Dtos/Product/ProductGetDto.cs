@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TrackIT.Business.Model;
+using TrackIT.Entity.Model;
 
-namespace TrackIT.Entity.Model
+namespace TrackIT.DTO.Dtos.Product
 {
-    public class Product
+    public class ProductGetDto
     {
         public int ProductId { get; set; }
         public string Name { get; set; }
@@ -17,13 +18,7 @@ namespace TrackIT.Entity.Model
         public string AppUserId { get; set; }
         public int CategoryId { get; set; }
         public bool isActive { get; set; } = true;
-
-
-        [ForeignKey("AppUserId")]
         public AppUser AppUser { get; set; }
-
-        [ForeignKey("CategoryId")]
         public Category Category { get; set; }
-
     }
 }

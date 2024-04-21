@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrackIT.Entity", "TrackIT.Entity\TrackIT.Entity.csproj", "{F9CCE2FB-55CC-4A80-9740-EA7B23D13057}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrackIT.Entity", "TrackIT.Entity\TrackIT.Entity.csproj", "{F9CCE2FB-55CC-4A80-9740-EA7B23D13057}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrackIT.Business", "TrackIT.Business\TrackIT.Business.csproj", "{CDFD17AA-166B-4C58-8399-880166E16BE3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrackIT.Business", "TrackIT.Business\TrackIT.Business.csproj", "{CDFD17AA-166B-4C58-8399-880166E16BE3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrackIT.DataAccess", "TrackIT.DataAccess\TrackIT.DataAccess.csproj", "{A903C97F-75D4-489B-9679-8EB84235A87E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrackIT.DataAccess", "TrackIT.DataAccess\TrackIT.DataAccess.csproj", "{A903C97F-75D4-489B-9679-8EB84235A87E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrackIT.UI", "TrackIT.UI\TrackIT.UI.csproj", "{20B8AED4-82B6-40A2-8A19-2EDE66D33B2A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrackIT.UI", "TrackIT.UI\TrackIT.UI.csproj", "{20B8AED4-82B6-40A2-8A19-2EDE66D33B2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrackIT.DTO", "TrackIT.DTO\TrackIT.DTO.csproj", "{4B0110F1-06F1-4C32-8963-01C946F7EC6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{20B8AED4-82B6-40A2-8A19-2EDE66D33B2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{20B8AED4-82B6-40A2-8A19-2EDE66D33B2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{20B8AED4-82B6-40A2-8A19-2EDE66D33B2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B0110F1-06F1-4C32-8963-01C946F7EC6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B0110F1-06F1-4C32-8963-01C946F7EC6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B0110F1-06F1-4C32-8963-01C946F7EC6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B0110F1-06F1-4C32-8963-01C946F7EC6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

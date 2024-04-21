@@ -19,9 +19,11 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 });
 //Identity Eklenmiþ Oluyor
 //builder.Services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<AppDbContext>();
-
+builder.Services.AddAutoMapper(typeof(Program));
 //Dependency Inject için bir extension yazdýk.
 builder.Services.DIContainer();
+
+
 
 var app = builder.Build();
 

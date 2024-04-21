@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TrackIT.Business\TrackIT.Business.csproj" />
+    <ProjectReference Include="..\TrackIT.DataAccess\TrackIT.DataAccess.csproj" />
+    <ProjectReference Include="..\TrackIT.Entity\TrackIT.Entity.csproj" />
+  </ItemGroup>
+
+</Project>

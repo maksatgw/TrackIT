@@ -237,7 +237,7 @@ namespace TrackIT.DataAccess.Migrations
 
                     b.HasKey("CategoryId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("TrackIT.Entity.Model.Product", b =>
@@ -276,7 +276,7 @@ namespace TrackIT.DataAccess.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Product");
+                    b.ToTable("Product", (string)null);
                 });
 
             modelBuilder.Entity("TrackIT.Entity.Model.ProductRegistiration", b =>
@@ -301,7 +301,7 @@ namespace TrackIT.DataAccess.Migrations
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("ProductRegistirations");
+                    b.ToTable("ProductRegistirations", (string)null);
                 });
 
             modelBuilder.Entity("TrackIT.Entity.Model.ProductRegistirationHistory", b =>
@@ -322,7 +322,7 @@ namespace TrackIT.DataAccess.Migrations
 
                     b.HasIndex("ProductRegistirationId");
 
-                    b.ToTable("RegistirationHistorys");
+                    b.ToTable("RegistirationHistorys", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
