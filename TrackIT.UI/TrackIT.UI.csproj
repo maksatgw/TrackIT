@@ -30,4 +30,8 @@
     <ProjectReference Include="..\TrackIT.Entity\TrackIT.Entity.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Shared\LayoutPartials\" />
+  </ItemGroup>
+
 </Project>

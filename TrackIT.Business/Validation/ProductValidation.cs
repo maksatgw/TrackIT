@@ -15,7 +15,6 @@ namespace TrackIT.Business.Validation
             RuleFor(p => p.Name).NotEmpty().WithMessage("İsim boş bırakılamaz");
             RuleFor(p => p.Serial).NotEmpty().WithMessage("Seri boş bırakılamaz");
             RuleFor(p => p.CategoryId).NotEmpty().WithMessage("Kategori boş bırakılamaz");
-            RuleFor(p => p.AppUserId).NotEmpty().WithMessage("Kullanıcı boş bırakılamaz");
         }
     }
 }

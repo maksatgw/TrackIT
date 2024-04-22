@@ -18,6 +18,7 @@ namespace TrackIT.Business.Concrete
             _service = service;
         }
 
+
         public void TDelete(Product model)
         {
             _service.Delete(model);
@@ -32,6 +33,17 @@ namespace TrackIT.Business.Concrete
         public List<Product> TGet()
         {
             return _service.Get();
+        }
+
+        public List<Product> TGetWithIncluded()
+        {
+            return _service.GetWithIncluded();
+        }
+
+        public List<Product> TGetWithIncludedSearch(string searchQuery)
+        {
+            return _service.GetWithIncludedSearch(searchQuery);
+
         }
 
         public void TInsert(Product model)

@@ -14,13 +14,9 @@ namespace TrackIT.Entity.Model
         public string Name { get; set; }
         public string Serial { get; set; }
         public string Description { get; set; }
-        public string AppUserId { get; set; }
         public int CategoryId { get; set; }
         public bool isActive { get; set; } = true;
-
-
-        [ForeignKey("AppUserId")]
-        public AppUser AppUser { get; set; }
+        public DateTime DateAdded { get; set; } = DateTime.Now;
 
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }

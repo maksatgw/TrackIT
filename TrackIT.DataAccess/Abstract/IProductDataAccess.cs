@@ -9,5 +9,8 @@ namespace TrackIT.DataAccess.Abstract
 {
     public interface IProductDataAccess : IGenericDataAccess<Product>
     {
+        List<Product> GetWithIncludedSearch(string searchQuery);
+        List<Product> GetWithIncluded();
+        
     }
 }

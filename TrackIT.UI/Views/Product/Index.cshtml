@@ -1,4 +1,4 @@
-﻿@model List<ProductGetDto>
+﻿@model ProductViewModel
 @{
     ViewData["Title"] = "Index";
 }
@@ -53,33 +53,39 @@
 <div class="block block-rounded">
     <div class="block-header block-header-default">
         <h3 class="block-title">All Products</h3>
-        <div class="block-options">
-            <div class="dropdown">
-                <button type="button" class="btn btn-alt-secondary" id="dropdown-ecom-filters" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Filters <i class="fa fa-angle-down ms-1"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-ecom-filters">
-                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
-                        New
-                        <span class="badge bg-success rounded-pill">260</span>
-                    </a>
-                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
-                        Out of Stock
-                        <span class="badge bg-danger rounded-pill">63</span>
-                    </a>
-                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
-                        All
-                        <span class="badge bg-black-50 rounded-pill">36k</span>
-                    </a>
+        <div class="block-header block-header-default">
+            <h3 class="block-title">All Products</h3>
+            <div class="block-options">
+                <div class="dropdown">
+                    <button type="button" class="btn btn-alt-secondary" id="dropdown-ecom-filters2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Kategori <i class="fa fa-angle-down ms-1"></i>
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-ecom-filters2">
+                        @foreach (var item in Model.Products)
+                        {
+                            <form form asp-action="Index" asp-controller="Product" method="POST">
+                                <input type="hidden" name="searchQuery" value="FB">
+                                <button type="submit" class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
+                                    @item.Category.Name
+                                </button>
+                            </form>
+                        }
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
     <div class="block-content bg-body-dark">
         <!-- Search Form -->
-        <form action="be_pages_ecom_products.html" method="POST" onsubmit="return false;">
+        <form asp-action="Index" asp-controller="Product" method="POST">
             <div class="mb-4">
-                <input type="text" class="form-control form-control-alt" id="dm-ecom-products-search" name="dm-ecom-products-search" placeholder="Search all products..">
+                <div class="input-group">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-search me-1"></i> Ara
+                    </button>
+                    <input type="text" class="form-control" id="example-group3-input1" name="searchQuery" placeholder="Ürün ismi">
+                </div>
             </div>
         </form>
         <!-- END Search Form -->
@@ -95,13 +101,13 @@
                         <th class="d-none d-md-table-cell text-center">Serial</th>
                         <th class="d-none d-md-table-cell text-center">Description</th>
                         <th class="d-none d-md-table-cell text-center">Category</th>
-                        <th class="d-none d-md-table-cell text-center">User</th>
+                        <th class="d-none d-md-table-cell text-center">Date</th>
                         <th class="text-center">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
 
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.Products)
                     {
                         <tr>
                             <td class="text-center fs-sm">
@@ -112,9 +118,8 @@
                             <td class="d-none d-sm-table-cell text-center fs-sm">@item.Name</td>
                             <td class="d-none d-sm-table-cell text-center fs-sm">@item.Serial</td>
                             <td class="d-none d-sm-table-cell text-center fs-sm">@item.Description</td>
-                            <td class="d-none d-sm-table-cell text-center fs-sm">@item.CategoryId</td>
-                            <td class="d-none d-sm-table-cell text-center fs-sm">@item.AppUserId</td>
-                            
+                            <td class="d-none d-sm-table-cell text-center fs-sm">@item.Category.Name</td>
+                            <td class="d-none d-sm-table-cell text-center fs-sm">@item.DateAdded</td>
                             <td class="text-center fs-sm">
                                 <a class="btn btn-sm btn-alt-secondary" href="be_pages_ecom_product_edit.html">
                                     <i class="fa fa-fw fa-eye"></i>
@@ -128,8 +133,6 @@
                             </td>
                         </tr>
                     }
-                    
-                   
                 </tbody>
             </table>
         </div>

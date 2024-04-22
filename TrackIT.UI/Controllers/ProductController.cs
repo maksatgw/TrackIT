@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using TrackIT.Business.Abstract;
 using TrackIT.DTO.Dtos.Product;
+using TrackIT.UI.ViewModels;
 
 namespace TrackIT.UI.Controllers
 {
@@ -16,10 +18,21 @@ namespace TrackIT.UI.Controllers
             _mapper = mapper;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string searchQuery, string filterByCategory, string filterByDate)
         {
-            var values = _mapper.Map<List<ProductGetDto>>(_service.TGet());
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                var searchvalues = _mapper.Map<List<ProductGetDto>>(_service.TGetWithIncludedSearch(searchQuery));
+                return View(searchvalues);
+            }
+            var data = _mapper.Map<List<ProductGetDto>>(_service.TGetWithIncluded());
+            var values = new ProductViewModel()
+            {
+                Products = data,
+            };
             return View(values);
+
+
         }
     }
 }

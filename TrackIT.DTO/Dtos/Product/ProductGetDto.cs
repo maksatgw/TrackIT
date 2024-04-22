@@ -18,7 +18,7 @@ namespace TrackIT.DTO.Dtos.Product
         public string AppUserId { get; set; }
         public int CategoryId { get; set; }
         public bool isActive { get; set; } = true;
-        public AppUser AppUser { get; set; }
+        public DateTime DateAdded { get; set; }
         public Category Category { get; set; }
     }
 }

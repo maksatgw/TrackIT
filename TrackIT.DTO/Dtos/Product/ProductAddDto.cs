@@ -11,7 +11,6 @@ namespace TrackIT.DTO.Dtos.Product
         public string Name { get; set; }
         public string Serial { get; set; }
         public string Description { get; set; }
-        public string AppUserId { get; set; }
         public int CategoryId { get; set; }
     }
 }
