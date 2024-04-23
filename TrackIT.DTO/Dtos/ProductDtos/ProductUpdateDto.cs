@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TrackIT.DTO.Dtos.Product
+namespace TrackIT.DTO.Dtos.ProductDtos
 {
     public class ProductUpdateDto
     {

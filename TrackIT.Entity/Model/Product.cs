@@ -12,8 +12,8 @@ namespace TrackIT.Entity.Model
     {
         public int ProductId { get; set; }
         public string Name { get; set; }
-        public string Serial { get; set; }
-        public string Description { get; set; }
+        public string? Serial { get; set; }
+        public string? Description { get; set; }
         public int CategoryId { get; set; }
         public bool isActive { get; set; } = true;
         public DateTime DateAdded { get; set; } = DateTime.Now;

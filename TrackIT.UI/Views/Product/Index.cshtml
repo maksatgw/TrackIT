@@ -2,11 +2,18 @@
 @{
     ViewData["Title"] = "Index";
 }
+<script>
+    var myModal = document.getElementById('myModal')
+    var myInput = document.getElementById('myInput')
 
+    myModal.addEventListener('shown.bs.modal', function () {
+        myInput.focus()
+    })
+</script>
 <!-- Quick Overview -->
 <div class="row items-push">
     <div class="col-6 col-lg-3">
-        <a class="block block-rounded block-link-shadow text-center h-100 mb-0" href="be_pages_ecom_product_edit.html">
+        <a class="block block-rounded block-link-shadow text-center h-100 mb-0" href="/Product/new">
             <div class="block-content py-5">
                 <div class="fs-3 fw-semibold text-success mb-1">
                     <i class="fa fa-plus"></i>
@@ -54,21 +61,17 @@
     <div class="block-header block-header-default">
         <h3 class="block-title">All Products</h3>
         <div class="block-header block-header-default">
-            <h3 class="block-title">All Products</h3>
             <div class="block-options">
                 <div class="dropdown">
                     <button type="button" class="btn btn-alt-secondary" id="dropdown-ecom-filters2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Kategori <i class="fa fa-angle-down ms-1"></i>
                     </button>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-ecom-filters2">
-                        @foreach (var item in Model.Products)
+                        @foreach (var item in Model.Categories)
                         {
-                            <form form asp-action="Index" asp-controller="Product" method="POST">
-                                <input type="hidden" name="searchQuery" value="FB">
-                                <button type="submit" class="dropdown-item d-flex align-items-center justify-content-between" href="javascript:void(0)">
-                                    @item.Category.Name
-                                </button>
-                            </form>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between" href="/product/index?filterByCategory=@item.CategoryId">
+                                @item.Name
+                            </a>
                         }
                     </div>
                 </div>
@@ -76,19 +79,19 @@
         </div>
     </div>
 
+   
+
     <div class="block-content bg-body-dark">
-        <!-- Search Form -->
-        <form asp-action="Index" asp-controller="Product" method="POST">
+        <form asp-action="Index" asp-controller="Product" method="GET">
             <div class="mb-4">
                 <div class="input-group">
+                    <input type="text" class="form-control" id="example-group3-input1" name="searchQuery" placeholder="Ürün ismi">
                     <button type="submit" class="btn btn-primary">
                         <i class="fa fa-search me-1"></i> Ara
                     </button>
-                    <input type="text" class="form-control" id="example-group3-input1" name="searchQuery" placeholder="Ürün ismi">
                 </div>
             </div>
         </form>
-        <!-- END Search Form -->
     </div>
     <div class="block-content">
         <!-- All Products Table -->
@@ -127,7 +130,7 @@
                                 <a class="btn btn-sm btn-alt-secondary" href="be_pages_ecom_product_edit.html">
                                     <i class="fa fa-fw fa-pen"></i>
                                 </a>
-                                <a class="btn btn-sm btn-alt-secondary" href="javascript:void(0)">
+                                <a class="btn btn-sm btn-alt-secondary" href="/Product/Remove?productId=@item.ProductId">
                                     <i class="fa fa-fw fa-times text-danger"></i>
                                 </a>
                             </td>
@@ -136,6 +139,13 @@
                 </tbody>
             </table>
         </div>
+
+
+
+
+
+
+
         <!-- END All Products Table -->
         <!-- Pagination -->
         <nav aria-label="Photos Search Navigation">

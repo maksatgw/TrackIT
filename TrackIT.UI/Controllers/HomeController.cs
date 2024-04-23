@@ -20,7 +20,7 @@ namespace TrackIT.UI.Controllers
         public IActionResult Index()
         {
             var values = _service.TGet();
-            return View(values);
+            return View();
         }
 
         public IActionResult Privacy()

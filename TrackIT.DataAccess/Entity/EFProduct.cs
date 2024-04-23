@@ -32,7 +32,10 @@ namespace TrackIT.DataAccess.Entity
           
         }
 
-       
+        public List<Product> GetByCategory(int id)
+        {
+            return _appDbContext.Product.Include(x=>x.Category).Where(x=>x.CategoryId.Equals(id)).ToList();
+        }
     }
 
 }

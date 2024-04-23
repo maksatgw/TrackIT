@@ -754,6 +754,11 @@
       Core libraries and functionality
       webpack is putting everything together at assets/_js/main/app.js
     -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
+    @*<script src="~/js/site.js" asp-append-version="true"></script>*@
     <script src="~/web/src/assets/js/dashmix.app.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

@@ -11,6 +11,8 @@ namespace TrackIT.DataAccess.Abstract
     {
         List<Product> GetWithIncludedSearch(string searchQuery);
         List<Product> GetWithIncluded();
+        List<Product> GetByCategory(int id);
+
         
     }
 }

@@ -11,5 +11,6 @@ namespace TrackIT.Business.Abstract
     {
         List<Product> TGetWithIncludedSearch(string searchQuery);
         List<Product> TGetWithIncluded();
+        public List<Product> TGetByCategory(int id);
     }
 }

@@ -1,0 +1,36 @@
+﻿@model ProductViewModel
+@{
+    ViewData["Title"] = "New";
+}
+
+<form asp-action="New" asp-controller="Product" method="post">
+    <div class="row push">
+        <div class="col-lg-12 col-xl-12">
+            <div class="mb-4">
+                <label class="form-label" for="example-text-input">Text</label>
+                <input type="text" class="form-control" id="example-text-input" asp-for="ProductAdd.Name" placeholder="Text Input">
+                <span asp-validation-for="ProductAdd.Name"></span>
+            </div>
+            <div class="mb-4">
+                <label class="form-label" for="example-email-input">Serial</label>
+                <input type="text" class="form-control" id="example-email-input" asp-for="ProductAdd.Serial" placeholder="Emai Input">
+               
+            </div>
+            <div class="mb-4">
+                <label class="form-label" for="example-textarea-input">Description</label>
+                <input class="form-control" id="example-textarea-input" asp-for="ProductAdd.Description" rows="4" placeholder="Textarea content..">
+            </div>
+            <select asp-for="ProductAdd.CategoryId"
+                    asp-items="@(new SelectList(Model.Categories, "CategoryId", "Name"))"
+                    class="form-select"
+                    id="example-select-floating"
+                    aria-label="Floating label select example">
+            </select>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-sm btn-primary" data-bs-dismiss="modal">Done</button>
+            </div>
+        </div>
+    </div>
+</form>
+
