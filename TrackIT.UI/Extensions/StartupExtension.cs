@@ -18,6 +18,9 @@ namespace TrackIT.UI.Extensions
 
             services.AddScoped<ICategoryDataAccess, EFCategory>();
             services.AddScoped<ICategoryService, CategoryManager>();
+
+            services.AddScoped<IProductRegisterDataAccess, EFProductRegister>();
+            services.AddScoped<IProductRegisterService, ProductRegisterManager>();
         }
     }
 }

@@ -6,19 +6,16 @@ using System.Text;
 using System.Threading.Tasks;
 using TrackIT.Business.Model;
 
-namespace TrackIT.Entity.Model
+namespace TrackIT.DTO.Dtos.ProductRegisterDtos
 {
-    public class ProductRegistiration
+    public class ProductRegisterGetDto
     {
         public int ProductRegistirationId { get; set; }
         public int ProductId { get; set; }
         public string AppUserId { get; set; }
-        public DateTime RegistirationDate  { get; set; }
-        
+        public DateTime RegistirationDate { get; set; }
+
         [ForeignKey("AppUserId")]
         public AppUser AppUser { get; set; }
-
-        [ForeignKey("ProductId")]
-        public Product Product { get; set; }
     }
 }

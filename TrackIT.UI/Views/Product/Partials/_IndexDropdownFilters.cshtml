@@ -1,0 +1,22 @@
+﻿@model ProductViewModel
+
+<div class="block-header block-header-default">
+    <h3 class="block-title">All Products</h3>
+    <div class="block-header block-header-default">
+        <div class="block-options">
+            <div class="dropdown">
+                <button type="button" class="btn btn-alt-secondary" id="dropdown-ecom-filters2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Kategori <i class="fa fa-angle-down ms-1"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-ecom-filters2">
+                    @foreach (var item in Model.Categories)
+                    {
+                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="/product/index?filterByCategory=@item.CategoryId">
+                            @item.Name
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

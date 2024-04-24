@@ -1,0 +1,40 @@
+﻿@model List<UserGetDto>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-6 col-xl-3">
+            <a class="block block-rounded block-link-pop text-center" href="/User/Details?id=@item.Id">
+
+                <div class="block-content block-content-full bg-primary-darker">
+                    <img class="img-avatar img-avatar-thumb" src="~/web/src/assets/media/avatars/avatar9.jpg" alt="">
+                </div>
+                <div class="block-content block-content-full block-content-sm bg-primary-dark">
+                    <p class="fw-semibold text-white mb-0">@item.UserName</p>
+                    <p class="fs-sm text-white-75 mb-0">
+                        @item.Email
+                    </p>
+                </div>
+                <div class="block-content block-content-full">
+                    <div class="row g-sm">
+                        <div class="col-12">
+                            <p class="mb-2">
+                                <i class="fa fa-fw fa-box text-body-color-dark"></i>
+                            </p>
+                                <p class="fs-sm fw-medium text-muted mb-0">
+                                @item.UserProductCount
+                                </p>
+                        </div>
+                    </div>
+                </div>
+
+            </a>
+        </div>
+    }
+</div>
+
+

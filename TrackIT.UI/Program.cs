@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using NToastNotify;
 using TrackIT.Business.Abstract;
 using TrackIT.Business.Concrete;
 using TrackIT.Business.Model;
@@ -10,7 +11,12 @@ using TrackIT.UI.Extensions;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddNToastNotifyToastr(
+    new ToastrOptions()
+    {
+        PositionClass = ToastPositions.TopRight,
+        TimeOut = 3000,
+    });
 
 //Servisleri ekledeðimiz yer
 builder.Services.AddDbContext<AppDbContext>(opt =>
@@ -41,6 +47,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseNToastNotify();
 
 app.MapControllerRoute(
     name: "default",

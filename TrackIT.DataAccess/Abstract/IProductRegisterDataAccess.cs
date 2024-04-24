@@ -7,8 +7,8 @@ using TrackIT.Entity.Model;
 
 namespace TrackIT.DataAccess.Abstract
 {
-    public interface ICategoryDataAccess : IGenericDataAccess<Category>
+    public interface IProductRegisterDataAccess : IGenericDataAccess<ProductRegistiration>
     {
-
+        int GetProductRegisteredUserCount(string id);
     }
 }

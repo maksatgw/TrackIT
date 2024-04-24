@@ -7,7 +7,8 @@ namespace TrackIT.UI.ViewModels
     {
         public List<ProductGetDto>? Products { get; set; }
         public List<CategoryGetDto>? Categories { get; set; }
-        public ProductAddDto ProductAdd { get; set; }
+        public ProductAddDto? ProductAdd { get; set; }
+        public ProductUpdateDto? ProductUpdate { get; set; }
 
     }
 }

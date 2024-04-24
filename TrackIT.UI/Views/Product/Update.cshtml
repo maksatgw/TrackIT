@@ -1,32 +1,33 @@
 ﻿@model ProductViewModel
 @{
-    ViewData["Title"] = "New";
+    ViewData["Title"] = "Update";
 }
 
 <div class="block block-rounded">
     <div class="block-content">
-        <form asp-action="New" asp-controller="Product" method="post">
+        <form asp-action="Update" asp-controller="Product" method="post">
             <div class="row push">
                 <div class="col-lg-12 col-xl-12">
                     <div class="mb-4">
-                        <label class="form-label" asp-for="ProductAdd.Name">Ürün ismi</label>
-                        <input type="text" class="form-control" asp-for="ProductAdd.Name" placeholder="Ürün İsmi">
-                        <span class="badge bg-danger" asp-validation-for="ProductAdd.Name"></span>
+                        <input type="hidden" class="form-control" asp-for="ProductUpdate.ProductId">
+                        <label class="form-label" asp-for="ProductUpdate.Name">Ürün ismi</label>
+                        <input type="text" class="form-control" asp-for="ProductUpdate.Name" placeholder="Ürün İsmi">
+                        <span class="badge bg-danger" asp-validation-for="ProductUpdate.Name"></span>
                     </div>
                     <div class="mb-4">
-                        <label class="form-label" asp-for="ProductAdd.Serial">Seri Numarası</label>
-                        <input type="text" class="form-control" asp-for="ProductAdd.Serial" placeholder="Seri Numarası">
+                        <label class="form-label" asp-for="ProductUpdate.Serial">Seri Numarası</label>
+                        <input type="text" class="form-control" asp-for="ProductUpdate.Serial" placeholder="Seri Numarası">
                     </div>
                     <div class="mb-4">
-                        <label class="form-label" asp-for="ProductAdd.CategoryId">Kategorisi</label>
-                        <select asp-for="ProductAdd.CategoryId"
+                        <label class="form-label" asp-for="ProductUpdate.CategoryId">Kategorisi</label>
+                        <select asp-for="ProductUpdate.CategoryId"
                                 asp-items="@(new SelectList(Model.Categories, "CategoryId", "Name"))"
                                 class="form-select">
                         </select>
                     </div>
                     <div class="mb-4">
                         <label class="form-label" for="example-textarea-input">Açıklama</label>
-                        <textarea class="form-control" asp-for="ProductAdd.Description" rows="4" placeholder="Ürün Açıklaması"></textarea>
+                        <textarea class="form-control" asp-for="ProductUpdate.Description" rows="4" placeholder="Ürün Açıklaması"></textarea>
                     </div>
                     <div class="modal-footer">
                         <a href="/Product/Index" class="btn btn-sm btn-alt-secondary">İptal</a>
@@ -41,3 +42,4 @@
 @section Scripts{
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }
+

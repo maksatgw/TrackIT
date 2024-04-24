@@ -537,6 +537,12 @@
                                 <span class="nav-main-link-name">Ürünler</span>
                             </a>
                         </li>
+                        <li class="nav-main-item">
+                            <a class="nav-main-link" asp-controller="User" asp-action="Index">
+                                <i class="nav-main-link-icon fa fa-address-book-o"></i>
+                                <span class="nav-main-link-name">Kullanıcılar</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <!-- END Side Navigation -->
@@ -758,7 +764,8 @@
     @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
     @*<script src="~/js/site.js" asp-append-version="true"></script>*@
     <script src="~/web/src/assets/js/dashmix.app.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @await Component.InvokeAsync("NToastNotify")
     @RenderSection("Scripts", required: false)
 </body>
 </html>
