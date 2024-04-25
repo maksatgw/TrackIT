@@ -38,6 +38,16 @@ namespace TrackIT.Business.Concrete
             return _service.GetProductRegisteredUserCount(id);
         }
 
+        public List<ProductRegistiration> TGetWithIncluded()
+        {
+            return _service.GetWithIncluded();
+        }
+
+        public List<ProductRegistiration> TGetWithIncludedSearch(string? searchQuery = null, int? categoryId = null, string? userId = null)
+        {
+            return _service.GetWithIncludedSearch(searchQuery, categoryId, userId);
+        }
+
         public void TInsert(ProductRegistiration model)
         {
             _service.Insert(model);

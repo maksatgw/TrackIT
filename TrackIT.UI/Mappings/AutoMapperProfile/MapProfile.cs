@@ -2,6 +2,7 @@
 using TrackIT.Business.Model;
 using TrackIT.DTO.Dtos.CategoryDtos;
 using TrackIT.DTO.Dtos.ProductDtos;
+using TrackIT.DTO.Dtos.ProductRegisterDtos;
 using TrackIT.DTO.Dtos.UserDtos;
 using TrackIT.Entity.Model;
 
@@ -25,7 +26,15 @@ namespace TrackIT.UI.Mappings.AutoMapperProfile
             CreateMap<AppUser, UserGetDto>();
             CreateMap<AppUser, UserAddDto>();
             CreateMap<UserAddDto, AppUser>();
-            
+            CreateMap<UserUpdateDto, AppUser>();
+            CreateMap<AppUser, UserUpdateDto>();
+
+            CreateMap<ProductRegistiration, ProductRegisterGetDto>();
+            CreateMap<ProductRegisterGetDto, ProductRegistiration>();
+
+            CreateMap<ProductRegisterUpdateDto, ProductRegistiration>();
+            CreateMap<ProductRegistiration, ProductRegisterUpdateDto>();
+
         }
     }
 }

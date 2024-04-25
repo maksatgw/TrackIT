@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TrackIT.Business.Model;
+using TrackIT.Entity.Model;
 
 namespace TrackIT.DTO.Dtos.ProductRegisterDtos
 {
@@ -17,5 +18,8 @@ namespace TrackIT.DTO.Dtos.ProductRegisterDtos
 
         [ForeignKey("AppUserId")]
         public AppUser AppUser { get; set; }
+
+        [ForeignKey("ProductId")]
+        public Product Product { get; set; }
     }
 }

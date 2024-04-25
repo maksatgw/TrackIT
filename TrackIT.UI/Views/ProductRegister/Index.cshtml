@@ -1,0 +1,71 @@
+﻿@model ProductRegisterViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<!-- Quick Overview -->
+<!-- END Quick Overview -->
+<!-- All Products -->
+<div class="block block-rounded">
+
+    <partial name="/Views/ProductRegister/Partials/_IndexDropdownFilters.cshtml" />
+
+    <partial name="/Views/ProductRegister/Partials/_IndexSearch.cshtml" />
+
+    <div class="block-content">
+        <!-- All Products Table -->
+        <div class="table-responsive">
+            <table class="table table-borderless table-striped table-vcenter">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width: 100px;">ID</th>
+                        <th class="d-none d-sm-table-cell text-center">Ürün İsmi</th>
+                        <th class="d-none d-md-table-cell text-center">Seri No</th>
+                        <th class="d-none d-md-table-cell text-center">Açıklama</th>
+                        <th class="d-none d-md-table-cell text-center">Kategori</th>
+                        <th class="d-none d-md-table-cell text-center">Tarih</th>
+                        <th class="d-none d-md-table-cell text-center">Kullanıcı</th>
+                        <th class="text-center">Aksiyonlar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ProductRegisters)
+                    {
+                        <tr>
+                            <td class="text-center fs-sm">
+                                <a class="fw-semibold" href="be_pages_ecom_product_edit.html">
+                                    <strong>@item.ProductId</strong>
+                                </a>
+                            </td>
+                            <td class="d-none d-sm-table-cell text-center fs-sm">@item.Product.Name</td>
+                            <td class="d-none d-sm-table-cell text-center fs-sm">@item.Product.Serial</td>
+                            <td class="d-none d-sm-table-cell text-center fs-sm">@item.Product.Description</td>
+                            <td class="d-none d-sm-table-cell text-center fs-sm">@item.Product.Category.Name</td>
+                            <td class="d-none d-sm-table-cell text-center fs-sm">@item.RegistirationDate.ToShortDateString()</td>
+                            <td class="d-none d-sm-table-cell text-center fs-sm">@item.AppUser.Email</td>
+                            <td class="text-center fs-sm">
+                                <button class="btn btn-sm btn-alt-secondary"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modal-default-fadein"
+                                    data-prod-id="@item.ProductId"
+                                    data-product-id="@item.ProductRegistirationId">
+                                    <i class="fa fa-fw fa-pen"></i>
+                                </button>
+                                <a class="btn btn-sm btn-alt-secondary" onclick="confirmDelete(@item.ProductId)">
+                                    <i class="fa fa-fw fa-times text-danger"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<partial name="/Views/ProductRegister/Partials/_UpdateProductRegister.cshtml" />
+
+@section Scripts {
+    <partial name="/Views/ProductRegister/Partials/_IndexScripts.cshtml" />
+}
+

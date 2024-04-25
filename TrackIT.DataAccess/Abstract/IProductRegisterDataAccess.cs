@@ -10,5 +10,8 @@ namespace TrackIT.DataAccess.Abstract
     public interface IProductRegisterDataAccess : IGenericDataAccess<ProductRegistiration>
     {
         int GetProductRegisteredUserCount(string id);
+        List<ProductRegistiration> GetWithIncluded();
+        List<ProductRegistiration> GetWithIncludedSearch(string? searchQuery = null, int? categoryId = null, string? userId = null);
+        
     }
 }

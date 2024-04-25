@@ -33,7 +33,16 @@
     <!-- END Stylesheets -->
 </head>
 
+
 <body>
+    <style>
+
+        .dropdown-menu {
+            max-height: 200px; /* Dropdown menü yüksekliği */
+            overflow-y: auto; /* Dikey kaydırma çubuğu ekle */
+        }
+
+    </style>
 
     <div id="page-container" class="sidebar-o sidebar-dark enable-page-overlay side-scroll page-header-fixed main-content-narrow">
         <!-- Side Overlay-->
@@ -539,8 +548,14 @@
                         </li>
                         <li class="nav-main-item">
                             <a class="nav-main-link" asp-controller="User" asp-action="Index">
-                                <i class="nav-main-link-icon fa fa-address-book-o"></i>
+                                <i class="nav-main-link-icon far fa-circle-user"></i>
                                 <span class="nav-main-link-name">Kullanıcılar</span>
+                            </a>
+                        </li>
+                        <li class="nav-main-item">
+                            <a class="nav-main-link" asp-controller="ProductRegister" asp-action="Index">
+                                <i class="nav-main-link-icon far fa-registered"></i>
+                                <span class="nav-main-link-name">Zimmetler</span>
                             </a>
                         </li>
                     </ul>

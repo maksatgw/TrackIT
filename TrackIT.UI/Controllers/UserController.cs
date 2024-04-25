@@ -8,6 +8,7 @@ using NuGet.Versioning;
 using TrackIT.Business.Abstract;
 using Azure.Core;
 using NToastNotify;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace TrackIT.UI.Controllers
 {
@@ -60,11 +61,14 @@ namespace TrackIT.UI.Controllers
             };
             return View(userDto);
         }
+        #region New
+
         [HttpGet]
         public IActionResult New()
         {
             return View();
         }
+
         [HttpPost]
         public async Task<IActionResult> New(UserAddDto model)
         {
@@ -79,14 +83,54 @@ namespace TrackIT.UI.Controllers
                 _toastNotification.AddSuccessToastMessage("Başarılı", new ToastrOptions { Title = "Başarılı" });
                 return RedirectToAction("Index");
             }
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            return RedirectToAction("Index");
+        }
+        #endregion
+
+        #region Update
+
+        [HttpGet]
+        public async Task<IActionResult> Update(string id)
+        {
+            var value = await _userManager.FindByIdAsync(id);
+            if (value != null)
+            {
+                var response = _mapper.Map<UserUpdateDto>(value);
+                return View(response);
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(UserUpdateDto model)
+        {
+            if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
+            var existingUser = await _userManager.FindByIdAsync(model.Id);
+            if (existingUser == null)
+            {
+                _toastNotification.AddErrorToastMessage("Hata", new ToastrOptions { Title = "Kullanıcı Bulunamadı" });
+                return RedirectToAction("Index");
+            }
+            existingUser.Email = model.Email;
+            existingUser.UserName = model.UserName;
+            var response = await _userManager.UpdateAsync(existingUser);
+            if (response.Succeeded)
+            {
+                _toastNotification.AddSuccessToastMessage("Başarılı", new ToastrOptions { Title = "Başarılı" });
+                return RedirectToAction("Index");
+            }
+            _toastNotification.AddErrorToastMessage("Hata", new ToastrOptions { Title = "Başarısız" });
             return RedirectToAction("Index");
         }
-
+        #endregion
 
         public async Task<IActionResult> Remove(string id)
         {
@@ -98,7 +142,6 @@ namespace TrackIT.UI.Controllers
                 return RedirectToAction("Index");
             }
             return RedirectToAction("Index");
-
         }
     }
 }

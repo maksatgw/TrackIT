@@ -6,13 +6,13 @@
 <!-- Quick Actions -->
 <div class="row items-push">
     <div class="col-6">
-        <a class="block block-rounded block-link-shadow text-center h-100 mb-0" href="javascript:void(0)">
+        <a class="block block-rounded block-link-shadow text-center h-100 mb-0" href="/user/update?id=@Model.Id">
             <div class="block-content py-5">
                 <div class="fs-3 fw-semibold mb-1">
                     <i class="fa fa-pencil-alt"></i>
                 </div>
                 <p class="fw-semibold fs-sm text-muted text-uppercase mb-0">
-                    Edit Customer
+                    Kullanıcıyı Düzenle
                 </p>
             </div>
         </a>
@@ -24,7 +24,7 @@
                     <i class="fa fa-times"></i>
                 </div>
                 <p class="fw-semibold fs-sm text-danger text-uppercase mb-0">
-                    Remove Customer
+                    Kullanıcıyı Sil
                 </p>
             </div>
         </a>
@@ -49,21 +49,9 @@
     </div>
     <div class="block-content bg-body-light text-center">
         <div class="row items-push text-uppercase">
-            <div class="col-6 col-md-3">
+            <div class="col-12 col-md-12">
                 <div class="fw-semibold text-dark mb-1">Zimmet Sayısı</div>
                 <a class="link-fx fs-3" href="javascript:void(0)">@Model.UserProductCount</a>
-            </div>
-            <div class="col-6 col-md-3">
-                <div class="fw-semibold text-dark mb-1">Orders Value</div>
-                <a class="link-fx fs-3" href="javascript:void(0)">$5.680,00</a>
-            </div>
-            <div class="col-6 col-md-3">
-                <div class="fw-semibold text-dark mb-1">Cart</div>
-                <a class="link-fx fs-3" href="javascript:void(0)">4</a>
-            </div>
-            <div class="col-6 col-md-3">
-                <div class="fw-semibold text-dark mb-1">Referred</div>
-                <a class="link-fx fs-3" href="javascript:void(0)">3</a>
             </div>
         </div>
     </div>
@@ -104,6 +92,7 @@
                 }
             </tbody>
         </table>
+    </div>
     </div>
 <!-- END User Info -->
 
