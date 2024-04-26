@@ -14,6 +14,7 @@ namespace TrackIT.Entity.Model
         public int ProductId { get; set; }
         public string AppUserId { get; set; }
         public DateTime RegistrationDate { get; set; } = DateTime.Now;
+        public string? FilePath { get; set; }
 
         [ForeignKey("ProductId")]
         public Product Product { get; set; }

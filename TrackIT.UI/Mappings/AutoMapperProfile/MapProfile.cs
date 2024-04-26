@@ -63,9 +63,14 @@ namespace TrackIT.UI.Mappings.AutoMapperProfile
             CreateMap<ProductRegisterHistoryGetDto, ProductRegistirationHistory>();
             CreateMap<ProductRegistirationHistory, ProductRegisterHistoryGetDto>();
 
+            CreateMap<ProductRegisterUpdateDto, ProductRegistirationHistory>();
+            CreateMap<ProductRegistirationHistory, ProductRegisterUpdateDto>();
+
             // ProductAsset ve ilgili DTO'lar için haritalamalar
             CreateMap<ProductAsset, ProductAssetAddDto>();
             CreateMap<ProductAssetAddDto, ProductAsset>();
+            CreateMap<ProductAssetGetDto, ProductAsset>();
+            CreateMap<ProductAsset, ProductAssetGetDto>();
 
         }
     }

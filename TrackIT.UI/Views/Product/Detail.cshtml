@@ -16,6 +16,7 @@
                         <th class="d-none d-md-table-cell text-center">Kategorisi</th>
                         <th class="d-none d-md-table-cell text-center">Tarihi</th>
                         <th class="d-none d-md-table-cell text-center">Kullanıcı</th>
+                        <th class="d-none d-md-table-cell text-center">Dosya</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,6 +38,23 @@
                             <td class="d-none d-sm-table-cell text-center fs-sm">@item.Product.Category.Name</td>
                             <td class="d-none d-sm-table-cell text-center fs-sm">@item.RegistrationDate.ToShortDateString()</td>
                             <td class="d-none d-sm-table-cell text-center fs-sm">@item.AppUser.UserName</td>
+                            @if (!string.IsNullOrEmpty(item.FilePath))
+                            {
+                                <td class="d-none d-sm-table-cell text-center fs-sm">
+                                    <a class="btn btn-sm btn-alt-secondary" target="_blank" href="~/assets/productregistration/@item.FilePath">
+                                        <i class="fa fa-fw fa-file-arrow-down"></i>
+                                    </a>
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <button disabled class="btn btn-sm btn-alt-secondary" target="_blank">
+                                        <i class="fa fa-fw fa-file-arrow-down"></i>
+                                    </button>
+                                </td>
+                            }
+
                         </tr>
                     }
                 </tbody>

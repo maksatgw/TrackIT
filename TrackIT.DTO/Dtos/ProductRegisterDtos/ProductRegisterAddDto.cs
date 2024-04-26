@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,6 @@ namespace TrackIT.DTO.Dtos.ProductRegisterDtos
         public int ProductId { get; set; }
         public string AppUserId { get; set; }
         public DateTime RegistirationDate { get; set; } = DateTime.Now;
+        public IFormFile? FilePath { get; set; }
     }
 }

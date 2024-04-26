@@ -19,6 +19,11 @@ namespace TrackIT.DataAccess.Entity
             _appDbContext = appDbContext;
         }
 
+        public ProductAsset GetByProductId(int id)
+        {
+            return _appDbContext.ProductAssets.Include(x => x.ProductId).FirstOrDefault(x => x.ProductId == id);
+        }
+
         public List<ProductAsset> GetWithIncluded(int id)
         {
            return _appDbContext.ProductAssets.Include(x => x.Product).Where(x => x.ProductId == id).ToList();

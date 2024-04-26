@@ -10,5 +10,6 @@ namespace TrackIT.UI.ViewModels
         public List<CategoryGetDto>? Categories { get; set; }
         public ProductAddDto? ProductAdd { get; set; }
         public ProductUpdateDto? ProductUpdate { get; set; }
+        public List<ProductAssetGetDto>? ProductAssets { get; set; }
     }
 }

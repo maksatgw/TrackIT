@@ -10,5 +10,6 @@ namespace TrackIT.DataAccess.Abstract
     public interface IProductAssetDataAccess : IGenericDataAccess<ProductAsset>
     {
         List<ProductAsset> GetWithIncluded(int id);
+        ProductAsset GetByProductId(int id);
     }
 }

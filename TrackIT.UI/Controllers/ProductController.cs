@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using Microsoft.IdentityModel.Tokens;
 using NToastNotify;
 using TrackIT.Business.Abstract;
@@ -133,11 +134,14 @@ namespace TrackIT.UI.Controllers
         }
 
         #endregion
+
+
         [HttpGet]
         public IActionResult Update(int id)
         {
             var categoryDtos = _mapper.Map<List<CategoryGetDto>>(_categoryService.TGet());
             var productDtos = _mapper.Map<ProductUpdateDto>(_productService.TGet(id));
+            var assetDtos = _mapper.Map<List<ProductAssetGetDto>>(_productAssetService.TGetWithIncluded(id));
             if (productDtos == null)
             {
                 _toastNotification.AddErrorToastMessage($"Ürün bulunamadı", new ToastrOptions { Title = "Hata" });
@@ -146,13 +150,15 @@ namespace TrackIT.UI.Controllers
             var productViewModel = new ProductViewModel()
             {
                 Categories = categoryDtos,
-                ProductUpdate = productDtos
+                ProductUpdate = productDtos,
+                ProductAssets = assetDtos
             };
             return View(productViewModel);
         }
 
+
         [HttpPost]
-        public IActionResult Update(ProductViewModel model)
+        public IActionResult Update(ProductViewModel model, List<IFormFile> AssetUrls)
         {
             if (!ModelState.IsValid)
             {
@@ -162,6 +168,27 @@ namespace TrackIT.UI.Controllers
             {
                 var value = _mapper.Map<Product>(model.ProductUpdate);
                 _productService.TUpdate(value);
+                foreach (var item in AssetUrls)
+                {
+                    if (item != null && item.Length > 0)
+                    {
+                        var extension = Path.GetExtension(item.FileName);
+                        var newAsset = Guid.NewGuid() + extension;
+                        var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/product/", newAsset);
+
+                        using (var stream = new FileStream(location, FileMode.Create))
+                        {
+                            item.CopyTo(stream);
+                        }
+                        var assets = new ProductAssetAddDto
+                        {
+                            AssetUrl = newAsset,
+                            ProductId = value.ProductId
+                        };
+                        var productAsset = _mapper.Map<ProductAsset>(assets);
+                        _productAssetService.TInsert(productAsset);
+                    }
+                }
                 _toastNotification.AddSuccessToastMessage($"{value.Name} Güncellenmiştir.", new ToastrOptions { Title = "Başarılı" });
                 return RedirectToAction("Index");
             }
@@ -171,6 +198,30 @@ namespace TrackIT.UI.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        public IActionResult RemoveAsset(int assetId, int id)
+        {
+            try
+            {
+                var value = _productAssetService.TGet(assetId);
+                var product = _productService.TGet(id);
+                if (value == null || product == null)
+                {
+                    _toastNotification.AddErrorToastMessage($"Güncelleme işlemi sırasında bir hata oluştu.", new ToastrOptions { Title = "Hata" });
+                    return RedirectToAction("Index");
+                }
+                _productAssetService.TDelete(value);
+                _toastNotification.AddSuccessToastMessage($"{product.Name} Güncellenmiştir.", new ToastrOptions { Title = "Başarılı" });
+            }
+            catch (Exception ex)
+            {
+                _toastNotification.AddErrorToastMessage($"Güncelleme işlemi sırasında bir hata oluştu.{ex.Message}", new ToastrOptions { Title = "Hata" });
+                return RedirectToAction("Index");
+            }
+           
+            return RedirectToAction("Update", new { id = id });
+        }
+
         public IActionResult Remove(int productId)
         {
             try

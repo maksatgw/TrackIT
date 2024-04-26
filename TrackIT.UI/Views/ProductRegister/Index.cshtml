@@ -47,9 +47,7 @@
                     {
                         <tr>
                             <td class="text-center fs-sm">
-                                <a class="fw-semibold" href="be_pages_ecom_product_edit.html">
-                                    <strong>@item.ProductId</strong>
-                                </a>
+                                <strong>@item.ProductId</strong>
                             </td>
                             <td class="d-none d-sm-table-cell text-center fs-sm">@item.Product.Name</td>
                             <td class="d-none d-sm-table-cell text-center fs-sm">@item.Product.Serial</td>
@@ -65,6 +63,12 @@
                                     data-product-id="@item.ProductRegistirationId">
                                     <i class="fa fa-fw fa-pen"></i>
                                 </button>
+                                @if (!string.IsNullOrEmpty(item.FilePath))
+                                {
+                                    <a class="btn btn-sm btn-alt-secondary" target="_blank" href="~/assets/productregistration/@item.FilePath">
+                                        <i class="fa fa-fw fa-file-arrow-down"></i>
+                                    </a>
+                                }
                                 <a class="btn btn-sm btn-alt-secondary" href="/ProductRegister/remove?id=@item.ProductRegistirationId">
                                     <i class="fa fa-fw fa-times text-danger"></i>
                                 </a>
@@ -80,6 +84,7 @@
 <partial name="/Views/ProductRegister/Partials/_UpdateProductRegister.cshtml" />
 
 @section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
     <partial name="/Views/ProductRegister/Partials/_IndexScripts.cshtml" />
 }
 

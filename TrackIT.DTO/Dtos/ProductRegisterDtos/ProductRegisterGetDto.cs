@@ -15,6 +15,7 @@ namespace TrackIT.DTO.Dtos.ProductRegisterDtos
         public int ProductId { get; set; }
         public string AppUserId { get; set; }
         public DateTime RegistirationDate { get; set; }
+        public string FilePath { get; set; }
 
         [ForeignKey("AppUserId")]
         public AppUser AppUser { get; set; }

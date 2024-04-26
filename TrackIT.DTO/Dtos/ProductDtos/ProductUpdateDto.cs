@@ -12,8 +12,8 @@ namespace TrackIT.DTO.Dtos.ProductDtos
         public int ProductId { get; set; }
         [Required(ErrorMessage = "Ürün ismi Boş Geçilemez")]
         public string Name { get; set; }
-        public string Serial { get; set; }
-        public string Description { get; set; }
+        public string? Serial { get; set; }
+        public string? Description { get; set; }
         public int CategoryId { get; set; }
     }
 }

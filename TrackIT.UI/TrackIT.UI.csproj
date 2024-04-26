@@ -33,6 +33,7 @@
   <ItemGroup>
     <Folder Include="Views\Home\Partials\" />
     <Folder Include="Views\Shared\LayoutPartials\" />
+    <Folder Include="wwwroot\assets\productregistration\" />
     <Folder Include="wwwroot\assets\product\" />
   </ItemGroup>
 

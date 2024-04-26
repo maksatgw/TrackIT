@@ -14,6 +14,7 @@ namespace TrackIT.DTO.Dtos.ProductRegisterHistoryDtos
         public int ProductRegistirationHistoryId { get; set; }
         public int ProductId { get; set; }
         public string AppUserId { get; set; }
+        public string FilePath { get; set; }
         public DateTime RegistrationDate { get; set; } = DateTime.Now;
         public Product Product { get; set; }
         public AppUser AppUser { get; set; }

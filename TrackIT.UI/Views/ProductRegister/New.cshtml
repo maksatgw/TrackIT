@@ -3,7 +3,7 @@
     ViewData["Title"] = "New";
 }
 
-<form asp-action="New" asp-controller="ProductRegister" method="post">
+<form asp-action="New" asp-controller="ProductRegister" method="post" enctype="multipart/form-data">
     <div class="mb-4">
         <label class="form-label" asp-for="ProductRegisterAdd.AppUserId">Zimmet Sahibi</label>
         <select asp-for="ProductRegisterAdd.AppUserId"
@@ -12,7 +12,7 @@
         </select>
         <br />
         <label class="form-label" asp-for="ProductRegisterAdd.ProductId">Ürün</label>
-        @if (Model.ProductsGet == null)
+        @if (Model.ProductsGet == null || Model.ProductsGet.Count == 0)
         {
             <h3>Zimmetlenecek öğe yok. Zimmet listesi ve envanteri kontrol edin.</h3>
         }
@@ -23,12 +23,21 @@
                 class="form-select">
             </select>
         }
+        <div class="mb-4">
+            <label class="form-label">File Input</label>
+            <input class="form-control" multiple asp-for="ProductRegisterAdd.FilePath" type="file">
+        </div>
 
     </div>
     <div class="modal-footer">
-        @if (Model.ProductsGet != null)
+        @if (Model.ProductsGet == null || Model.ProductsGet.Count == 0)
+        {
+            <button disabled type="submit" class="btn btn-sm btn-primary">Zimmetle</button>
+        }
+        else
         {
             <button type="submit" class="btn btn-sm btn-primary">Zimmetle</button>
+
         }
         <a class="btn btn-sm btn-alt-secondary" href="/ProductRegister/Index">Geri dön</a>
     </div>

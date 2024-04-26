@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using NToastNotify;
+using NuGet.ContentModel;
 using TrackIT.Business.Abstract;
 using TrackIT.Business.Model;
 using TrackIT.DTO.Dtos.CategoryDtos;
@@ -75,18 +77,54 @@ namespace TrackIT.UI.Controllers
         [HttpPost]
         public IActionResult New(ProductRegisterViewModel model)
         {
-            var register = _mapper.Map<ProductRegistiration>(model.ProductRegisterAdd);
-            var regHistory = _mapper.Map<ProductRegistirationHistory>(model.ProductRegisterAdd);
-            _productRegisterService.TInsert(register);
-            _productRegisterHistoryService.TInsert(regHistory);
-            _toastNotification.AddSuccessToastMessage("Zimmet Aktarıldı", new ToastrOptions { Title = "Başarılı" });
-            return RedirectToAction("Index");
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            try
+            {
+                var register = _mapper.Map<ProductRegistiration>(model.ProductRegisterAdd);
+                var regHistory = _mapper.Map<ProductRegistirationHistory>(model.ProductRegisterAdd);
+
+                if (model.ProductRegisterAdd.FilePath != null && model.ProductRegisterAdd.FilePath.Length > 0)
+                {
+                    var file = model.ProductRegisterAdd.FilePath;
+                    var extension = Path.GetExtension(file.FileName);
+                    var newAssetName = Guid.NewGuid().ToString() + extension;
+                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/productregistration/", newAssetName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+
+                    register.FilePath = newAssetName;
+                    regHistory.FilePath = newAssetName;
+                }
+
+                _productRegisterService.TInsert(register);
+                _productRegisterHistoryService.TInsert(regHistory);
+                _toastNotification.AddSuccessToastMessage("Zimmet Eklendi", new ToastrOptions { Title = "Başarılı" });
+                return RedirectToAction("Index");
+
+            }
+            catch (Exception ex)
+            {
+                _toastNotification.AddErrorToastMessage($"Zimmet eklenemedi {ex}", new ToastrOptions { Title = "Hata" });
+                return RedirectToAction("Index");
+            }
+
         }
+
         [HttpPost]
-        public IActionResult Update(ProductRegisterViewModel model)
+        public IActionResult Index(ProductRegisterViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
             var register = _mapper.Map<ProductRegistiration>(model.ProductRegisterUpdate);
-            var passModel = new ProductRegisterAddDto
+            var passModel = new ProductRegisterUpdateDto
             {
                 AppUserId = model.ProductRegisterUpdate.AppUserId,
                 ProductId = model.ProductRegisterUpdate.ProductId,
@@ -94,11 +132,24 @@ namespace TrackIT.UI.Controllers
             };
             var regHistory = _mapper.Map<ProductRegistirationHistory>(passModel);
             register.RegistirationDate = DateTime.Now;
-            _productRegisterHistoryService.TInsert(regHistory);
+
+            if (model.ProductRegisterUpdate.FilePath != null)
+            {
+                var extension = Path.GetExtension(model.ProductRegisterUpdate.FilePath.FileName);
+                var newAsset = Guid.NewGuid() + extension;
+                var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/productregistration/", newAsset);
+                var stream = new FileStream(location, FileMode.Create);
+                model.ProductRegisterUpdate.FilePath.CopyTo(stream);
+                register.FilePath = newAsset;
+                regHistory.FilePath = newAsset;
+            }
+
             _productRegisterService.TUpdate(register);
+            _productRegisterHistoryService.TInsert(regHistory);
             _toastNotification.AddSuccessToastMessage("Zimmet Aktarıldı", new ToastrOptions { Title = "Başarılı" });
             return RedirectToAction("Index");
         }
+
 
         public IActionResult Remove(int id, string requestFrom)
         {

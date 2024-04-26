@@ -5,27 +5,37 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Modal Title</h5>
+                <h5 class="modal-title">Zimmet Aktar</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body pb-1">
-                <form asp-action="Update" asp-controller="ProductRegister" method="post">
+                <form asp-action="Index" asp-controller="ProductRegister" method="post" enctype="multipart/form-data">
                     <div class="mb-4">
                         <!-- Gizli alanı doğru şekilde tanımladığımızdan emin olalım -->
-                        <input id="messi" asp-for="ProductRegisterUpdate.ProductRegistirationId" />
-                        <input id="ronaldo" asp-for="ProductRegisterUpdate.ProductId" />
+                        <input type="hidden" id="messi" asp-for="ProductRegisterUpdate.ProductRegistirationId" />
+                        <input type="hidden" id="ronaldo" asp-for="ProductRegisterUpdate.ProductId" />
                         <label class="form-label" asp-for="ProductRegisterUpdate.AppUserId">Zimmeti Değiştir</label>
                         <select asp-for="ProductRegisterUpdate.AppUserId"
                                 asp-items="@(new SelectList(Model.Users, "Id", "UserName"))"
                                 class="form-select">
                         </select>
                     </div>
+                    <br />
+                    <div class="mb-4">
+                        <label class="form-label">Dosya Ekle</label>
+                        <input class="form-control" multiple asp-for="ProductRegisterUpdate.FilePath" type="file">
+                        <span class="badge bg-danger" asp-validation-for="ProductRegisterUpdate.FilePath"></span>
+                    </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-sm btn-primary">Done</button>
-                        <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-sm btn-primary">Aktar</button>
+                        <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Kapat</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

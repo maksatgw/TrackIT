@@ -5,7 +5,7 @@
 
 <div class="block block-rounded">
     <div class="block-content">
-        <form asp-action="Update" asp-controller="Product" method="post">
+        <form asp-action="Update" asp-controller="Product" method="post" enctype="multipart/form-data">
             <div class="row push">
                 <div class="col-lg-12 col-xl-12">
                     <div class="mb-4">
@@ -29,6 +29,10 @@
                         <label class="form-label" for="example-textarea-input">Açıklama</label>
                         <textarea class="form-control" asp-for="ProductUpdate.Description" rows="4" placeholder="Ürün Açıklaması"></textarea>
                     </div>
+                    <div class="mb-4">
+                        <label class="form-label">File Input</label>
+                        <input class="form-control" multiple name="AssetUrls" type="file">
+                    </div>
                     <div class="modal-footer">
                         <a href="/Product/Index" class="btn btn-sm btn-alt-secondary">İptal</a>
                         <button type="submit" class="btn btn-sm btn-primary">Kaydet</button>
@@ -39,6 +43,31 @@
     </div>
 </div>
 
+<h2 class="content-heading">Resimler</h2>
+
+<div class="row items-push js-gallery">
+    @foreach (var item in Model.ProductAssets)
+    {
+        <div class="col-md-6 col-lg-4 col-xl-3 animated fadeIn">
+            <div class="options-container fx-item-zoom-in fx-overlay-zoom-out">
+                <img class="img-fluid options-item" src="~/assets/product/@item.AssetUrl" alt="">
+                <div class="options-overlay bg-black-75">
+                    <div class="options-overlay-content">
+                        <h3 class="h4 text-white mb-1">Title</h3>
+                        <h4 class="h6 text-white-75 mb-3">More Info</h4>
+                        <a class="btn btn-sm btn-primary img-lightbox" href="~/assets/product/@item.AssetUrl">
+                            <i class="fa fa-search-plus opacity-50 me-1"></i> Büyüt
+                        </a>
+                        <a class="btn btn-sm btn-secondary" href="/Product/RemoveAsset?assetId=@item.ProductAssetId&id=@item.ProductId">
+                            <i class="fa fa-pencil-alt opacity-50 me-1"></i> Kaldır
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
 @section Scripts{
     @await Html.PartialAsync("_ValidationScriptsPartial")
 }

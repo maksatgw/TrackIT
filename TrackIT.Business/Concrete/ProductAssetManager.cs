@@ -46,5 +46,10 @@ namespace TrackIT.Business.Concrete
         {
            return _service.GetWithIncluded(id);
         }
+
+        public ProductAsset TGetByProductId(int id)
+        {
+            return _service.GetByProductId(id);
+        }
     }
 }
