@@ -4,6 +4,20 @@
 }
 
 <!-- Quick Overview -->
+<div class="row items-push">
+    <div class="col-6 col-lg-3">
+        <a class="block block-rounded block-link-shadow text-center h-100 mb-0" href="/ProductRegister/new">
+            <div class="block-content py-5">
+                <div class="fs-3 fw-semibold text-success mb-1">
+                    <i class="fa fa-plus"></i>
+                </div>
+                <p class="fw-semibold fs-sm text-success text-uppercase mb-0">
+                    Yeni Zimmet Ekle
+                </p>
+            </div>
+        </a>
+    </div>
+</div>
 <!-- END Quick Overview -->
 <!-- All Products -->
 <div class="block block-rounded">
@@ -51,7 +65,7 @@
                                     data-product-id="@item.ProductRegistirationId">
                                     <i class="fa fa-fw fa-pen"></i>
                                 </button>
-                                <a class="btn btn-sm btn-alt-secondary" onclick="confirmDelete(@item.ProductId)">
+                                <a class="btn btn-sm btn-alt-secondary" href="/ProductRegister/remove?id=@item.ProductRegistirationId">
                                     <i class="fa fa-fw fa-times text-danger"></i>
                                 </a>
                             </td>

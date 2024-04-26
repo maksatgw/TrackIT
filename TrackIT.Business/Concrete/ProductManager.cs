@@ -35,6 +35,11 @@ namespace TrackIT.Business.Concrete
             return _service.Get();
         }
 
+        public List<Product> TGetAvailableToRegistrate()
+        {
+            return _service.GetAvailableToRegistrate();
+        }
+
         public List<Product> TGetByCategory(int id)
         {
             return _service.GetByCategory(id);
@@ -43,6 +48,11 @@ namespace TrackIT.Business.Concrete
         public List<Product> TGetWithIncluded()
         {
             return _service.GetWithIncluded();
+        }
+
+        public Product TGetWithIncluded(int id)
+        {
+            return _service.GetWithIncluded(id);
         }
 
         public List<Product> TGetWithIncludedSearch(string searchQuery)

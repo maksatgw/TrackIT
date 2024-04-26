@@ -20,6 +20,8 @@ namespace TrackIT.Entity.Model
 
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
-
+        public ProductRegistiration ProductRegistiration { get; set; }
+        public List<ProductRegistirationHistory> ProductRegistirationHistory { get; set;}
+        public List<ProductAsset> ProductAssets { get; set; }
     }
 }

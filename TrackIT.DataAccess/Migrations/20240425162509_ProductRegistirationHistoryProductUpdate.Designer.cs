@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrackIT.DataAccess.Concrete;
 
@@ -11,9 +12,11 @@ using TrackIT.DataAccess.Concrete;
 namespace TrackIT.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240425162509_ProductRegistirationHistoryProductUpdate")]
+    partial class ProductRegistirationHistoryProductUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -274,28 +277,6 @@ namespace TrackIT.DataAccess.Migrations
                     b.ToTable("Product");
                 });
 
-            modelBuilder.Entity("TrackIT.Entity.Model.ProductAsset", b =>
-                {
-                    b.Property<int>("ProductAssetId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductAssetId"));
-
-                    b.Property<string>("AssetUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProductAssetId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductAssets");
-                });
-
             modelBuilder.Entity("TrackIT.Entity.Model.ProductRegistiration", b =>
                 {
                     b.Property<int>("ProductRegistirationId")
@@ -413,17 +394,6 @@ namespace TrackIT.DataAccess.Migrations
                     b.Navigation("Category");
                 });
 
-            modelBuilder.Entity("TrackIT.Entity.Model.ProductAsset", b =>
-                {
-                    b.HasOne("TrackIT.Entity.Model.Product", "Product")
-                        .WithMany("ProductAssets")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("TrackIT.Entity.Model.ProductRegistiration", b =>
                 {
                     b.HasOne("TrackIT.Business.Model.AppUser", "AppUser")
@@ -469,8 +439,6 @@ namespace TrackIT.DataAccess.Migrations
 
             modelBuilder.Entity("TrackIT.Entity.Model.Product", b =>
                 {
-                    b.Navigation("ProductAssets");
-
                     b.Navigation("ProductRegistiration")
                         .IsRequired();
 

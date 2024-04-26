@@ -8,7 +8,6 @@ namespace TrackIT.DTO.Dtos.ProductRegisterDtos
 {
     public class ProductRegisterAddDto
     {
-        public int ProductRegistirationId { get; set; }
         public int ProductId { get; set; }
         public string AppUserId { get; set; }
         public DateTime RegistirationDate { get; set; } = DateTime.Now;

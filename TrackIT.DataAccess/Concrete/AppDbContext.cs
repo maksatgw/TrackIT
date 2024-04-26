@@ -20,6 +20,7 @@ namespace TrackIT.DataAccess.Concrete
         public DbSet<Product> Product { get; set; }
         public DbSet<ProductRegistiration> ProductRegistirations { get; set; }
         public DbSet<ProductRegistirationHistory> RegistirationHistorys { get; set; }
+        public DbSet<ProductAsset> ProductAssets { get; set; }
     }
 
 }

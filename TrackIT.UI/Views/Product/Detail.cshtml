@@ -1,0 +1,46 @@
+﻿@model List<ProductRegisterHistoryGetDto>
+@{
+    ViewData["Title"] = "Detail";
+}
+<div class="block block-rounded">
+    <div class="block-content">
+        <!-- All Products Table -->
+        <div class="table-responsive">
+            <table class="table table-borderless table-striped table-vcenter">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width: 100px;">ID</th>
+                        <th class="d-none d-sm-table-cell text-center">Ürün İsmi</th>
+                        <th class="d-none d-md-table-cell text-center">Seri Numarası</th>
+                        <th class="d-none d-md-table-cell text-center">Açıklaması</th>
+                        <th class="d-none d-md-table-cell text-center">Kategorisi</th>
+                        <th class="d-none d-md-table-cell text-center">Tarihi</th>
+                        <th class="d-none d-md-table-cell text-center">Kullanıcı</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="7" class="d-none d-sm-table-cell text-center fs-sm">Veri yok</td>
+                        </tr>
+                    }
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center fs-sm">
+                                <strong>@item.ProductId</strong>
+                            </td>
+                            <td class="d-none d-sm-table-cell text-center fs-sm">@item.Product.Name</td>
+                            <td class="d-none d-sm-table-cell text-center fs-sm">@item.Product.Serial</td>
+                            <td class="d-none d-sm-table-cell text-center fs-sm">@item.Product.Description</td>
+                            <td class="d-none d-sm-table-cell text-center fs-sm">@item.Product.Category.Name</td>
+                            <td class="d-none d-sm-table-cell text-center fs-sm">@item.RegistrationDate.ToShortDateString()</td>
+                            <td class="d-none d-sm-table-cell text-center fs-sm">@item.AppUser.UserName</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

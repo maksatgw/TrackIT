@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using TrackIT.DataAccess.Abstract;
@@ -28,14 +29,30 @@ namespace TrackIT.DataAccess.Entity
 
         public List<Product> GetWithIncluded()
         {
-            return _appDbContext.Product.Include(x => x.Category).ToList();
-          
+            return _appDbContext.Product.Include(x => x.Category).Include(x => x.ProductRegistirationHistory).ToList();
+
         }
 
         public List<Product> GetByCategory(int id)
         {
-            return _appDbContext.Product.Include(x=>x.Category).Where(x=>x.CategoryId.Equals(id)).ToList();
+            return _appDbContext.Product.Include(x => x.Category).Where(x => x.CategoryId.Equals(id)).ToList();
         }
+
+        public List<Product> GetAvailableToRegistrate()
+        {
+            return _appDbContext.Product
+                .Where(x => !_appDbContext.ProductRegistirations.Any(pr => pr.ProductId == x.ProductId))
+                .ToList();
+        }
+
+        public Product GetWithIncluded(int id)
+        {
+            return _appDbContext.Product
+                .Include(x => x.Category)
+                .Include(x => x.ProductRegistirationHistory)
+                .FirstOrDefault(x => x.ProductId == id);
+        }
+
     }
 
 }

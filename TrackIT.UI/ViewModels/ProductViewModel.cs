@@ -1,4 +1,5 @@
 ﻿using TrackIT.DTO.Dtos.CategoryDtos;
+using TrackIT.DTO.Dtos.ProductAssetDtos;
 using TrackIT.DTO.Dtos.ProductDtos;
 
 namespace TrackIT.UI.ViewModels
@@ -9,6 +10,5 @@ namespace TrackIT.UI.ViewModels
         public List<CategoryGetDto>? Categories { get; set; }
         public ProductAddDto? ProductAdd { get; set; }
         public ProductUpdateDto? ProductUpdate { get; set; }
-
     }
 }

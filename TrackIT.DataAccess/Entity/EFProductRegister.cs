@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using TrackIT.DataAccess.Abstract;
@@ -18,7 +19,6 @@ namespace TrackIT.DataAccess.Entity
         {
             _appDbContext = appDbContext;
         }
-
         public int GetProductRegisteredUserCount(string id)
         {
             return _appDbContext.ProductRegistirations.Where(x => x.AppUserId == id).Count();

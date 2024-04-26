@@ -11,10 +11,14 @@ namespace TrackIT.Entity.Model
     public class ProductRegistirationHistory
     {
         public int ProductRegistirationHistoryId { get; set; }
-        public int ProductRegistirationId { get; set; }
-        public DateTime EndDate { get; set; }
+        public int ProductId { get; set; }
+        public string AppUserId { get; set; }
+        public DateTime RegistrationDate { get; set; } = DateTime.Now;
 
-        [ForeignKey("ProductRegistirationId")]
-        public ProductRegistiration ProductRegistiration { get; set; }
+        [ForeignKey("ProductId")]
+        public Product Product { get; set; }
+
+        [ForeignKey("AppUserId")]
+        public AppUser AppUser { get; set; }
     }
 }

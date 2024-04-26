@@ -5,22 +5,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TrackIT.Business.Model;
+using TrackIT.Entity.Model;
 
-namespace TrackIT.Entity.Model
+namespace TrackIT.DTO.Dtos.ProductRegisterHistoryDtos
 {
-    public class ProductRegistiration
+    public class ProductRegisterHistoryGetDto
     {
-        public int ProductRegistirationId { get; set; }
+        public int ProductRegistirationHistoryId { get; set; }
         public int ProductId { get; set; }
         public string AppUserId { get; set; }
-        public DateTime RegistirationDate  { get; set; }
-
-        [ForeignKey("ProductId")]
+        public DateTime RegistrationDate { get; set; } = DateTime.Now;
         public Product Product { get; set; }
-
-        [ForeignKey("AppUserId")]
         public AppUser AppUser { get; set; }
-
-       
     }
 }

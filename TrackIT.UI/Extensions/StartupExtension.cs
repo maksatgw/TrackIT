@@ -1,4 +1,5 @@
-﻿using TrackIT.Business.Abstract;
+﻿using Microsoft.Extensions.FileProviders;
+using TrackIT.Business.Abstract;
 using TrackIT.Business.Concrete;
 using TrackIT.Business.Model;
 using TrackIT.DataAccess.Abstract;
@@ -13,6 +14,8 @@ namespace TrackIT.UI.Extensions
         {
             services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<AppDbContext>();
 
+            services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Directory.GetCurrentDirectory()));
+
             services.AddScoped<IProductDataAccess, EFProduct>();
             services.AddScoped<IProductService, ProductManager>();
 
@@ -21,6 +24,12 @@ namespace TrackIT.UI.Extensions
 
             services.AddScoped<IProductRegisterDataAccess, EFProductRegister>();
             services.AddScoped<IProductRegisterService, ProductRegisterManager>();
+
+            services.AddScoped<IProductRegisterHistoryDataAccess, EFProductRegisterHistory>();
+            services.AddScoped<IProductRegisterHistoryService, ProductRegisterHistoryManager>();
+
+            services.AddScoped<IProductAssetDataAccess, EFProductAsset>();
+            services.AddScoped<IProductAssetService, ProductAssetManager>();
         }
     }
 }

@@ -20,5 +20,6 @@ namespace TrackIT.DTO.Dtos.ProductDtos
         public bool isActive { get; set; } = true;
         public DateTime DateAdded { get; set; }
         public Entity.Model.Category Category { get; set; }
+        public List<ProductRegistirationHistory> ProductRegistirationHistories { get; set; }
     }
 }
