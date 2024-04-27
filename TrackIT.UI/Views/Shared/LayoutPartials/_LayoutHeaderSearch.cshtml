@@ -1,0 +1,15 @@
+﻿<div id="page-header-search" class="overlay-header bg-header-dark">
+    <div class="bg-white-10">
+        <div class="content-header">
+            <form asp-action="Index" asp-controller="Search" class="w-100"  method="get">
+                <div class="input-group">
+                    <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+                    <button type="button" class="btn btn-alt-primary" data-toggle="layout" data-action="header_search_off">
+                        <i class="fa fa-fw fa-times-circle"></i>
+                    </button>
+                    <input type="text" class="form-control border-0" placeholder="Ara..." id="page-header-search-input" name="query">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

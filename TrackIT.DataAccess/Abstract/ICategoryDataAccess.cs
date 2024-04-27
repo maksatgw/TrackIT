@@ -9,6 +9,7 @@ namespace TrackIT.DataAccess.Abstract
 {
     public interface ICategoryDataAccess : IGenericDataAccess<Category>
     {
-
+        List<Category> GetWithIncluded();
+        List<Category> GetWithIncludedSearch(string searchQuery);
     }
 }

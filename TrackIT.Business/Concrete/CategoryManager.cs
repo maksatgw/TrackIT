@@ -39,5 +39,15 @@ namespace TrackIT.Business.Concrete
         {
             _service.Delete(model);
         }
+
+        public List<Category> TGetWithIncluded()
+        {
+            return _service.GetWithIncluded();
+        }
+
+        public List<Category> TGetWithIncludedSearch(string searchQuery)
+        {
+            return _service.GetWithIncludedSearch(searchQuery);
+        }
     }
 }

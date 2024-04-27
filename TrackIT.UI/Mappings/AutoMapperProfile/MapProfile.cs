@@ -27,6 +27,10 @@ namespace TrackIT.UI.Mappings.AutoMapperProfile
             // Category ve ilgili DTO'lar için haritalamalar
             CreateMap<Category, CategoryGetDto>();
             CreateMap<CategoryGetDto, Category>();
+            CreateMap<CategoryAddDto, Category>();
+            CreateMap<Category, CategoryAddDto>();
+            CreateMap<CategoryUpdateDto, Category>();
+            CreateMap<Category, CategoryUpdateDto>();
 
             // AppUser ve ilgili DTO'lar için haritalamalar
             CreateMap<AppUser, UserGetDto>();

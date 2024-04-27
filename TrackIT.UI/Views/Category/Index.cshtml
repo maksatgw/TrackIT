@@ -1,0 +1,80 @@
+﻿@model CategoryViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#category-add-modal">
+    Ekle
+</button>
+<br />
+<partial name="/Views/Category/Partials/_CategoryAdd.cshtml" />
+<br />
+
+<div class="block block-rounded">
+    <div class="block-content bg-body-dark">
+        <form asp-action="Index" asp-controller="Category" method="GET">
+            <div class="mb-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="example-group3-input1" name="searchQuery" placeholder="Ara">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-search me-1"></i> Ara
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="block-content">
+
+        <div class="table-responsive">
+            <table class="table table-borderless table-striped table-vcenter">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width: 100px;">ID</th>
+                        <th class="d-none d-sm-table-cell text-center">Ürün İsmi</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Categories.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="7" class="d-none d-sm-table-cell text-center fs-sm">Veri yok</td>
+                        </tr>
+                    }
+                    @foreach (var item in Model.Categories)
+                    {
+                        <tr>
+                            <td class="text-center fs-sm">
+                                <strong>@item.CategoryId</strong>
+                            </td>
+                            <td class="d-none d-sm-table-cell text-center fs-sm">@item.Name</td>
+                            <td class="text-end fs-sm">
+                                <button class="btn btn-sm btn-alt-secondary" 
+                                data-bs-toggle="modal" 
+                                data-bs-target="#category-update-modal"
+                                data-category-name="@item.Name"
+                                data-category-id="@item.CategoryId">
+                                    <i class="fa fa-fw fa-pen"></i>
+                                </button>
+                                <a class="btn btn-sm btn-alt-secondary" href="/Product/Index?filterByCategory=@item.CategoryId">
+                                    <i class="fa fa-fw fa-clipboard-list"></i>
+                                </a>
+                                <a class="btn btn-sm btn-alt-secondary" onclick="confirmDelete(@item.CategoryId)">
+                                    <i class="fa fa-fw fa-times text-danger"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<partial name="/Views/Category/Partials/_CategoryUpdate.cshtml" />
+
+
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <partial name="/Views/Category/Partials/_IndexScripts.cshtml" />
+}

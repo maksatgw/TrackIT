@@ -1,0 +1,20 @@
+﻿@model SearchViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="block block-rounded">
+    <partial name="/Views/Search/Partials/_IndexTabs.cshtml" />
+    <div class="block-content tab-content overflow-hidden">
+        <partial name="/Views/Search/Partials/_IndexProductList.cshtml" />
+        <!-- Registers -->
+        <partial name="/Views/Search/Partials/_IndexRegisterList.cshtml" />
+        <!-- END Registers -->
+        <!-- Customers -->
+        <partial name="/Views/Search/Partials/_IndexCategoryList.cshtml" />
+        <!-- END Customers -->
+        <!-- Projects -->
+        <partial name="/Views/Search/Partials/_IndexUserList.cshtml" />
+        <!-- END Projects -->
+    </div>
+</div>

@@ -1,0 +1,78 @@
+﻿@model SearchViewModel
+
+
+<div class="tab-pane fade" id="search-projects" role="tabpanel" aria-labelledby="search-projects-tab" tabindex="0">
+    <div class="fs-3 fw-semibold pt-2 pb-4 mb-4 text-center border-bottom">
+        <span class="text-primary fw-bold">@Model.Users.Count</span> Kullanıcı Bulundu <mark class="text-danger">TrackIT</mark>
+    </div>
+    <div class="row">
+        @if (Model.Users.Count == 0)
+        {
+            <div class="col-md-12 col-xl-12 text-center">
+                <p>Veri yok</p>
+            </div>
+
+        }
+        @foreach (var item in Model.Users)
+        {
+            <div class="col-md-6 col-xl-3">
+                <a class="block block-rounded block-link-pop text-center" href="/User/Details?id=@item.Id">
+
+                    <div class="block-content block-content-full bg-primary-darker">
+                        <img class="img-avatar img-avatar-thumb" src="~/web/src/assets/media/avatars/avatar9.jpg" alt="">
+                    </div>
+                    <div class="block-content block-content-full block-content-sm bg-primary-dark">
+                        <p class="fw-semibold text-white mb-0">@item.UserName</p>
+                        <p class="fs-sm text-white-75 mb-0">
+                            @item.Email
+                        </p>
+                    </div>
+                    <div class="block-content block-content-full">
+                        <div class="row g-sm">
+                            <div class="col-12">
+                                <p class="mb-2">
+                                    <i class="fa fa-fw fa-box text-body-color-dark"></i>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </a>
+            </div>
+        }
+    </div>
+
+
+    <nav aria-label="Projects Search Navigation">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-label="Previous">
+                    <span aria-hidden="true">
+                        <i class="fa fa-angle-double-left"></i>
+                    </span>
+                    <span class="visually-hidden">Previous</span>
+                </a>
+            </li>
+            <li class="page-item active">
+                <a class="page-link" href="javascript:void(0)">1</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="javascript:void(0)">2</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="javascript:void(0)">3</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="javascript:void(0)">4</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="javascript:void(0)" aria-label="Next">
+                    <span aria-hidden="true">
+                        <i class="fa fa-angle-double-right"></i>
+                    </span>
+                    <span class="visually-hidden">Next</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

@@ -23,7 +23,15 @@ namespace TrackIT.DataAccess.Entity
 
         public List<Product> GetWithIncludedSearch(string searchQuery)
         {
-            return _appDbContext.Product.Include(x => x.Category).Where(x => x.Name.ToLower().Contains(searchQuery.ToLower())).ToList();
+            return _appDbContext.Product.Include(x => x.Category)
+                .Where(x => x.Name.ToLower()
+                .Contains(searchQuery.ToLower()) 
+                || x.Serial.Contains(searchQuery) 
+                || x.Description.Contains(searchQuery)
+                || x.Category.Name.Contains(searchQuery)
+                || x.DateAdded.ToString().Contains(searchQuery)
+                ) 
+                .ToList();
 
         }
 

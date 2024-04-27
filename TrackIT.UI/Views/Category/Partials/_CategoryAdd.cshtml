@@ -1,0 +1,26 @@
+﻿@model CategoryViewModel
+
+<!-- Modal -->
+<div class="modal fade" id="category-add-modal" tabindex="-1" role="dialog" aria-labelledby="category-add-modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- Başlık -->
+            <div class="modal-header">
+                <h5 class="modal-title">Kategori ekle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body pb-1">
+                <form asp-action="New" asp-controller="Category" method="post">
+                    <div class="mb-4">
+                        <input class="form-control" asp-for="CategoryAdd.Name" type="text">
+                        <span class="badge bg-danger" asp-validation-for="CategoryAdd.Name"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-sm btn-primary">Ekle</button>
+                        <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Kapat</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TrackIT.Entity.Model;
 
 namespace TrackIT.DTO.Dtos.CategoryDtos
 {
-    public class CategoryGetDto
+    public class CategoryUpdateDto
     {
+        [Required(ErrorMessage ="ID Gereklidir.")]
         public int CategoryId { get; set; }
+        [Required(ErrorMessage = "Kategori İsmi Gereklidir.")]
         public string Name { get; set; }
-        public List<Product> Products { get; set; }
     }
 }

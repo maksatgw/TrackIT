@@ -9,5 +9,8 @@ namespace TrackIT.Business.Abstract
 {
     public interface ICategoryService : IGenericService<Category>
     {
+        List<Category> TGetWithIncluded();
+        List<Category> TGetWithIncludedSearch(string searchQuery);
+
     }
 }
