@@ -11,5 +11,7 @@ namespace TrackIT.UI.ViewModels
         public ProductAddDto? ProductAdd { get; set; }
         public ProductUpdateDto? ProductUpdate { get; set; }
         public List<ProductAssetGetDto>? ProductAssets { get; set; }
+        public int? CurrentPage { get; set; }
+        public int? TotalPage { get; set; }
     }
 }

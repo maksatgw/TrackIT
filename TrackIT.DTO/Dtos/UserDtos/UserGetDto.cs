@@ -14,5 +14,6 @@ namespace TrackIT.DTO.Dtos.UserDtos
         public string UserName { get; set; }
         public List<ProductRegistiration> ProductRegistirations { get; set; }
         public int? UserProductCount { get; set; }
+        public List<string> Roles { get; set; }
     }
 }

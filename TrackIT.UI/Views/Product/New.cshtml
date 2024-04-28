@@ -18,11 +18,16 @@
                         <input type="text" class="form-control" asp-for="ProductAdd.Serial" placeholder="Seri Numarası">
                     </div>
                     <div class="mb-4">
-                        <label class="form-label" asp-for="ProductAdd.CategoryId">Kategorisi</label>
-                        <select asp-for="ProductAdd.CategoryId"
-                                asp-items="@(new SelectList(Model.Categories, "CategoryId", "Name"))"
-                                class="form-select">
-                        </select>
+                        @if (Model.Categories.Count != 0)
+                        {
+                            <label class="form-label" asp-for="ProductAdd.CategoryId">Kategorisi</label>
+                            <select asp-for="ProductAdd.CategoryId" asp-items="@(new SelectList(Model.Categories, "CategoryId", "Name"))" class="form-select"></select>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger" asp-validation-for="ProductAdd.CategoryId">Kategori yok.</span>
+                        }
+
                     </div>
                     <div class="mb-4">
                         <label class="form-label" for="example-textarea-input">Açıklama</label>
@@ -34,7 +39,14 @@
                     </div>
                     <div class="modal-footer">
                         <a href="/Product/Index" class="btn btn-sm btn-alt-secondary">İptal</a>
-                        <button type="submit" class="btn btn-sm btn-primary">Kaydet</button>
+                        @if (Model.Categories.Count != 0)
+                        {
+                            <button type="submit" class="btn btn-sm btn-primary">Kaydet</button>
+                        }
+                        else
+                        {
+                            <button disabled type="submit" class="btn btn-sm btn-primary">Kaydet</button>
+                        }
                     </div>
                 </div>
             </div>

@@ -6,6 +6,7 @@ using TrackIT.DTO.Dtos.ProductDtos;
 using TrackIT.DTO.Dtos.ProductRegisterDtos;
 using TrackIT.DTO.Dtos.ProductRegisterHistoryDtos;
 using TrackIT.DTO.Dtos.UserDtos;
+using TrackIT.DTO.Dtos.UserRoleDtos;
 using TrackIT.Entity.Model;
 
 namespace TrackIT.UI.Mappings.AutoMapperProfile
@@ -75,6 +76,10 @@ namespace TrackIT.UI.Mappings.AutoMapperProfile
             CreateMap<ProductAssetAddDto, ProductAsset>();
             CreateMap<ProductAssetGetDto, ProductAsset>();
             CreateMap<ProductAsset, ProductAssetGetDto>();
+
+            //AppRole Map
+            CreateMap<UserRoleGetDto, AppRole>();
+            CreateMap<AppRole, UserRoleGetDto>();
 
         }
     }

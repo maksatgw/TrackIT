@@ -9,7 +9,9 @@ namespace TrackIT.DataAccess.Abstract
 {
     public interface IProductAssetDataAccess : IGenericDataAccess<ProductAsset>
     {
-        List<ProductAsset> GetWithIncluded(int id);
-        ProductAsset GetByProductId(int id);
+        //Tabloyu ilişkilere tablo üzerinden ulaşabilecek şekilde ve productId ye göre return etmemizi sağlayan metod.
+        List<ProductAsset> GetWithIncluded(int productId);
+        //Aynı metodun tek bir item döndürdüğü hali.
+        ProductAsset GetByProductId(int productId);
     }
 }

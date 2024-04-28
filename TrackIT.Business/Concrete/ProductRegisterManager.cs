@@ -33,6 +33,11 @@ namespace TrackIT.Business.Concrete
             return _service.Get();
         }
 
+        public ProductRegistiration TGetByUserId(string userId)
+        {
+            return _service.GetByUserId(userId);
+        }
+
         public int TGetProductRegisteredUserCount(string id)
         {
             return _service.GetProductRegisteredUserCount(id);

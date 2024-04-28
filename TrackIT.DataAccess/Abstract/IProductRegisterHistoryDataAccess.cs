@@ -9,8 +9,10 @@ namespace TrackIT.DataAccess.Abstract
 {
     public interface IProductRegisterHistoryDataAccess : IGenericDataAccess<ProductRegistirationHistory>
     {
+        //Tabloyu ilişkilere tablo üzerinden ulaşabilecek şekilde getiren metod.
         List<ProductRegistirationHistory> GetWithIncluded();
-        List<ProductRegistirationHistory> GetWithIncluded(int id);
+        //Tabloyu ilişkilere tablo üzerinden ulaşabilecek şekilde ve product idsine göre getiren metod.
+        List<ProductRegistirationHistory> GetWithIncluded(int productId);
 
     }
 }

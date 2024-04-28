@@ -21,17 +21,29 @@ namespace TrackIT.DataAccess.Entity
 
         public List<ProductRegistirationHistory> GetWithIncluded()
         {
-            return _appDbContext.RegistirationHistorys.Include(x => x.Product).Include(x => x.AppUser).ToList();
+            return _appDbContext.RegistirationHistorys
+                //include ile product ekliyoruz.
+                .Include(x => x.Product)
+                //include ile appuser ekliyoruz.
+                .Include(x => x.AppUser)
+                //listeliyoruz.
+                .ToList();
         }
         
-        List<ProductRegistirationHistory> IProductRegisterHistoryDataAccess.GetWithIncluded(int id)
+        List<ProductRegistirationHistory> IProductRegisterHistoryDataAccess.GetWithIncluded(int productId)
         {
            return _appDbContext.RegistirationHistorys
+                //include ile product ekliyoruz.
                 .Include(x => x.Product)
+                //ThenInclude ile producta category ekliyoruz.
                 .ThenInclude(x=>x.Category)
+                //Include ile appuser ekliyoruz.
                 .Include(x => x.AppUser)
-                .Where(x=>x.ProductId == id)
+                //Where ile productId si parametreden gelen productId ye eşit olan
+                .Where(x=>x.ProductId == productId)
+                //RegistrationDate'i yakından uzağa olarak
                 .OrderByDescending(x=>x.RegistrationDate)
+                //veriyi listeliyoruz.
                 .ToList();
         }
     }

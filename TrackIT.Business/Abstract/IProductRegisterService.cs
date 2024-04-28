@@ -12,5 +12,6 @@ namespace TrackIT.Business.Abstract
         int TGetProductRegisteredUserCount(string id);
         List<ProductRegistiration> TGetWithIncluded();
         public List<ProductRegistiration> TGetWithIncludedSearch(string? searchQuery = null, int? categoryId = null, string? userId = null);
+        ProductRegistiration TGetByUserId(string userId);
     }
 }

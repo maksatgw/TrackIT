@@ -69,7 +69,7 @@
                                         <i class="fa fa-fw fa-file-arrow-down"></i>
                                     </a>
                                 }
-                                <a class="btn btn-sm btn-alt-secondary" href="/ProductRegister/remove?id=@item.ProductRegistirationId">
+                                <a class="btn btn-sm btn-alt-secondary" onclick="confirmDelete(@item.ProductRegistirationId, '/ProductRegister/Remove?&id')">
                                     <i class="fa fa-fw fa-times text-danger"></i>
                                 </a>
                             </td>
@@ -85,6 +85,6 @@
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
-    <partial name="/Views/ProductRegister/Partials/_IndexScripts.cshtml" />
+    @await Html.PartialAsync("_SharedScripts")
 }
 

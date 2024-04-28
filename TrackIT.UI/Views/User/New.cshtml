@@ -1,7 +1,8 @@
-﻿@model UserAddDto
+﻿@model UserViewModel
 @{
     ViewData["Title"] = "New";
 }
+<div class="alert alert-danger" role="alert" asp-validation-summary="ModelOnly"> </div>
 
 <div class="block block-rounded">
     <div class="block-content">
@@ -9,17 +10,20 @@
             <div class="row push">
                 <div class="col-lg-12 col-xl-12">
                     <div class="mb-4">
-                        <label class="form-label" asp-for="Email">Kullanıcı Maili</label>
-                        <input type="text" class="form-control" asp-for="Email" placeholder="email">
-                        <span class="badge bg-danger" asp-validation-for="Email"></span>
+                        <label class="form-label" asp-for="UserAdd.Email">Kullanıcı Maili</label>
+                        <input type="text" class="form-control" asp-for="UserAdd.Email" placeholder="email">
+                        <span class="badge bg-danger" asp-validation-for="UserAdd.Email"></span>
                     </div>
                     <div class="mb-4">
-                        <label class="form-label" asp-for="UserName">Kullaıncı Adı</label>
-                        <input type="text" class="form-control" asp-for="UserName" placeholder="user">
-                        <span class="badge bg-danger" asp-validation-for="UserName"></span>
-
+                        <label class="form-label" asp-for="UserAdd.UserName">Kullaıncı Adı</label>
+                        <input type="text" class="form-control" asp-for="UserAdd.UserName" placeholder="user">
+                        <span class="badge bg-danger" asp-validation-for="UserAdd.UserName"></span>
                     </div>
-                   
+                    <label class="form-label" asp-for="UserAdd.RoleName">Rol</label>
+                    <select asp-for="UserAdd.RoleName"
+                            asp-items="@(new SelectList(Model.AppRoles, "Name", "Name"))"
+                            class="form-select">
+                    </select>
                     <div class="modal-footer">
                         <a href="/User/Index" class="btn btn-sm btn-alt-secondary">İptal</a>
                         <button type="submit" class="btn btn-sm btn-primary">Kaydet</button>

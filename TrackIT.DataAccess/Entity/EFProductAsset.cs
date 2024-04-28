@@ -19,14 +19,22 @@ namespace TrackIT.DataAccess.Entity
             _appDbContext = appDbContext;
         }
 
-        public ProductAsset GetByProductId(int id)
+        //Tabloyu ilişkilere tablo üzerinden ulaşabilecek şekilde ve productId ye göre return etmemizi sağlayan metod.
+        public List<ProductAsset> GetWithIncluded(int productId)
         {
-            return _appDbContext.ProductAssets.Include(x => x.ProductId).FirstOrDefault(x => x.ProductId == id);
+            //include ile productları ekliyoruz.
+            //where ile product idsi parametreden gelen product id ye eşit olan dataları listeliyor.
+            return _appDbContext.ProductAssets.Include(x => x.Product)
+                 .Where(x => x.ProductId == productId).ToList();
         }
-
-        public List<ProductAsset> GetWithIncluded(int id)
+        //Aynı metodun tek bir item döndürdüğü hali.
+        public ProductAsset GetByProductId(int productId)
         {
-           return _appDbContext.ProductAssets.Include(x => x.Product).Where(x => x.ProductId == id).ToList();
+            //include ile productları ekliyoruz.
+            //firstordefault ile productIdsi parametreden gelen değerle aynı olan ilk değeri getirecek
+            //eğer veri gelmez ise null döndürecek.
+            return _appDbContext.ProductAssets.Include(x => x.ProductId)
+                .FirstOrDefault(x => x.ProductId == productId);
         }
     }
 }

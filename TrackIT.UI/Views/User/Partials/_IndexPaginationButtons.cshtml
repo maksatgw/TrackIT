@@ -1,10 +1,10 @@
-﻿@model ProductViewModel
+﻿@model UserViewModel
 <nav>
     <ul class="pagination justify-content-end mt-2">
         @for (int i = 1; i <= Model.TotalPage; i++)
         {
             <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-                <a class="page-link" href="/Product/Index?page=@i">@i</a>
+                <a class="page-link" href="/User/Index?page=@i">@i</a>
             </li>
         }
     </ul>

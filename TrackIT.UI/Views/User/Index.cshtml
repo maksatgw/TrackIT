@@ -1,11 +1,29 @@
-﻿@model List<UserGetDto>
+﻿@model UserViewModel
 
 @{
     ViewData["Title"] = "Index";
 }
 
+<div class="row items-push">
+    <div class="col-6 col-lg-3">
+        <a class="block block-rounded block-link-shadow text-center h-100 mb-0" href="/User/New">
+            <div class="block-content py-5">
+                <div class="fs-3 fw-semibold text-success mb-1">
+                    <i class="fa fa-plus"></i>
+                </div>
+                <p class="fw-semibold fs-sm text-success text-uppercase mb-0">
+                    Yeni Kullanıcı Ekle
+                </p>
+            </div>
+        </a>
+    </div>
+</div>
+
+<partial name="/Views/User/Partials/_IndexSearch.cshtml" />
+<br />
+
 <div class="row">
-    @foreach (var item in Model)
+    @foreach (var item in Model.AppUsers)
     {
         <div class="col-md-6 col-xl-3">
             <a class="block block-rounded block-link-pop text-center" href="/User/Details?id=@item.Id">
@@ -37,4 +55,5 @@
     }
 </div>
 
+<partial name="/Views/User/Partials/_IndexPaginationButtons.cshtml" />
 

@@ -10,6 +10,7 @@ namespace TrackIT.Business.Model
 {
     public class AppUser : IdentityUser
     {
+        public bool isActive { get; set; } = true;
         public List<ProductRegistiration> ProductRegistrations { get; set; }
     }
 }

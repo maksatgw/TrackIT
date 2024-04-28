@@ -18,15 +18,19 @@ namespace TrackIT.DataAccess.Entity
         {
             _appDbContext = appDbContext;
         }
-
+        //Tabloyu ilişkilere tablo üzerinden ulaşabilecek şekilde getiren metod.
         public List<Category> GetWithIncluded()
         {
+            //bunu sağlayan include metodu
             return _appDbContext.Categories.Include(x => x.Products).ToList();
         }
-
+        //Aynı metodun arama özelliği kazandırılmış hali.
         public List<Category> GetWithIncludedSearch(string searchQuery)
         {
-            return _appDbContext.Categories.Include(x => x.Products)
+            //include ile products tablosunu ekliyoruz.
+            //where ile category adında searchquery içeren dataları buluyoruz.
+            return _appDbContext.Categories
+                .Include(x => x.Products)
                 .Where(x => x.Name.Contains(searchQuery))
                 .ToList();
         }

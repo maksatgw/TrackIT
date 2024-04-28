@@ -36,16 +36,20 @@ namespace TrackIT.UI.Controllers
             _productAssetService = productAssetService;
         }
 
+        #region Getirme
         //Filtre nesnelerini query string üzerinden alıyoruz.
-        public IActionResult Index(string searchQuery, int filterByCategory)
+        public IActionResult Index(string searchQuery, int filterByCategory, int pageSize = 10, int page = 1 )
         {
             //Index benden bir viewmodel bekliyor.
+            var productViewModel = new ProductViewModel();
             //Caselerime göre gerekli eklemeler ile paketi View'a gönderiyorum.
             var categoryDtos = _mapper.Map<List<CategoryGetDto>>(_categoryService.TGet());
-            var productViewModel = new ProductViewModel()
-            {
-                Categories = categoryDtos,
-            };
+            var geProductCount = _productService.TGet();
+            var totalPage = (int)Math.Ceiling((decimal)geProductCount.Count / pageSize);
+            productViewModel.Categories= categoryDtos;
+            productViewModel.TotalPage = totalPage;
+            productViewModel.CurrentPage = page;
+        
             if (!string.IsNullOrEmpty(searchQuery))
             {
                 var productSearchResult = _productService.TGetWithIncludedSearch(searchQuery);
@@ -61,7 +65,7 @@ namespace TrackIT.UI.Controllers
             }
             else
             {
-                var productDtos = _mapper.Map<List<ProductGetDto>>(_productService.TGetWithIncluded());
+                var productDtos = _mapper.Map<List<ProductGetDto>>(_productService.TGetWithIncluded(page, pageSize));
                 productViewModel.Products = productDtos;
             }
             _mapper.Map<List<CategoryGetDto>>(_categoryService.TGet());
@@ -69,43 +73,57 @@ namespace TrackIT.UI.Controllers
         }
         public IActionResult Detail(int id)
         {
-            var value = _mapper.Map<ProductGetDto>(_productService.TGet(id));
+            //önce gelen ürünün varlığını kontrol ediyoruz. 
+            var productCheck = _mapper.Map<ProductGetDto>(_productService.TGet(id));
             var values = _mapper.Map<List<ProductRegisterHistoryGetDto>>(_productRegisterHistoryService.TGetWithIncluded(id));
-            if (value == null)
+            //Eğer null ise Toast Mesajı ile kullanıcıya hata gönderip Index'e yönlendiriyoruz.
+            if (productCheck == null)
             {
                 _toastNotification.AddErrorToastMessage($"Ürün bulunamadı", new ToastrOptions { Title = "Hata" });
                 return RedirectToAction("Index");
             }
             return View(values);
         }
+        #endregion
 
         #region Yeni
         [HttpGet]
         public IActionResult New()
         {
-            //Sadece kategorileri gönderiyorum.
-            var categoryDtos = _mapper.Map<List<CategoryGetDto>>(_categoryService.TGet());
+            //Kategorileri ekleme sayfasında select list olarak alacağım için viewmodel üzerine ekleyip view'a gönderiyorum.
+            var categories = _mapper.Map<List<CategoryGetDto>>(_categoryService.TGet());
             var productViewModel = new ProductViewModel()
             {
-                Categories = categoryDtos,
+                Categories = categories,
             };
             return View(productViewModel);
         }
+
         [HttpPost]
+        //Ürünler birden fazla Asset alacağı için List form file olarak alıyoruz.
         public IActionResult New(ProductViewModel model, List<IFormFile> AssetUrls)
         {
+            //ModelState durumu valid değilse state içindeki hataları gösterir.
+            //Select List null gelmesin ve hata mesajları akabinde gönderilmeye devam edilebilsin diye kategorileri gönderiyoruz.
             if (!ModelState.IsValid)
             {
+                var categories = _mapper.Map<List<CategoryGetDto>>(_categoryService.TGet());
+                model.Categories = categories;
                 return View(model);
             }
             try
             {
-                var value = _mapper.Map<Product>(model.ProductAdd);
-                _productService.TInsert(value);
+                //ekleme işleminde birden fazla tabloya ekleme yapacağız.
+                //modelden gelen productadd dto sınıfını Product classına mapleyerek insert ediyoruz.
+                var product = _mapper.Map<Product>(model.ProductAdd);
+                _productService.TInsert(product);
+                //AssetUrls içindeki her bir item için
                 foreach (var item in AssetUrls)
                 {
+                    //item geldiyse
                     if (item != null && item.Length > 0)
                     {
+                        //image işlemleri
                         var extension = Path.GetExtension(item.FileName);
                         var newAsset = Guid.NewGuid() + extension;
                         var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/product/", newAsset);
@@ -114,18 +132,23 @@ namespace TrackIT.UI.Controllers
                         {
                             item.CopyTo(stream);
                         }
+                        //AssetDto'ya gelen dataları bind edeceğiz.
+                        //her bir item için birden fazla kez yapacak bunu.
                         var assets = new ProductAssetAddDto
                         {
                             AssetUrl = newAsset,
-                            ProductId = value.ProductId
+                            ProductId = product.ProductId
                         };
-                        var productAsset = _mapper.Map<ProductAsset>(assets);
-                        _productAssetService.TInsert(productAsset);
+                        //assetadddto nesnesini productassete mapleyerek ekleme işlemini bitiriyoruz.
+                        var asset = _mapper.Map<ProductAsset>(assets);
+                        _productAssetService.TInsert(asset);
                     }
                 }
-                _toastNotification.AddSuccessToastMessage($"{value.Name} Sisteme Eklenmiştir", new ToastrOptions { Title = "Başarılı" });
+                //her şey yolunda giderse kullanıcıya mesaj ile indexe yönlendirme yapacağız.
+                _toastNotification.AddSuccessToastMessage($"{product.Name} Sisteme Eklenmiştir", new ToastrOptions { Title = "Başarılı" });
                 return RedirectToAction("Index");
             }
+            //işler yolunda gitmez ise hata mesajnı ekrana basıp indexe yönlendiriyoruz.
             catch (Exception ex)
             {
                 _toastNotification.AddErrorToastMessage($"Ekleme işlemi sırasında bir hata oluştu.{ex.Message}", new ToastrOptions { Title = "Hata" });
@@ -135,39 +158,51 @@ namespace TrackIT.UI.Controllers
 
         #endregion
 
-
+        #region Güncelle
+        //Güncelleme
         [HttpGet]
         public IActionResult Update(int id)
         {
-            var categoryDtos = _mapper.Map<List<CategoryGetDto>>(_categoryService.TGet());
-            var productDtos = _mapper.Map<ProductUpdateDto>(_productService.TGet(id));
-            var assetDtos = _mapper.Map<List<ProductAssetGetDto>>(_productAssetService.TGetWithIncluded(id));
-            if (productDtos == null)
+            //ürün - kategori - asset listelerini mapleyip gönderiyoruz.
+            var product = _mapper.Map<ProductUpdateDto>(_productService.TGet(id));
+            var categories = _mapper.Map<List<CategoryGetDto>>(_categoryService.TGet());
+            var assets = _mapper.Map<List<ProductAssetGetDto>>(_productAssetService.TGetWithIncluded(id));
+            //product eğer yoksa
+            if (product == null)
             {
-                _toastNotification.AddErrorToastMessage($"Ürün bulunamadı", new ToastrOptions { Title = "Hata" });
+                //kullacıya bildir ve indexe gönder
+                _toastNotification.AddErrorToastMessage("Ürün bulunamadı", new ToastrOptions { Title = "Hata" });
                 return RedirectToAction("Index");
             }
+            //hata yoksa viewModele ata ve view'a gönder
             var productViewModel = new ProductViewModel()
             {
-                Categories = categoryDtos,
-                ProductUpdate = productDtos,
-                ProductAssets = assetDtos
+                Categories = categories,
+                ProductUpdate = product,
+                ProductAssets = assets
             };
             return View(productViewModel);
         }
 
-
         [HttpPost]
         public IActionResult Update(ProductViewModel model, List<IFormFile> AssetUrls)
         {
+            //ModelState durumu valid değilse state içindeki hataları gösterir.
+            //Select List null gelmesin ve hata mesajları akabinde gönderilmeye devam edilebilsin diye kategorileri gönderiyoruz.
             if (!ModelState.IsValid)
             {
+                var categories = _mapper.Map<List<CategoryGetDto>>(_categoryService.TGet());
+                model.Categories = categories;
                 return View(model);
             }
             try
             {
-                var value = _mapper.Map<Product>(model.ProductUpdate);
-                _productService.TUpdate(value);
+                //productu maple ve update'ini yap.
+                var product = _mapper.Map<Product>(model.ProductUpdate);
+                _productService.TUpdate(product);
+                //sonrasında gönderilen assetleri asset listesine ekle
+                //var olan resmi update etmek yerine ben listeye yeni asset ekletiyorum
+                //kullanıcı resmi update etmek yerine listedekileri silebilir.
                 foreach (var item in AssetUrls)
                 {
                     if (item != null && item.Length > 0)
@@ -183,13 +218,13 @@ namespace TrackIT.UI.Controllers
                         var assets = new ProductAssetAddDto
                         {
                             AssetUrl = newAsset,
-                            ProductId = value.ProductId
+                            ProductId = product.ProductId
                         };
                         var productAsset = _mapper.Map<ProductAsset>(assets);
                         _productAssetService.TInsert(productAsset);
                     }
                 }
-                _toastNotification.AddSuccessToastMessage($"{value.Name} Güncellenmiştir.", new ToastrOptions { Title = "Başarılı" });
+                _toastNotification.AddSuccessToastMessage($"{product.Name} Güncellenmiştir.", new ToastrOptions { Title = "Başarılı" });
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -198,37 +233,55 @@ namespace TrackIT.UI.Controllers
                 return RedirectToAction("Index");
             }
         }
+        #endregion
 
-        public IActionResult RemoveAsset(int assetId, int id)
+        #region Silme
+        //ürün içinden asset kaldırmak.
+        //asset kaldırmak için hem assetId hem de productId yi getiriyoruz.
+        public IActionResult RemoveAsset(int assetId, int productId)
         {
             try
             {
-                var value = _productAssetService.TGet(assetId);
-                var product = _productService.TGet(id);
-                if (value == null || product == null)
+                //asset ve productları idlerine göre getiriyoruz.
+                var asset = _productAssetService.TGet(assetId);
+                var product = _productService.TGet(productId);
+                //eğer ikisinden biri null gelir ise.
+                if (asset == null || product == null)
                 {
+                    //kullanıcıya mesajı göster ve indexe yönlendir.
                     _toastNotification.AddErrorToastMessage($"Güncelleme işlemi sırasında bir hata oluştu.", new ToastrOptions { Title = "Hata" });
                     return RedirectToAction("Index");
                 }
-                _productAssetService.TDelete(value);
+                //gelmez ise asseti sil ve mesajı kullanıcıya göster.
+                _productAssetService.TDelete(asset);
                 _toastNotification.AddSuccessToastMessage($"{product.Name} Güncellenmiştir.", new ToastrOptions { Title = "Başarılı" });
+                //her şey yolunda ise Update'e gönderiyoruz ki kullanıcı işlemine devam edebilsin.
+                return RedirectToAction("Update", new { id = productId });
             }
             catch (Exception ex)
             {
                 _toastNotification.AddErrorToastMessage($"Güncelleme işlemi sırasında bir hata oluştu.{ex.Message}", new ToastrOptions { Title = "Hata" });
                 return RedirectToAction("Index");
             }
-           
-            return RedirectToAction("Update", new { id = id });
+
         }
 
+        //ürünü kaldırmak.
         public IActionResult Remove(int productId)
         {
             try
             {
-                var value = _productService.TGet(productId);
-                _productService.TDelete(value);
-                _toastNotification.AddSuccessToastMessage($"{value.Name} Silinmiştir.", new ToastrOptions { Title = "Başarılı" });
+                //ürünğ bulalım
+                var product = _productService.TGet(productId);
+                //eğer ürün bulunamazsa
+                if (product == null)
+                {
+                    //kullanıcıya mesajı göster ve indexe yönlendir.
+                    _toastNotification.AddErrorToastMessage("Silinecek Öğe Bulunamadı", new ToastrOptions { Title = "Hata" });
+                    return RedirectToAction("Index");
+                }
+                _productService.TDelete(product);
+                _toastNotification.AddSuccessToastMessage($"{product.Name} Silinmiştir.", new ToastrOptions { Title = "Başarılı" });
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
@@ -237,6 +290,7 @@ namespace TrackIT.UI.Controllers
                 return RedirectToAction("Index");
             }
         }
+        #endregion
 
     }
 }

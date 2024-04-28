@@ -1,0 +1,21 @@
+﻿<script>
+    function confirmDelete(id, url) {
+        Swal.fire({
+            title: 'Emin misiniz?',
+            text: "Silme İşlemi Geri Alınamaz",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Evet, Kaldır',
+            cancelButtonText: 'İptal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Silme isteğini gönder
+                window.location.href = `${url}=${id}`;
+                console.log(`${url}=${productId}`);
+            }
+        });
+    }
+</script>
+@*/User/Remove?id*@

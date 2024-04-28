@@ -38,13 +38,17 @@
             <div class="mb-3">
                 <img class="img-avatar img-avatar96" src="~/web/src/assets/media/avatars/avatar15.jpg" alt="">
             </div>
+            <h6>@Model.UserName</h6>
             <h1 class="fs-lg mb-0">
                 @Model.Email
             </h1>
-            <p class="text-muted">
-                <i class="fa fa-award text-warning me-1"></i>
-                Premium Customer
-            </p>
+            @foreach (var item in Model.Roles)
+            {
+                <p class="text-muted">
+                    <i class="fa fa-award text-warning me-1"></i>
+                    @item
+                </p>
+            }
         </div>
     </div>
     <div class="block-content bg-body-light text-center">
@@ -63,9 +67,9 @@
         <table class="table table-borderless table-striped table-vcenter">
             <thead>
                 <tr>
-                    <th class="text-center" style="width: 100px;">ID</th>
-                    <th class="d-none d-sm-table-cell text-center">Name</th>
-                    <th class="d-none d-sm-table-cell text-center">Name</th>
+                    <th class="text-center" style="width: 100px;">Ürün ID</th>
+                    <th class="d-none d-sm-table-cell text-center">Ürün İsmi</th>
+                    <th class="d-none d-sm-table-cell text-center">Zimmet Tarihi</th>
                     <th class="text-center">Actions</th>
                 </tr>
             </thead>
@@ -74,25 +78,29 @@
                 {
                     <tr>
                         <td class="text-center fs-sm">
-                            <a class="fw-semibold" href="be_pages_ecom_product_edit.html">
-                                <strong>@item.ProductId</strong>
-                            </a>
+                            <strong>@item.ProductId</strong>
                         </td>
                         <td class="d-none d-sm-table-cell text-center fs-sm">@item.Product.Name</td>
-                        <td class="d-none d-sm-table-cell text-center fs-sm">@item.RegistirationDate</td>
+                        <td class="d-none d-sm-table-cell text-center fs-sm">@item.RegistirationDate.ToShortDateString()</td>
                         <td class="text-center fs-sm">
                             <a class="btn btn-sm btn-alt-secondary" href="/Product/Update?id=@item.ProductId">
                                 <i class="fa fa-fw fa-pen"></i>
                             </a>
-                            <a class="btn btn-sm btn-alt-secondary" @*onclick="confirmDelete(@item.ProductId)"*@ href="/ProductRegister/Remove?id=@item.ProductRegistirationId&requestFrom=user">
+                            <a class="btn btn-sm btn-alt-secondary" onclick="confirmDelete(@item.ProductRegistirationId, '/ProductRegister/Remove?requestFrom=user&id')">
                                 <i class="fa fa-fw fa-times text-danger"></i>
                             </a>
+
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
-    </div>
+</div>
 <!-- END User Info -->
 
+<partial name="/Views/User/Partials/_IndexScripts.cshtml" />
+
+@section Scripts{
+    @await Html.PartialAsync("_SharedScripts")
+}

@@ -1,6 +1,7 @@
 ﻿@model ProductViewModel
 @{
     ViewData["Title"] = "Index";
+
 }
 
 <!-- Quick Overview -->
@@ -53,7 +54,7 @@
                                 <a class="btn btn-sm btn-alt-secondary" href="/Product/Detail?id=@item.ProductId">
                                     <i class="fa fa-fw fa-clock-rotate-left"></i>
                                 </a>
-                                <a class="btn btn-sm btn-alt-secondary" onclick="confirmDelete(@item.ProductId)">
+                                <a class="btn btn-sm btn-alt-secondary" onclick="confirmDelete(@item.ProductId, '/Product/Remove?productId')">
                                     <i class="fa fa-fw fa-times text-danger"></i>
                                 </a>
                             </td>
@@ -71,5 +72,6 @@
     </div>
 </div>
 
-<partial name="/Views/Product/Partials/_IndexScripts.cshtml" />
-
+@section Scripts{
+    @await Html.PartialAsync("_SharedScripts")
+}

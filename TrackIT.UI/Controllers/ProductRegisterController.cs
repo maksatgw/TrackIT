@@ -65,7 +65,7 @@ namespace TrackIT.UI.Controllers
         [HttpGet]
         public IActionResult New()
         {
-            var users = _mapper.Map<List<UserGetDto>>(_userManager.Users.ToList());
+            var users = _mapper.Map<List<UserGetDto>>(_userManager.Users.Where(x => x.isActive == true).ToList());
             var products = _mapper.Map<List<ProductGetDto>>(_productService.TGetAvailableToRegistrate());
             var productRegisterViewModel = new ProductRegisterViewModel
             {

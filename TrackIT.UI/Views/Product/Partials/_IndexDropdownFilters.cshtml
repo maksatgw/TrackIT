@@ -1,7 +1,31 @@
 ﻿@model ProductViewModel
 
+@{
+    List<int> pages = new List<int>();
+    pages.Add(10);
+    pages.Add(20);
+    pages.Add(30);
+    pages.Add(50);
+}
 <div class="block-header block-header-default">
-    <h3 class="block-title">Ürünler</h3>
+    <div class="block-title">
+        <div class="block-options">
+            <div class="dropdown">
+                <button type="button" class="btn btn-alt-secondary" id="dropdown-ecom-filters2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Göster @pages.First() <i class="fa fa-angle-down ms-1"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-ecom-filters2">
+                    @foreach (var item in pages)
+                    {
+                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="/Product/Index?pageSize=@item">
+                            @item
+                        </a>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="block-header block-header-default">
         <div class="block-options">
             <div class="dropdown">
@@ -9,6 +33,12 @@
                     Kategori <i class="fa fa-angle-down ms-1"></i>
                 </button>
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-ecom-filters2">
+                    @if (Model.Categories.Count == 0)
+                    {
+                        <a class="dropdown-item d-flex align-items-center justify-content-between">
+                            Kategori yok.
+                        </a>
+                    }
                     @foreach (var item in Model.Categories)
                     {
                         <a class="dropdown-item d-flex align-items-center justify-content-between" href="/product/index?filterByCategory=@item.CategoryId">

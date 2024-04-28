@@ -10,7 +10,7 @@ namespace TrackIT.Business.Abstract
     public interface IProductService : IGenericService<Product>
     {
         List<Product> TGetWithIncludedSearch(string searchQuery);
-        List<Product> TGetWithIncluded();
+        List<Product> TGetWithIncluded(int page, int pageSize);
         Product TGetWithIncluded(int id);
         public List<Product> TGetByCategory(int id);
         List<Product> TGetAvailableToRegistrate();

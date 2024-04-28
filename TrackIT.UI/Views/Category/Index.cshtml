@@ -59,7 +59,7 @@
                                 <a class="btn btn-sm btn-alt-secondary" href="/Product/Index?filterByCategory=@item.CategoryId">
                                     <i class="fa fa-fw fa-clipboard-list"></i>
                                 </a>
-                                <a class="btn btn-sm btn-alt-secondary" onclick="confirmDelete(@item.CategoryId)">
+                                <a class="btn btn-sm btn-alt-secondary" onclick="confirmDelete(@item.CategoryId, '/Category/Remove?id')">
                                     <i class="fa fa-fw fa-times text-danger"></i>
                                 </a>
                             </td>
@@ -76,5 +76,6 @@
 
 @section Scripts{
     @await Html.PartialAsync("_ValidationScriptsPartial")
+    @await Html.PartialAsync("_SharedScripts")
     <partial name="/Views/Category/Partials/_IndexScripts.cshtml" />
 }
