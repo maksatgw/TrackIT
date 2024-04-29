@@ -17,7 +17,20 @@
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-ecom-filters2">
                     @foreach (var item in pages)
                     {
-                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="/Product/Index?pageSize=@item">
+                        var currentUrl = $"{Context.Request.Path}{Context.Request.QueryString}";
+
+                        if (!Context.Request.Query.ContainsKey("pageSize"))
+                        {
+                            currentUrl = Microsoft.AspNetCore.WebUtilities.QueryHelpers.AddQueryString(currentUrl, "pageSize", item.ToString());
+                        }
+                        else
+                        {
+                            var queryString = Context.Request.QueryString.Value;
+                            var newQueryString = queryString.Replace($"pageSize={Context.Request.Query["pageSize"]}", $"pageSize={item}");
+                            currentUrl = $"{Context.Request.Path}?{newQueryString}";
+                        }
+
+                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="@currentUrl">
                             @item
                         </a>
                     }

@@ -1,0 +1,351 @@
+﻿@model UserGetDto
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr-TR">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <title>
+    </title>
+    <style>
+        body {
+            font-family: 'Bookman Old Style';
+            font-size: 12pt
+        }
+
+        p {
+            margin: 0pt
+        }
+
+        table {
+            margin-top: 0pt;
+            margin-bottom: 0pt
+        }
+
+        .BalloonText {
+            margin-bottom: 0pt;
+            line-height: normal;
+            font-family: Tahoma;
+            font-size: 8pt
+        }
+
+        .Footer {
+            margin-bottom: 0pt;
+            line-height: normal;
+            font-family: 'Bookman Old Style';
+            font-size: 12pt
+        }
+
+        .Header {
+            margin-bottom: 0pt;
+            line-height: normal;
+            font-family: 'Bookman Old Style';
+            font-size: 12pt
+        }
+
+        .TableParagraph {
+            margin-bottom: 0pt;
+            line-height: normal;
+            widows: 0;
+            orphans: 0;
+            font-family: 'DejaVu Sans';
+            font-size: 11pt
+        }
+
+        span.AltBilgiChar {
+            font-family: 'Bookman Old Style';
+            font-size: 12pt
+        }
+
+        span.BalonMetniChar {
+            font-family: Tahoma;
+            font-size: 8pt
+        }
+
+        span.stBilgiChar {
+            font-family: 'Bookman Old Style';
+            font-size: 12pt
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div style="clear:both">
+            <table style="width:537.4pt; margin-right:auto; margin-left:auto; border:0.75pt solid #000000; border-collapse:collapse">
+                <tr style="height:12.45pt">
+                    <td rowspan="5" style="width:130.15pt; border-right:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                        <p style="text-align:center; font-size:10pt">
+                            <img src="~/assets/createdocument/logo.png" width="169" height="53" alt="" style="margin-right:9pt; margin-left:9pt; float:left; position:relative" />
+                        </p>
+                    </td>
+                    <td rowspan="5" style="width:229.4pt; border-right:0.75pt solid #000000; border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                        <p style="text-align:center">
+                            <strong><span style="font-family:Arial; color:#ff0000">PERSONEL ZİMMET FORMU</span></strong>
+                        </p>
+                    </td>
+                    <td style="width:60.05pt; border-right:0.75pt solid #000000; border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                        <p class="Header" style="font-size:7pt">
+                            <strong><span style="font-family:Arial; ">Doküman No</span></strong>
+                        </p>
+                    </td>
+                    <td style="width:73.85pt; border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                        <p class="Header" style="text-align:center; font-size:7pt">
+                            <strong><span style="font-family:Arial; ">END_HSE_FRM_0053</span></strong>
+                        </p>
+                    </td>
+                </tr>
+                <tr style="height:12.45pt">
+                    <td style="width:60.05pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                        <p class="Header" style="font-size:7pt">
+                            <strong><span style="font-family:Arial; ">Yayım Tarihi</span></strong>
+                        </p>
+                    </td>
+                    <td style="width:73.85pt; border-top:0.75pt solid #000000; border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                        <p class="Header" style="text-align:center; font-size:7pt">
+                            <strong><span style="font-family:Arial; ">23.07.2019</span></strong>
+                        </p>
+                    </td>
+                </tr>
+                <tr style="height:12.45pt">
+                    <td style="width:60.05pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                        <p class="Header" style="font-size:7pt">
+                            <strong><span style="font-family:Arial; ">Revizyon No</span></strong>
+                        </p>
+                    </td>
+                    <td style="width:73.85pt; border-top:0.75pt solid #000000; border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                        <p class="Header" style="text-align:center; font-size:7pt">
+                            <strong><span style="font-family:Arial; ">00</span></strong>
+                        </p>
+                    </td>
+                </tr>
+                <tr style="height:13pt">
+                    <td style="width:60.05pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                        <p class="Header" style="font-size:7pt">
+                            <strong><span style="font-family:Arial; ">Son Yayım</span></strong>
+                        </p>
+                    </td>
+                    <td style="width:73.85pt; border-top:0.75pt solid #000000; border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                        <p class="Header" style="text-align:center; font-size:7pt">
+                            <strong><span style="font-family:Arial; ">-</span></strong>
+                        </p>
+                    </td>
+                </tr>
+                <tr style="height:12.95pt">
+                    <td style="width:60.05pt; border-top:0.75pt solid #000000; border-right:0.75pt solid #000000; border-left:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                        <p class="Header" style="font-size:7pt">
+                            <strong><span style="font-family:Arial; ">Sayfa No</span></strong>
+                        </p>
+                    </td>
+                    <td style="width:73.85pt; border-top:0.75pt solid #000000; border-left:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                        <p class="Header" style="text-align:center; font-size:7pt">
+                            <strong><span style="font-family:Arial; ">1/1</span></strong>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+            <p class="Header">
+                &#xa0;
+            </p>
+            <p class="Header">
+                &#xa0;
+            </p>
+        </div>
+        <table style="width:520.65pt; margin-right:auto; margin-left:auto; border-collapse:collapse">
+            <tr>
+                <td colspan="5" style="width:507.6pt; border-top:2.25pt solid #000000; border-right:2.25pt solid #000000; border-left:2.25pt solid #000000; border-bottom:0.75pt solid #000000; padding-right:4.28pt; padding-left:4.28pt; vertical-align:top">
+                    <p style="text-align:center; font-size:10pt">
+                        <span style="font-family:Arial">&#xa0;</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" style="width:255.5pt; border-top:0.75pt solid #000000; border-right:0.75pt solid #000000; border-left:2.25pt solid #000000; border-bottom:0.75pt solid #000000; padding-right:5.03pt; padding-left:4.28pt; vertical-align:top">
+                    <p style="font-size:10pt">
+                        <strong><span style="font-family:Arial; ">Personelin Adı Soyadı: @Model.UserName</span></strong><strong><span style="font-family:Arial; ">&#xa0; </span></strong>
+                    </p>
+                </td>
+                <td style="width:241.3pt; border-top:0.75pt solid #000000; border-right:2.25pt solid #000000; border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding-right:4.28pt; padding-left:5.03pt; vertical-align:top">
+                    <p style="font-size:10pt">
+                        <strong><span style="font-family:Arial; ">Zimmet Tarihi: @DateTime.Now.ToShortDateString()</span></strong>
+                    </p>
+                    <p style="font-size:10pt">
+                        <strong><span style="font-family:Arial; ">&#xa0;</span></strong>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="4" style="width:255.5pt; border-top:0.75pt solid #000000; border-right:0.75pt solid #000000; border-left:2.25pt solid #000000; border-bottom:2.25pt solid #000000; padding-right:5.03pt; padding-left:4.28pt; vertical-align:top">
+                    <p style="font-size:10pt">
+                        <strong><span style="font-family:Arial; ">Bölümü: </span></strong>
+                    </p>
+                    <p style="font-size:10pt">
+                        <strong><span style="font-family:Arial; ">&#xa0;</span></strong>
+                    </p>
+                </td>
+                <td style="width:241.3pt; border-top:0.75pt solid #000000; border-right:2.25pt solid #000000; border-left:0.75pt solid #000000; border-bottom:2.25pt solid #000000; padding-right:4.28pt; padding-left:5.03pt; vertical-align:top">
+                    <p style="font-size:10pt">
+                        <strong><span style="font-family:Arial; ">Unvanı: </span></strong>
+                    </p>
+                </td>
+            </tr>
+            <tr style="height:32.35pt">
+                <td colspan="5" style="width:507.6pt; border-top:2.25pt solid #000000; border-right:2.25pt solid #000000; border-left:2.25pt solid #000000; border-bottom:0.75pt solid #000000; padding-right:4.28pt; padding-left:4.28pt; vertical-align:middle">
+                    <p style="text-align:center; font-size:10pt">
+                        <strong><span style="font-family:Arial; ">&#xa0;</span></strong>
+                    </p>
+                    <p style="text-align:center; font-size:10pt">
+                        <strong><span style="font-family:Arial; ">ZİMMETLENEN MALZEMELER</span></strong>
+                    </p>
+                    <p style="text-align:center; font-size:10pt">
+                        <strong><span style="font-family:Arial; ">&#xa0;</span></strong>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5" style="width:507.6pt; border-top:0.75pt solid #000000; border-right:2.25pt solid #000000; border-left:2.25pt solid #000000; border-bottom:0.75pt solid #000000; padding-right:4.28pt; padding-left:4.28pt; vertical-align:top; background-color:#000000">
+                    <p style="font-size:10pt">
+                        <span style="font-family:Arial; color:#ffffff">&#xa0;</span>
+                    </p>
+                    <p style="font-size:10pt">
+                        <span style="font-family:Arial; color:#ffffff">&#xa0;</span>
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:18.1pt; border-top:0.75pt solid #000000; border-right:0.75pt solid #000000; border-left:2.25pt solid #000000; border-bottom:0.75pt solid #000000; padding-right:5.03pt; padding-left:4.28pt; vertical-align:top">
+                    <p style="text-align:center; font-size:10pt">
+                        <strong><span style="font-family:Arial; ">No</span></strong>
+                    </p>
+                </td>
+                <td style="width:93.85pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
+                    <p style="text-align:center; font-size:10pt">
+                        <strong><span style="font-family:Arial; ">Seri No</span></strong>
+                    </p>
+                </td>
+                <td style="width:118.45pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:top">
+                    <p style="text-align:center; font-size:10pt">
+                        <strong><span style="font-family:Arial; ">Malzeme Adı</span></strong>
+                    </p>
+                </td>
+                <td colspan="2" style="width:244.8pt; border-top:0.75pt solid #000000; border-right:2.25pt solid #000000; border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding-right:4.28pt; padding-left:5.03pt; vertical-align:top">
+                    <p style="text-align:center; font-size:10pt">
+                        <strong><span style="font-family:Arial; ">Açıklama</span></strong>
+                    </p>
+                </td>
+            </tr>
+            <!--Ürünler Kısmı-->
+            @foreach (var item in Model.ProductRegistirations)
+            {
+                <tr>
+                    <td style="width:18.1pt; border-top:0.75pt solid #000000; border-right:0.75pt solid #000000; border-left:2.25pt solid #000000; border-bottom:0.75pt solid #000000; padding-right:5.03pt; padding-left:4.28pt; vertical-align:middle">
+                        <p style="text-align:center; font-size:10pt">
+                            <span style="font-family:Arial">@item.ProductId <img height="50" width="50" src="@item.QRData"/> </span>
+                        </p>
+                    </td>
+                    <td style="width:93.85pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                        <p style="font-size:10pt">
+                            <span style="font-family:Arial">@item.Product.Serial</span>
+                        </p>
+                    </td>
+                    <td style="width:118.45pt; border:0.75pt solid #000000; padding-right:5.03pt; padding-left:5.03pt; vertical-align:middle">
+                        <p style="font-size:10pt">
+                            <span style="font-family:Arial">@item.Product.Name</span>
+                        </p>
+                    </td>
+                    <td colspan="2" style="width:244.8pt; border-top:0.75pt solid #000000; border-right:2.25pt solid #000000; border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding-right:4.28pt; padding-left:5.03pt; vertical-align:middle">
+                        <p style="font-size:10pt">
+                            <span style="font-family:Arial">@item.Product.Description</span>
+                            <span style="font-family:Arial">&#xa0; </span>
+                        </p>
+                        <p style="font-size:10pt">
+                            <span style="font-family:Arial">&#xa0;</span>
+                        </p>
+                    </td>
+                </tr>
+            }
+
+
+            <tr style="height:146.4pt">
+                <td colspan="3" style="width:252pt; border-top:0.75pt solid #000000; border-right:0.75pt solid #000000; border-left:2.25pt solid #000000; border-bottom:0.75pt solid #000000; padding-right:5.03pt; padding-left:4.28pt; vertical-align:top">
+                    <p style="font-size:10pt">
+                        <span style="font-family:Arial">&#xa0;</span>
+                    </p>
+                    <p style="text-align:center; font-size:10pt">
+                        <strong><u><span style="font-family:Arial; ">Teslim ALAN Personel:</span></u></strong>
+                    </p>
+                    <p style="font-size:10pt">
+                        <strong><span style="font-family:Arial; ">&#xa0;</span></strong>
+                    </p>
+                    <p style="font-size:10pt">
+                        <strong><u><span style="font-family:Arial; ">Adı Soyadı:</span></u></strong>
+                    </p>
+                    <p style="font-size:10pt">
+                        <strong><span style="font-family:Arial; ">&#xa0;</span></strong>
+                    </p>
+                    <p style="font-size:10pt">
+                        <strong><span style="font-family:Arial; ">&#xa0;</span></strong>
+                    </p>
+                    <p style="font-size:10pt">
+                        <strong><u><span style="font-family:Arial; ">İmza:</span></u></strong>
+                    </p>
+                    <p style="font-size:10pt">
+                        <strong><span style="font-family:Arial; ">&#xa0;</span></strong>
+                    </p>
+                    <p style="font-size:10pt">
+                        <span style="font-family:Arial">&#xa0;</span>
+                    </p>
+                </td>
+                <td colspan="2" style="width:244.8pt; border-top:0.75pt solid #000000; border-right:2.25pt solid #000000; border-left:0.75pt solid #000000; border-bottom:0.75pt solid #000000; padding-right:4.28pt; padding-left:5.03pt; vertical-align:top">
+                    <p style="font-size:10pt">
+                        <span style="font-family:Arial">&#xa0;</span>
+                    </p>
+                    <p style="text-align:center; font-size:10pt">
+                        <strong><u><span style="font-family:Arial; ">Teslim EDEN Personel:</span></u></strong>
+                    </p>
+                    <p style="font-size:10pt">
+                        <strong><span style="font-family:Arial; ">&#xa0;</span></strong>
+                    </p>
+                    <p style="font-size:10pt">
+                        <strong><u><span style="font-family:Arial; ">Adı Soyadı:</span></u></strong>
+                    </p>
+                    <p style="font-size:10pt">
+                        <strong><span style="font-family:Arial; ">&#xa0;</span></strong>
+                    </p>
+                    <p style="font-size:10pt">
+                        <strong><span style="font-family:Arial; ">&#xa0;</span></strong>
+                    </p>
+                    <p style="font-size:10pt">
+                        <strong><u><span style="font-family:Arial; ">İmza:</span></u></strong>
+                    </p>
+                    <p style="font-size:10pt">
+                        <span style="font-family:Arial">&#xa0;</span>
+                    </p>
+                </td>
+            </tr>
+            <tr style="height:0pt">
+                <td style="width:28.9pt">
+                </td>
+                <td style="width:104.65pt">
+                </td>
+                <td style="width:129.25pt">
+                </td>
+                <td style="width:3.5pt">
+                </td>
+                <td style="width:252.1pt">
+                </td>
+            </tr>
+        </table>
+        <p>
+            <span style="font-family:Calibri">&#xa0;</span>
+        </p>
+        <div style="clear:both">
+            <p class="Footer">
+                &#xa0;
+            </p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,38 +1,7 @@
 ﻿<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-    <title>Dashmix - Bootstrap 5 Admin Template &amp; UI Framework</title>
-
-    <meta name="description" content="TrackIT!">
-    <meta name="author" content="pixelcave">
-    <meta name="robots" content="index, follow">
-
-    <!-- Open Graph Meta -->
-    <meta property="og:title" content="Dashmix - Bootstrap 5 Admin Template &amp; UI Framework">
-    <meta property="og:site_name" content="Dashmix">
-    <meta property="og:description" content="Dashmix - Bootstrap 5 Admin Template &amp; UI Framework created by pixelcave">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="">
-    <meta property="og:image" content="">
-
-    <!-- Icons -->
-    <!-- The following icons can be replaced with your own, they are used by desktop and mobile browsers -->
-    <link rel="shortcut icon" href="~/web/src/assets/media/favicons/favicon.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="~/web/src/assets/media/favicons/favicon-192x192.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="~/web/src/assets/media/favicons/apple-touch-icon-180x180.png">
-    <!-- END Icons -->
-    <!-- Stylesheets -->
-    <!-- Dashmix framework -->
-    <link rel="stylesheet" id="css-main" href="~/web/src/assets/css/dashmix.min.css">
-
-    <!-- You can include a specific file from css/themes/ folder to alter the default color theme of the template. eg: -->
-    <!-- <link rel="stylesheet" id="css-theme" href="assets/css/themes/xwork.min.css"> -->
-    <!-- END Stylesheets -->
-</head>
-
+<partial name="/Views/Shared/LayoutPartials/_LayoutHeader.cshtml" />
 
 <body>
     <style>
@@ -102,41 +71,7 @@
             <!-- Sidebar Scrolling -->
             <div class="js-sidebar-scroll">
                 <!-- Side Navigation -->
-                <div class="content-side">
-                    <ul class="nav-main">
-                        <li class="nav-main-item">
-                            <a class="nav-main-link" asp-controller="Home" asp-action="Index">
-                                <i class="nav-main-link-icon fa fa-location-arrow"></i>
-                                <span class="nav-main-link-name">Ana sayfa</span>
-                            </a>
-                        </li>
-                        <li class="nav-main-heading">Base</li>
-                        <li class="nav-main-item">
-                            <a class="nav-main-link" asp-controller="Product" asp-action="Index">
-                                <i class="nav-main-link-icon fa fa-boxes-stacked"></i>
-                                <span class="nav-main-link-name">Ürünler</span>
-                            </a>
-                        </li>
-                        <li class="nav-main-item">
-                            <a class="nav-main-link" asp-controller="User" asp-action="Index">
-                                <i class="nav-main-link-icon far fa-circle-user"></i>
-                                <span class="nav-main-link-name">Kullanıcılar</span>
-                            </a>
-                        </li>
-                        <li class="nav-main-item">
-                            <a class="nav-main-link" asp-controller="ProductRegister" asp-action="Index">
-                                <i class="nav-main-link-icon far fa-address-card"></i>
-                                <span class="nav-main-link-name">Zimmetler</span>
-                            </a>
-                        </li>
-                        <li class="nav-main-item">
-                            <a class="nav-main-link" asp-controller="Category" asp-action="Index">
-                                <i class="nav-main-link-icon far fa-folder-open"></i>
-                                <span class="nav-main-link-name">Kategoriler</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+                <partial name="/Views/Shared/LayoutPartials/_LayoutSideNavigation.cshtml" />
                 <!-- END Side Navigation -->
             </div>
             <!-- END Sidebar Scrolling -->
@@ -165,43 +100,8 @@
                 <!-- Right Section -->
                 <div class="space-x-1">
                     <!-- User Dropdown -->
-                    <div class="dropdown d-inline-block">
-                        <button type="button" class="btn btn-alt-secondary" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-fw fa-user d-sm-none"></i>
-                            <span class="d-none d-sm-inline-block">Admin</span>
-                            <i class="fa fa-fw fa-angle-down opacity-50 ms-1 d-none d-sm-inline-block"></i>
-                        </button>
-                        <div class="dropdown-menu dropdown-menu-end p-0" aria-labelledby="page-header-user-dropdown">
-                            <div class="bg-primary-dark rounded-top fw-semibold text-white text-center p-3">
-                                User Options
-                            </div>
-                            <div class="p-2">
-                                <a class="dropdown-item" href="be_pages_generic_profile.html">
-                                    <i class="far fa-fw fa-user me-1"></i> Profile
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center justify-content-between" href="be_pages_generic_inbox.html">
-                                    <span><i class="far fa-fw fa-envelope me-1"></i> Inbox</span>
-                                    <span class="badge bg-primary rounded-pill">3</span>
-                                </a>
-                                <a class="dropdown-item" href="be_pages_generic_invoice.html">
-                                    <i class="far fa-fw fa-file-alt me-1"></i> Invoices
-                                </a>
-                                <div role="separator" class="dropdown-divider"></div>
-
-                                <!-- Toggle Side Overlay -->
-                                <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
-                                <a class="dropdown-item" href="javascript:void(0)" data-toggle="layout" data-action="side_overlay_toggle">
-                                    <i class="far fa-fw fa-building me-1"></i> Settings
-                                </a>
-                                <!-- END Side Overlay -->
-
-                                <div role="separator" class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="op_auth_signin.html">
-                                    <i class="far fa-fw fa-arrow-alt-circle-left me-1"></i> Sign Out
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                    <partial name="/Views/Shared/LayoutPartials/_LayoutUserSection.cshtml" />
+                    
                     <!-- END User Dropdown -->
                     <!-- Notifications Dropdown -->
                     <div class="dropdown d-inline-block">

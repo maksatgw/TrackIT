@@ -26,7 +26,7 @@
                         <th class="d-none d-md-table-cell text-center">Açıklaması</th>
                         <th class="d-none d-md-table-cell text-center">Kategorisi</th>
                         <th class="d-none d-md-table-cell text-center">Tarihi</th>
-                        <th class="text-center">Actions</th>
+                        <th class="text-center">İşlemler</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,13 +48,13 @@
                             <td class="d-none d-sm-table-cell text-center fs-sm">@item.Category.Name</td>
                             <td class="d-none d-sm-table-cell text-center fs-sm">@item.DateAdded.ToShortDateString()</td>
                             <td class="text-center fs-sm">
-                                <a class="btn btn-sm btn-alt-secondary" href="/Product/Update?id=@item.ProductId">
+                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="Güncelle" class="btn btn-sm btn-alt-secondary" href="/Product/Update?id=@item.ProductId">
                                     <i class="fa fa-fw fa-pen"></i>
                                 </a>
-                                <a class="btn btn-sm btn-alt-secondary" href="/Product/Detail?id=@item.ProductId">
+                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="Geçmiş" class="btn btn-sm btn-alt-secondary" href="/Product/Detail?id=@item.ProductId">
                                     <i class="fa fa-fw fa-clock-rotate-left"></i>
                                 </a>
-                                <a class="btn btn-sm btn-alt-secondary" onclick="confirmDelete(@item.ProductId, '/Product/Remove?productId')">
+                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="Kaldır" class="btn btn-sm btn-alt-secondary" onclick="confirmDelete(@item.ProductId, '/Product/Remove?productId')">
                                     <i class="fa fa-fw fa-times text-danger"></i>
                                 </a>
                             </td>

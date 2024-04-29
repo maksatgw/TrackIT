@@ -56,12 +56,15 @@
                             <td class="d-none d-sm-table-cell text-center fs-sm">@item.RegistirationDate.ToShortDateString()</td>
                             <td class="d-none d-sm-table-cell text-center fs-sm">@item.AppUser.Email</td>
                             <td class="text-center fs-sm">
+                                <a class="btn btn-sm btn-alt-secondary">
+                                    <i class="fa fa-fw fa-pen"></i>
+                                </a>
                                 <button class="btn btn-sm btn-alt-secondary"
                                     data-bs-toggle="modal"
                                     data-bs-target="#modal-default-fadein"
                                     data-prod-id="@item.ProductId"
                                     data-product-id="@item.ProductRegistirationId">
-                                    <i class="fa fa-fw fa-pen"></i>
+                                    <i class="fa fa-fw fa-user-pen"></i>
                                 </button>
                                 @if (!string.IsNullOrEmpty(item.FilePath))
                                 {
@@ -86,5 +89,6 @@
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
     @await Html.PartialAsync("_SharedScripts")
+    @await Html.PartialAsync("/Views/ProductRegister/Partials/_IndexScripts.cshtml")
 }
 

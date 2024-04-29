@@ -11,6 +11,7 @@ using TrackIT.DTO.Dtos.ProductDtos;
 using TrackIT.DTO.Dtos.ProductRegisterDtos;
 using TrackIT.DTO.Dtos.UserDtos;
 using TrackIT.Entity.Model;
+using TrackIT.UI.Extensions;
 using TrackIT.UI.ViewModels;
 
 namespace TrackIT.UI.Controllers
@@ -38,10 +39,11 @@ namespace TrackIT.UI.Controllers
 
         public IActionResult Index(string? searchQuery, int? categoryId, string? userId)
         {
-            var productRegisters = _mapper.Map<List<ProductRegisterGetDto>>(_productRegisterService.TGetWithIncluded());
             var categories = _mapper.Map<List<CategoryGetDto>>(_categoryService.TGet());
-            var users = _mapper.Map<List<UserGetDto>>(_userManager.Users.ToList());
-
+            var productRegisters = _mapper.Map<List<ProductRegisterGetDto>>(_productRegisterService.TGetWithIncluded());
+            var users = _mapper.Map<List<UserGetDto>>(_userManager.Users
+                .Where(x => x.isActive == true)
+                .ToList());
             if (!string.IsNullOrEmpty(searchQuery))
             {
                 productRegisters = _mapper.Map<List<ProductRegisterGetDto>>(_productRegisterService.TGetWithIncludedSearch(searchQuery: searchQuery));
@@ -62,67 +64,15 @@ namespace TrackIT.UI.Controllers
             };
             return View(productRegisterViewModel);
         }
-        [HttpGet]
-        public IActionResult New()
+
+        public IActionResult Update()
         {
-            var users = _mapper.Map<List<UserGetDto>>(_userManager.Users.Where(x => x.isActive == true).ToList());
-            var products = _mapper.Map<List<ProductGetDto>>(_productService.TGetAvailableToRegistrate());
-            var productRegisterViewModel = new ProductRegisterViewModel
-            {
-                ProductsGet = products,
-                Users = users
-            };
-            return View(productRegisterViewModel);
-        }
-        [HttpPost]
-        public IActionResult New(ProductRegisterViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            try
-            {
-                var register = _mapper.Map<ProductRegistiration>(model.ProductRegisterAdd);
-                var regHistory = _mapper.Map<ProductRegistirationHistory>(model.ProductRegisterAdd);
-
-                if (model.ProductRegisterAdd.FilePath != null && model.ProductRegisterAdd.FilePath.Length > 0)
-                {
-                    var file = model.ProductRegisterAdd.FilePath;
-                    var extension = Path.GetExtension(file.FileName);
-                    var newAssetName = Guid.NewGuid().ToString() + extension;
-                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/productregistration/", newAssetName);
-
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        file.CopyTo(stream);
-                    }
-
-                    register.FilePath = newAssetName;
-                    regHistory.FilePath = newAssetName;
-                }
-
-                _productRegisterService.TInsert(register);
-                _productRegisterHistoryService.TInsert(regHistory);
-                _toastNotification.AddSuccessToastMessage("Zimmet Eklendi", new ToastrOptions { Title = "Başarılı" });
-                return RedirectToAction("Index");
-
-            }
-            catch (Exception ex)
-            {
-                _toastNotification.AddErrorToastMessage($"Zimmet eklenemedi {ex}", new ToastrOptions { Title = "Hata" });
-                return RedirectToAction("Index");
-            }
-
+            return View();
         }
 
         [HttpPost]
-        public IActionResult Index(ProductRegisterViewModel model)
+        public async Task<IActionResult> ChangeRegister(ProductRegisterViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
             var register = _mapper.Map<ProductRegistiration>(model.ProductRegisterUpdate);
             var passModel = new ProductRegisterUpdateDto
             {
@@ -135,13 +85,10 @@ namespace TrackIT.UI.Controllers
 
             if (model.ProductRegisterUpdate.FilePath != null)
             {
-                var extension = Path.GetExtension(model.ProductRegisterUpdate.FilePath.FileName);
-                var newAsset = Guid.NewGuid() + extension;
-                var location = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/productregistration/", newAsset);
-                var stream = new FileStream(location, FileMode.Create);
-                model.ProductRegisterUpdate.FilePath.CopyTo(stream);
-                register.FilePath = newAsset;
-                regHistory.FilePath = newAsset;
+
+                var newAssetName = await _productRegisterService.TSaveFile(model.ProductRegisterUpdate.FilePath, "productregistration");
+                register.FilePath = newAssetName;
+                regHistory.FilePath = newAssetName;
             }
 
             _productRegisterService.TUpdate(register);
@@ -150,6 +97,52 @@ namespace TrackIT.UI.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        public IActionResult New()
+        {
+            var users = _mapper.Map<List<UserGetDto>>(_userManager.Users.Where(x => x.isActive == true).ToList());
+            var products = _mapper.Map<List<ProductGetDto>>(_productService.TGetAvailableToRegistrate());
+            var categories = _mapper.Map<List<CategoryGetDto>>(_categoryService.TGet());
+            var productRegisterViewModel = new ProductRegisterViewModel
+            {
+                ProductsGet = products,
+                Users = users,
+                Categories = categories
+            };
+            return View(productRegisterViewModel);
+        }
+        [HttpPost]
+        public async Task<IActionResult> New(ProductRegisterViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+            try
+            {
+                var register = _mapper.Map<ProductRegistiration>(model.ProductRegisterAdd);
+                var regHistory = _mapper.Map<ProductRegistirationHistory>(model.ProductRegisterAdd);
+
+                if (model.ProductRegisterAdd.FilePath != null && model.ProductRegisterAdd.FilePath.Length > 0)
+                {
+                    var newAssetName = await _productRegisterService.TSaveFile(model.ProductRegisterAdd.FilePath, "productregistration");
+                    register.FilePath = newAssetName;
+                    regHistory.FilePath = newAssetName;
+                }
+
+                _productRegisterService.TInsert(register);
+                _productRegisterHistoryService.TInsert(regHistory);
+                _toastNotification.AddSuccessToastMessageWithCustomTitle("Zimmet Eklendi");
+                return RedirectToAction("Index");
+
+            }
+            catch (Exception ex)
+            {
+                _toastNotification.AddErrorToastMessageWithCustomTitle($"Zimmet eklenemedi {ex}");
+                return RedirectToAction("Index");
+            }
+
+        }
 
         public IActionResult Remove(int id, string requestFrom)
         {
@@ -157,10 +150,10 @@ namespace TrackIT.UI.Controllers
             _productRegisterService.TDelete(value);
             if (requestFrom == "user")
             {
-                _toastNotification.AddSuccessToastMessage("Zimmet Kaldırıldı", new ToastrOptions { Title = "Başarılı" });
+                _toastNotification.AddSuccessToastMessageWithCustomTitle("Zimmet Kaldırıldı");
                 return RedirectToAction("Index", "User");
             }
-            _toastNotification.AddSuccessToastMessage("Zimmet Kaldırıldı", new ToastrOptions { Title = "Başarılı" });
+            _toastNotification.AddSuccessToastMessage("Zimmet Kaldırıldı");
             return RedirectToAction("Index");
         }
 

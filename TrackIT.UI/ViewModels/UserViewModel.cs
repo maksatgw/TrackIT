@@ -7,7 +7,8 @@ namespace TrackIT.UI.ViewModels
     {
         public List<UserGetDto>? AppUsers { get; set; }
         public List<UserRoleGetDto>? AppRoles { get; set; }
-        public UserAddDto UserAdd { get; set; }
+        public UserAddDto? UserAdd { get; set; }
+        public UserUpdateDto? UserUpdate { get; set; }
         public int? TotalPage { get; set; }
         public int? CurrentPage { get; set; }
     }

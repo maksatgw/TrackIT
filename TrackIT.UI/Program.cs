@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using NToastNotify;
 using TrackIT.Business.Abstract;
 using TrackIT.Business.Concrete;
@@ -29,6 +30,14 @@ builder.Services.AddAutoMapper(typeof(Program));
 //Dependency Inject için bir extension yazdýk.
 builder.Services.DIContainer();
 
+builder.Services.ConfigureApplicationCookie(opt =>
+{
+    var cookieBuilder = new CookieBuilder();
+    opt.LoginPath = new PathString("/Login/Index");
+    opt.LogoutPath = new PathString("/Home/Logout");
+    opt.AccessDeniedPath = "/Home/Index";
+});
+
 
 
 var app = builder.Build();
@@ -46,6 +55,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseNToastNotify();

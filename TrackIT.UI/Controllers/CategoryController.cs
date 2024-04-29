@@ -6,6 +6,7 @@ using TrackIT.Business.Abstract;
 using TrackIT.DataAccess.Entity;
 using TrackIT.DTO.Dtos.CategoryDtos;
 using TrackIT.Entity.Model;
+using TrackIT.UI.Extensions;
 using TrackIT.UI.ViewModels;
 
 namespace TrackIT.UI.Controllers
@@ -45,12 +46,12 @@ namespace TrackIT.UI.Controllers
             {
                 var value = _mapper.Map<Category>(model.CategoryAdd);
                 _categoryService.TInsert(value);
-                _toastNotification.AddSuccessToastMessage($"{value.Name} sisteme eklemiştir", new ToastrOptions { Title = "Başarılı" });
+                _toastNotification.AddSuccessToastMessageWithCustomTitle($"{value.Name} sisteme eklemiştir");
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                _toastNotification.AddErrorToastMessage($"Ekleme işlemi sırasında bir hata oluştu.{ex.Message}", new ToastrOptions { Title = "Hata" });
+                _toastNotification.AddSuccessToastMessageWithCustomTitle($"Ekleme işlemi sırasında bir hata oluştu.{ex.Message}");
                 return RedirectToAction("Index");
             }
         }
@@ -62,12 +63,12 @@ namespace TrackIT.UI.Controllers
             {
                 var value = _mapper.Map<Category>(model.CategoryUpdate);
                 _categoryService.TUpdate(value);
-                _toastNotification.AddSuccessToastMessage($"{value.Name} güncellenmiştir.", new ToastrOptions { Title = "Başarılı" });
+                _toastNotification.AddSuccessToastMessageWithCustomTitle($"{value.Name} güncellenmiştir.");
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                _toastNotification.AddErrorToastMessage($"Güncelleme işlemi sırasında bir hata oluştu. {ex.Message}", new ToastrOptions { Title = "Hata" });
+                _toastNotification.AddErrorToastMessageWithCustomTitle($"Güncelleme işlemi sırasında bir hata oluştu. {ex.Message}");
                 return RedirectToAction("Index");
             }
         }
@@ -78,12 +79,12 @@ namespace TrackIT.UI.Controllers
             {
                 var value = _categoryService.TGet(id);
                 _categoryService.TDelete(value);
-                _toastNotification.AddSuccessToastMessage($"{value.Name} Silinmiştir.", new ToastrOptions { Title = "Başarılı" });
+                _toastNotification.AddErrorToastMessageWithCustomTitle($"{value.Name} Silinmiştir.");
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                _toastNotification.AddErrorToastMessage($"Silme işlemi sırasında bir hata oluştu.{ex.Message}", new ToastrOptions { Title = "Hata" });
+                _toastNotification.AddErrorToastMessageWithCustomTitle($"Silme işlemi sırasında bir hata oluştu.{ex.Message}");
                 return RedirectToAction("Index");
             }
         }

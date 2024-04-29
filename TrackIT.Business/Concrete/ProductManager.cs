@@ -18,7 +18,6 @@ namespace TrackIT.Business.Concrete
             _service = service;
         }
 
-
         public void TDelete(Product model)
         {
             _service.Delete(model);

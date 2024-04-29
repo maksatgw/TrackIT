@@ -30,7 +30,7 @@
                         <textarea class="form-control" asp-for="ProductUpdate.Description" rows="4" placeholder="Ürün Açıklaması"></textarea>
                     </div>
                     <div class="mb-4">
-                        <label class="form-label">File Input</label>
+                        <label class="form-label">Ek</label>
                         <input class="form-control" multiple name="AssetUrls" type="file">
                     </div>
                     <div class="modal-footer">
@@ -42,8 +42,10 @@
         </form>
     </div>
 </div>
-
-<h2 class="content-heading">Resimler</h2>
+@if (Model.ProductAssets.Count != 0)
+{
+    <h2 class="content-heading">Ekler</h2>
+}
 
 <div class="row items-push js-gallery">
     @foreach (var item in Model.ProductAssets)

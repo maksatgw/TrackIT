@@ -6,10 +6,17 @@
 <form asp-action="New" asp-controller="ProductRegister" method="post" enctype="multipart/form-data">
     <div class="mb-4">
         <label class="form-label" asp-for="ProductRegisterAdd.AppUserId">Zimmet Sahibi</label>
-        <select asp-for="ProductRegisterAdd.AppUserId"
+        @if (Model.Users == null || Model.Users.Count == 0)
+        {
+            <h3>Zimmetlenecek kullanıcı yok.</h3>
+        }
+        else
+        {
+            <select asp-for="ProductRegisterAdd.AppUserId"
                 asp-items="@(new SelectList(Model.Users, "Id", "UserName"))"
                 class="form-select">
-        </select>
+            </select>
+        }
         <br />
         <label class="form-label" asp-for="ProductRegisterAdd.ProductId">Ürün</label>
         @if (Model.ProductsGet == null || Model.ProductsGet.Count == 0)
@@ -30,7 +37,7 @@
 
     </div>
     <div class="modal-footer">
-        @if (Model.ProductsGet == null || Model.ProductsGet.Count == 0)
+        @if (Model.ProductsGet == null || Model.ProductsGet.Count == 0 || Model.Users == null || Model.Users.Count == 0)
         {
             <button disabled type="submit" class="btn btn-sm btn-primary">Zimmetle</button>
         }

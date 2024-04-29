@@ -10,6 +10,7 @@ using TrackIT.DTO.Dtos.ProductDtos;
 using TrackIT.DTO.Dtos.ProductRegisterDtos;
 using TrackIT.DTO.Dtos.ProductRegisterHistoryDtos;
 using TrackIT.Entity.Model;
+using TrackIT.UI.Extensions;
 using TrackIT.UI.ViewModels;
 
 namespace TrackIT.UI.Controllers
@@ -79,7 +80,7 @@ namespace TrackIT.UI.Controllers
             //Eğer null ise Toast Mesajı ile kullanıcıya hata gönderip Index'e yönlendiriyoruz.
             if (productCheck == null)
             {
-                _toastNotification.AddErrorToastMessage($"Ürün bulunamadı", new ToastrOptions { Title = "Hata" });
+                _toastNotification.AddErrorToastMessageWithCustomTitle("Ürün bulunamadı");
                 return RedirectToAction("Index");
             }
             return View(values);
@@ -145,13 +146,13 @@ namespace TrackIT.UI.Controllers
                     }
                 }
                 //her şey yolunda giderse kullanıcıya mesaj ile indexe yönlendirme yapacağız.
-                _toastNotification.AddSuccessToastMessage($"{product.Name} Sisteme Eklenmiştir", new ToastrOptions { Title = "Başarılı" });
+                _toastNotification.AddSuccessToastMessageWithCustomTitle($"{product.Name} Sisteme Eklenmiştir");
                 return RedirectToAction("Index");
             }
             //işler yolunda gitmez ise hata mesajnı ekrana basıp indexe yönlendiriyoruz.
             catch (Exception ex)
             {
-                _toastNotification.AddErrorToastMessage($"Ekleme işlemi sırasında bir hata oluştu.{ex.Message}", new ToastrOptions { Title = "Hata" });
+                _toastNotification.AddErrorToastMessageWithCustomTitle($"Ekleme işlemi sırasında bir hata oluştu.{ex.Message}");
                 return RedirectToAction("Index");
             }
         }
@@ -171,7 +172,7 @@ namespace TrackIT.UI.Controllers
             if (product == null)
             {
                 //kullacıya bildir ve indexe gönder
-                _toastNotification.AddErrorToastMessage("Ürün bulunamadı", new ToastrOptions { Title = "Hata" });
+                _toastNotification.AddErrorToastMessageWithCustomTitle("Ürün bulunamadı");
                 return RedirectToAction("Index");
             }
             //hata yoksa viewModele ata ve view'a gönder
@@ -224,12 +225,12 @@ namespace TrackIT.UI.Controllers
                         _productAssetService.TInsert(productAsset);
                     }
                 }
-                _toastNotification.AddSuccessToastMessage($"{product.Name} Güncellenmiştir.", new ToastrOptions { Title = "Başarılı" });
+                _toastNotification.AddSuccessToastMessageWithCustomTitle($"{product.Name} Güncellenmiştir.");
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                _toastNotification.AddErrorToastMessage($"Güncelleme işlemi sırasında bir hata oluştu.{ex.Message}", new ToastrOptions { Title = "Hata" });
+                _toastNotification.AddErrorToastMessageWithCustomTitle($"Güncelleme işlemi sırasında bir hata oluştu.{ex.Message}");
                 return RedirectToAction("Index");
             }
         }
@@ -249,18 +250,18 @@ namespace TrackIT.UI.Controllers
                 if (asset == null || product == null)
                 {
                     //kullanıcıya mesajı göster ve indexe yönlendir.
-                    _toastNotification.AddErrorToastMessage($"Güncelleme işlemi sırasında bir hata oluştu.", new ToastrOptions { Title = "Hata" });
+                    _toastNotification.AddErrorToastMessageWithCustomTitle("Güncelleme işlemi sırasında bir hata oluştu.");
                     return RedirectToAction("Index");
                 }
                 //gelmez ise asseti sil ve mesajı kullanıcıya göster.
                 _productAssetService.TDelete(asset);
-                _toastNotification.AddSuccessToastMessage($"{product.Name} Güncellenmiştir.", new ToastrOptions { Title = "Başarılı" });
+                _toastNotification.AddSuccessToastMessageWithCustomTitle($"{product.Name} Güncellenmiştir.");
                 //her şey yolunda ise Update'e gönderiyoruz ki kullanıcı işlemine devam edebilsin.
                 return RedirectToAction("Update", new { id = productId });
             }
             catch (Exception ex)
             {
-                _toastNotification.AddErrorToastMessage($"Güncelleme işlemi sırasında bir hata oluştu.{ex.Message}", new ToastrOptions { Title = "Hata" });
+                _toastNotification.AddErrorToastMessageWithCustomTitle($"Güncelleme işlemi sırasında bir hata oluştu.{ex.Message}");
                 return RedirectToAction("Index");
             }
 
@@ -281,12 +282,12 @@ namespace TrackIT.UI.Controllers
                     return RedirectToAction("Index");
                 }
                 _productService.TDelete(product);
-                _toastNotification.AddSuccessToastMessage($"{product.Name} Silinmiştir.", new ToastrOptions { Title = "Başarılı" });
+                _toastNotification.AddSuccessToastMessageWithCustomTitle($"{product.Name} Silinmiştir.");
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                _toastNotification.AddErrorToastMessage($"Silme işlemi sırasında bir hata oluştu.{ex.Message}", new ToastrOptions { Title = "Hata" });
+                _toastNotification.AddErrorToastMessageWithCustomTitle($"Silme işlemi sırasında bir hata oluştu.{ex.Message}");
                 return RedirectToAction("Index");
             }
         }

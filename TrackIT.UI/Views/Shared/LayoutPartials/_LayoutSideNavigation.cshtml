@@ -1,0 +1,43 @@
+﻿<div class="content-side">
+    <ul class="nav-main">
+        <li class="nav-main-item">
+            <a class="nav-main-link" asp-controller="Home" asp-action="Index">
+                <i class="nav-main-link-icon fa fa-location-arrow"></i>
+                <span class="nav-main-link-name">Ana sayfa</span>
+            </a>
+        </li>
+        <li class="nav-main-heading">Base</li>
+        <li class="nav-main-item">
+            @if (User.Identity.IsAuthenticated)
+            {
+                @if (User.IsInRole("Admin"))
+                {
+                    <a class="nav-main-link" asp-controller="Product" asp-action="Index">
+                        <i class="nav-main-link-icon fa fa-boxes-stacked"></i>
+                        <span class="nav-main-link-name">Ürünler</span>
+                    </a>
+                }
+
+            }
+
+        </li>
+        <li class="nav-main-item">
+            <a class="nav-main-link" asp-controller="User" asp-action="Index">
+                <i class="nav-main-link-icon far fa-circle-user"></i>
+                <span class="nav-main-link-name">Kullanıcılar</span>
+            </a>
+        </li>
+        <li class="nav-main-item">
+            <a class="nav-main-link" asp-controller="ProductRegister" asp-action="Index">
+                <i class="nav-main-link-icon far fa-address-card"></i>
+                <span class="nav-main-link-name">Zimmetler</span>
+            </a>
+        </li>
+        <li class="nav-main-item">
+            <a class="nav-main-link" asp-controller="Category" asp-action="Index">
+                <i class="nav-main-link-icon far fa-folder-open"></i>
+                <span class="nav-main-link-name">Kategoriler</span>
+            </a>
+        </li>
+    </ul>
+</div>

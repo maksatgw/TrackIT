@@ -22,6 +22,5 @@ namespace TrackIT.Entity.Model
         [ForeignKey("AppUserId")]
         public AppUser AppUser { get; set; }
 
-       
     }
 }

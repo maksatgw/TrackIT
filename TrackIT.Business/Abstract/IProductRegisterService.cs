@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,6 @@ namespace TrackIT.Business.Abstract
         List<ProductRegistiration> TGetWithIncluded();
         public List<ProductRegistiration> TGetWithIncludedSearch(string? searchQuery = null, int? categoryId = null, string? userId = null);
         ProductRegistiration TGetByUserId(string userId);
+        Task<string> TSaveFile(IFormFile file, string destinationFolder);
     }
 }

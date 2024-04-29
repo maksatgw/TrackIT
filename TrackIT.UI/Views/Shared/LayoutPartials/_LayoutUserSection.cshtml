@@ -1,0 +1,34 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using TrackIT.Business.Model;
+@inject UserManager<AppUser> userManager
+
+
+@if (User.Identity.IsAuthenticated)
+{
+    var user = userManager.GetUserAsync(User);
+    var email = user.Result.Email;
+    var id = user.Result.Id;
+    <div class="dropdown d-inline-block">
+        <button type="button" class="btn btn-alt-secondary" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-fw fa-user d-sm-none"></i>
+            <span class="d-none d-sm-inline-block">
+                @email
+            </span>
+            <i class="fa fa-fw fa-angle-down opacity-50 ms-1 d-none d-sm-inline-block"></i>
+        </button>
+        <div class="dropdown-menu dropdown-menu-end p-0" aria-labelledby="page-header-user-dropdown">
+            <div class="bg-primary-dark rounded-top fw-semibold text-white text-center p-3">
+                User Options
+            </div>
+            <div class="p-2">
+                <a class="dropdown-item" asp-action="Detail" asp-controller="User" asp-route-Id="@id">
+                    <i class="far fa-fw fa-user me-1"></i> Profile
+                </a>
+                <div role="separator" class="dropdown-divider"></div>
+                <a class="dropdown-item" asp-action="Logout" asp-controller="Home" >
+                    <i class="far fa-fw fa-arrow-alt-circle-left me-1"></i> Sign Out
+                </a>
+            </div>
+        </div>
+    </div>
+}

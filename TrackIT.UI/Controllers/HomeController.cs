@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using TrackIT.Business.Abstract;
+using TrackIT.Business.Model;
 using TrackIT.UI.Models;
 
 namespace TrackIT.UI.Controllers
@@ -10,11 +13,13 @@ namespace TrackIT.UI.Controllers
         private readonly ILogger<HomeController> _logger;
 
         private readonly IProductService _service;
-        
-        public HomeController(ILogger<HomeController> logger, IProductService service)
+        private readonly SignInManager<AppUser> _signInManager;
+
+        public HomeController(ILogger<HomeController> logger, IProductService service, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
             _logger = logger;
             _service = service;
+            _signInManager = signInManager;
         }
 
         public IActionResult Index()
@@ -22,7 +27,11 @@ namespace TrackIT.UI.Controllers
             var values = _service.TGet();
             return View();
         }
-
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
         public IActionResult Privacy()
         {
             return View();

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -56,6 +57,25 @@ namespace TrackIT.Business.Concrete
         public void TInsert(ProductRegistiration model)
         {
             _service.Insert(model);
+        }
+
+        public async Task<string> TSaveFile(IFormFile file, string destinationFolder)
+        {
+            if (file == null || file.Length == 0)
+            {
+                throw new ArgumentException("Dosya yok veya hatalı");
+            }
+
+            var extension = Path.GetExtension(file.FileName);
+            var newAssetName = Guid.NewGuid().ToString() + extension;
+            var filePath = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/assets/{destinationFolder}/", newAssetName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+
+            return newAssetName;
         }
 
         public void TUpdate(ProductRegistiration model)
