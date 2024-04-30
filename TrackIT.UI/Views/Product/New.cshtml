@@ -30,16 +30,29 @@
 
                     </div>
                     <div class="mb-4">
+                        @if (Model.Locations.Count != 0)
+                        {
+                            <label class="form-label" asp-for="ProductAdd.LocationId">Lokasyonu</label>
+                            <select asp-for="ProductAdd.LocationId" asp-items="@(new SelectList(Model.Locations, "LocationId", "Name"))" class="form-select"></select>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger" asp-validation-for="ProductAdd.LocationId">Lokasyon yok.</span>
+                        }
+
+                    </div>
+
+                    <div class="mb-4">
                         <label class="form-label" for="example-textarea-input">Açıklama</label>
                         <textarea class="form-control" asp-for="ProductAdd.Description" rows="4" placeholder="Ürün Açıklaması"></textarea>
                     </div>
                     <div class="mb-4">
-                        <label class="form-label">File Input</label>
+                        <label class="form-label">Ürün Ekleri</label>
                         <input class="form-control" multiple name="AssetUrls" type="file">
                     </div>
                     <div class="modal-footer">
                         <a href="/Product/Index" class="btn btn-sm btn-alt-secondary">İptal</a>
-                        @if (Model.Categories.Count != 0)
+                        @if (Model.Categories.Count != 0 && Model.Locations.Count != 0)
                         {
                             <button type="submit" class="btn btn-sm btn-primary">Kaydet</button>
                         }

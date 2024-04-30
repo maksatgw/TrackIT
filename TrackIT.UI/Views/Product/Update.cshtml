@@ -26,6 +26,13 @@
                         </select>
                     </div>
                     <div class="mb-4">
+                        <label class="form-label" asp-for="ProductUpdate.LocationId">Kategorisi</label>
+                        <select asp-for="ProductUpdate.LocationId"
+                                asp-items="@(new SelectList(Model.Locations, "LocationId", "Name"))"
+                                class="form-select">
+                        </select>
+                    </div>
+                    <div class="mb-4">
                         <label class="form-label" for="example-textarea-input">Açıklama</label>
                         <textarea class="form-control" asp-for="ProductUpdate.Description" rows="4" placeholder="Ürün Açıklaması"></textarea>
                     </div>

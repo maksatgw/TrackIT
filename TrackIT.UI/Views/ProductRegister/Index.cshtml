@@ -56,9 +56,6 @@
                             <td class="d-none d-sm-table-cell text-center fs-sm">@item.RegistirationDate.ToShortDateString()</td>
                             <td class="d-none d-sm-table-cell text-center fs-sm">@item.AppUser.Email</td>
                             <td class="text-center fs-sm">
-                                <a class="btn btn-sm btn-alt-secondary">
-                                    <i class="fa fa-fw fa-pen"></i>
-                                </a>
                                 <button class="btn btn-sm btn-alt-secondary"
                                     data-bs-toggle="modal"
                                     data-bs-target="#modal-default-fadein"
@@ -68,11 +65,11 @@
                                 </button>
                                 @if (!string.IsNullOrEmpty(item.FilePath))
                                 {
-                                    <a class="btn btn-sm btn-alt-secondary" target="_blank" href="~/assets/productregistration/@item.FilePath">
+                                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="Ek Görüntüle" class="btn btn-sm btn-alt-secondary" target="_blank" href="~/assets/productregistration/@item.FilePath">
                                         <i class="fa fa-fw fa-file-arrow-down"></i>
                                     </a>
                                 }
-                                <a class="btn btn-sm btn-alt-secondary" onclick="confirmDelete(@item.ProductRegistirationId, '/ProductRegister/Remove?&id')">
+                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="Zimmeti Kaldır" class="btn btn-sm btn-alt-secondary" onclick="confirmDelete(@item.ProductRegistirationId, '/ProductRegister/Remove?&id')">
                                     <i class="fa fa-fw fa-times text-danger"></i>
                                 </a>
                             </td>

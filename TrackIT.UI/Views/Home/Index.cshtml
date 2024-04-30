@@ -3,48 +3,163 @@
 
 }
 
-<div class="row items-push">
-    <div class="col-6 col-lg-3">
-        <a class="block block-rounded block-link-shadow text-center h-100 mb-0" href="be_pages_ecom_orders.html">
-            <div class="block-content py-5">
-                <div class="fs-3 fw-semibold text-primary mb-1">78</div>
-                <p class="fw-semibold fs-sm text-muted text-uppercase mb-0">
-                    Pending Orders
-                </p>
+<div class="col-md-12">
+    <a class="block block-rounded block-link-shadow" href="javascript:void(0)">
+        <div class="block-content block-content-full">
+            <div class="row text-center">
+                <div class="col-3 border-end">
+                    <div class="py-3">
+                        <div class="item item-circle bg-body-light mx-auto">
+                            <i class="fa fa-boxes-packing text-primary"></i>
+                        </div>
+                        <p class="fs-3 fw-medium mt-3 mb-0">
+                            @ViewBag.ProductCount
+                        </p>
+                        <p class="text-muted mb-0">
+                            Ürün
+                        </p>
+                    </div>
+                </div>
+                <div class="col-3 border-end">
+                    <div class="py-3">
+                        <div class="item item-circle bg-body-light mx-auto">
+                            <i class="fa fa-address-card text-primary"></i>
+                        </div>
+                        <p class="fs-3 fw-medium mt-3 mb-0">
+                            @ViewBag.RegisterCount
+                        </p>
+                        <p class="text-muted mb-0">
+                            Zimmet
+                        </p>
+                    </div>
+                </div>
+                <div class="col-3 border-end">
+                    <div class="py-3">
+                        <div class="item item-circle bg-body-light mx-auto">
+                            <i class="fa fa-users text-primary"></i>
+                        </div>
+                        <p class="fs-3 fw-medium mt-3 mb-0">
+                            @ViewBag.UserCount
+                        </p>
+                        <p class="text-muted mb-0">
+                            Kullanıcı
+                        </p>
+                    </div>
+                </div>
+                <div class="col-3 ">
+                    <div class="py-3">
+                        <div class="item item-circle bg-body-light mx-auto">
+                            <i class="fa fa-bars-progress text-primary"></i>
+                        </div>
+                        <p class="fs-3 fw-medium mt-3 mb-0">
+                            @ViewBag.CategoryCount
+                        </p>
+                        <p class="text-muted mb-0">
+                            Kategori
+                        </p>
+                    </div>
+                </div>
             </div>
-        </a>
+        </div>
+    </a>
+</div>
+<div class="row">
+    <div class="col-xl-4">
+        <div class="block block-rounded bg-xinspire">
+            <div class="block-content">
+                <p class="text-white text-uppercase fs-sm fw-bold text-center mt-2 mb-4">
+                    Rapor Al
+                </p>
+                <a class="block block-rounded block-link bg-black-10 mb-2" asp-action="ProductExcel" asp-controller="Report">
+                    <div class="block-content block-content-sm block-content-full d-flex align-items-center justify-content-between">
+                        <div class="me-3">
+                            <p class="text-white fs-3 fw-light mb-0">
+                                Tüm Ürünler
+                            </p>
+                            <p class="text-white-75 mb-0">
+                                Excel
+                            </p>
+                        </div>
+                        <div class="item">
+                            <i class="fa fa-2x fa-file-excel text-primary-lighter"></i>
+                        </div>
+                    </div>
+                </a>
+                <a class="block block-rounded block-link bg-black-10 mb-2" asp-action="ProductRegisterExcel" asp-controller="Report">
+                    <div class="block-content block-content-sm block-content-full d-flex align-items-center justify-content-between">
+                        <div class="me-3">
+                            <p class="text-white fs-3 fw-light mb-0">
+                                Tüm Zimmetler
+                            </p>
+                            <p class="text-white-75 mb-0">
+                                Excel
+                            </p>
+                        </div>
+                        <div class="item">
+                            <i class="fa fa-2x fa-file-excel text-primary-lighter"></i>
+                        </div>
+                    </div>
+                </a>
+                <a class="block block-rounded block-link-rotate bg-black-10" href="javascript:void(0)">
+                </a>
+            </div>
+        </div>
     </div>
-    <div class="col-6 col-lg-3">
-        <a class="block block-rounded block-link-shadow text-center h-100 mb-0" href="javascript:void(0)">
-            <div class="block-content py-5">
-                <div class="fs-3 fw-semibold text-success mb-1">26%</div>
-                <p class="fw-semibold fs-sm text-muted text-uppercase mb-0">
-                    Profit
+    <div class="col-xl-8">
+        <div class="block block-rounded bg-xinspire">
+            <div class="block-content">
+                <p class="text-white text-uppercase fs-sm fw-bold text-center mt-2 mb-4">
+                    Kısayollar
                 </p>
+                <a class="block block-rounded block-link bg-black-10 mb-2" asp-action="New" asp-controller="Product">
+                    <div class="block-content block-content-sm block-content-full d-flex align-items-center justify-content-between">
+                        <div class="me-3">
+                            <p class="text-white fs-3 fw-light mb-0">
+                                Yeni Ürün
+                            </p>
+                            <p class="text-white-75 mb-0">
+                                Ekle
+                            </p>
+                        </div>
+                        <div class="item">
+                            <i class="fa fa-2x fa-plus text-primary-lighter"></i>
+                        </div>
+                    </div>
+                </a>
+                <a class="block block-rounded block-link bg-black-10 mb-2" asp-action="New" asp-controller="ProductRegister">
+                    <div class="block-content block-content-sm block-content-full d-flex align-items-center justify-content-between">
+                        <div class="me-3">
+                            <p class="text-white fs-3 fw-light mb-0">
+                                Yeni Zimmet
+                            </p>
+                            <p class="text-white-75 mb-0">
+                                Ekle
+                            </p>
+                        </div>
+                        <div class="item">
+                            <i class="fa fa-2x fa-plus text-primary-lighter"></i>
+                        </div>
+                    </div>
+                </a>
+                <a class="block block-rounded block-link bg-black-10 mb-2" asp-action="New" asp-controller="User">
+                    <div class="block-content block-content-sm block-content-full d-flex align-items-center justify-content-between">
+                        <div class="me-3">
+                            <p class="text-white fs-3 fw-light mb-0">
+                                Yeni Kullanıcı
+                            </p>
+                            <p class="text-white-75 mb-0">
+                                Ekle
+                            </p>
+                        </div>
+                        <div class="item">
+                            <i class="fa fa-2x fa-plus text-primary-lighter"></i>
+                        </div>
+                    </div>
+                </a>
+                <a class="block block-rounded block-link-rotate bg-black-10" href="javascript:void(0)">
+                </a>
             </div>
-        </a>
-    </div>
-    <div class="col-6 col-lg-3">
-        <a class="block block-rounded block-link-shadow text-center h-100 mb-0" href="javascript:void(0)">
-            <div class="block-content py-5">
-                <div class="fs-3 fw-semibold mb-1">126</div>
-                <p class="fw-semibold fs-sm text-muted text-uppercase mb-0">
-                    Orders Today
-                </p>
-            </div>
-        </a>
-    </div>
-    <div class="col-6 col-lg-3">
-        <a class="block block-rounded block-link-shadow text-center h-100 mb-0" href="javascript:void(0)">
-            <div class="block-content py-5">
-                <div class="fs-3 fw-semibold mb-1">$16.485</div>
-                <p class="fw-semibold fs-sm text-muted text-uppercase mb-0">
-                    Earnings Today
-                </p>
-            </div>
-        </a>
+        </div>
     </div>
 </div>
-
-
 

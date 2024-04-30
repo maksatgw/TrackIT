@@ -31,6 +31,9 @@ namespace TrackIT.UI.Extensions
             services.AddScoped<IProductAssetDataAccess, EFProductAsset>();
             services.AddScoped<IProductAssetService, ProductAssetManager>();
 
+            services.AddScoped<ILocationDataAccess, EFLocation>();
+            services.AddScoped<ILocationService, LocationManager>();
+
         }
     }
 }

@@ -44,6 +44,11 @@ namespace TrackIT.Business.Concrete
             return _service.GetByCategory(id);
         }
 
+        public List<Product> TGetByLocation(int locationId)
+        {
+            return _service.GetByLocation(locationId);
+        }
+
         public List<Product> TGetWithIncluded(int page = 1, int pageSize = 10)
         {
             return _service.GetWithIncluded(page, pageSize);
@@ -52,6 +57,11 @@ namespace TrackIT.Business.Concrete
         public Product TGetWithIncluded(int id)
         {
             return _service.GetWithIncluded(id);
+        }
+
+        public List<Product> TGetWithIncluded()
+        {
+            return _service.GetWithIncluded();
         }
 
         public List<Product> TGetWithIncludedSearch(string searchQuery)

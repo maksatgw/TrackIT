@@ -26,6 +26,7 @@ namespace TrackIT.DataAccess.Entity
             return _appDbContext.Product
                 //Include ile category ekliyoruz.
                 .Include(x => x.Category)
+                .Include(x => x.Location)
                 //where ile name'i searchquery içeren
                 //veya serial'ı searchquery içeren
                 //veya categorynin name'i searchQuery içeren
@@ -35,6 +36,7 @@ namespace TrackIT.DataAccess.Entity
                 || x.Serial.Contains(searchQuery)
                 || x.Description.Contains(searchQuery)
                 || x.Category.Name.Contains(searchQuery)
+                || x.Location.Name.Contains(searchQuery)
                 || x.DateAdded.ToString().Contains(searchQuery)
                 )
                 //listeliyoruz.
@@ -47,6 +49,7 @@ namespace TrackIT.DataAccess.Entity
             return _appDbContext.Product
                 //Include ile category ekliyoruz
                 .Include(x => x.Category)
+                .Include(x => x.Location)
                 //Include ile productRegister ekliyoruz
                 .Include(x => x.ProductRegistirationHistory)
                 //gelen veriye göre hangi kayıtların atlanacağını atlar.
@@ -61,8 +64,8 @@ namespace TrackIT.DataAccess.Entity
         public List<Product> GetByCategory(int categoryId)
         {
             return _appDbContext.Product
-                //Include ile category ekliyoruz.
                 .Include(x => x.Category)
+                .Include(x => x.Location)
                 //Where ile categoryId si parametreden gelen categoryIdye eşit olanları
                 .Where(x => x.CategoryId.Equals(categoryId))
                 //listeliyoruz.
@@ -82,12 +85,31 @@ namespace TrackIT.DataAccess.Entity
             return _appDbContext.Product
                 //Include ile category ekliyoruz
                 .Include(x => x.Category)
+                .Include(x => x.Location)
                 //ProductRegistrationHistory ekliyoruz
                 .Include(x => x.ProductRegistirationHistory)
                 //FirstOrDefautlt ile productId si parametreden gelen id ye eşit olan ilk veriyi getiriyoruz.
                 .FirstOrDefault(x => x.ProductId == id);
         }
 
+        public List<Product> GetWithIncluded()
+        {
+            return _appDbContext.Product
+                .Include(x => x.Category)
+                .Include(x => x.Location)
+                .ToList();
+        }
+
+        public List<Product> GetByLocation(int locationId)
+        {
+            return _appDbContext.Product
+                .Include(x => x.Category)
+                .Include(x => x.Location)
+                //Where ile locationId si parametreden gelen categoryIdye eşit olanları
+                .Where(x => x.LocationId.Equals(locationId))
+                //listeliyoruz.
+                .ToList();
+        }
     }
 
 }

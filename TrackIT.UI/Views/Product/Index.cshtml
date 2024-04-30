@@ -25,6 +25,7 @@
                         <th class="d-none d-md-table-cell text-center">Seri Numarası</th>
                         <th class="d-none d-md-table-cell text-center">Açıklaması</th>
                         <th class="d-none d-md-table-cell text-center">Kategorisi</th>
+                        <th class="d-none d-md-table-cell text-center">Lokasyonu</th>
                         <th class="d-none d-md-table-cell text-center">Tarihi</th>
                         <th class="text-center">İşlemler</th>
                     </tr>
@@ -46,6 +47,7 @@
                             <td class="d-none d-sm-table-cell text-center fs-sm">@item.Serial</td>
                             <td class="d-none d-sm-table-cell text-center fs-sm">@item.Description</td>
                             <td class="d-none d-sm-table-cell text-center fs-sm">@item.Category.Name</td>
+                            <td class="d-none d-sm-table-cell text-center fs-sm">@item.Location.Name</td>
                             <td class="d-none d-sm-table-cell text-center fs-sm">@item.DateAdded.ToShortDateString()</td>
                             <td class="text-center fs-sm">
                                 <a data-bs-toggle="tooltip" data-bs-placement="top" title="Güncelle" class="btn btn-sm btn-alt-secondary" href="/Product/Update?id=@item.ProductId">

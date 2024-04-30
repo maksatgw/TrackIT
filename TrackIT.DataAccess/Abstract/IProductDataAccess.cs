@@ -9,6 +9,7 @@ namespace TrackIT.DataAccess.Abstract
 {
     public interface IProductDataAccess : IGenericDataAccess<Product>
     {
+        List<Product> GetWithIncluded();
         //Tabloyu ilişkilere tablo üzerinden ulaşabilecek şekilde
         //ve aramaya göre return etmemizi sağlayan metod.
         List<Product> GetWithIncludedSearch(string searchQuery);
@@ -22,6 +23,7 @@ namespace TrackIT.DataAccess.Abstract
         List<Product> GetByCategory(int categoryId);
         //Tabloyu register'e uygunluğuna göre getiren metod.
         List<Product> GetAvailableToRegistrate();
+        List<Product> GetByLocation(int locationId);
 
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using NToastNotify;
 using TrackIT.Business.Abstract;
 using TrackIT.DTO.Dtos.CategoryDtos;
+using TrackIT.DTO.Dtos.LocationDtos;
 using TrackIT.DTO.Dtos.ProductAssetDtos;
 using TrackIT.DTO.Dtos.ProductDtos;
 using TrackIT.DTO.Dtos.ProductRegisterDtos;
@@ -24,10 +25,11 @@ namespace TrackIT.UI.Controllers
         private readonly ICategoryService _categoryService;
         private readonly IProductRegisterHistoryService _productRegisterHistoryService;
         private readonly IProductAssetService _productAssetService;
+        private readonly ILocationService _locationService;
         private readonly IMapper _mapper;
         private readonly IToastNotification _toastNotification;
 
-        public ProductController(IProductService productService, IMapper mapper, ICategoryService categoryService, IToastNotification toastNotification, IProductRegisterHistoryService productRegisterHistoryService, IProductAssetService productAssetService)
+        public ProductController(IProductService productService, IMapper mapper, ICategoryService categoryService, IToastNotification toastNotification, IProductRegisterHistoryService productRegisterHistoryService, IProductAssetService productAssetService, ILocationService locationService)
         {
             _productService = productService;
             _categoryService = categoryService;
@@ -35,55 +37,60 @@ namespace TrackIT.UI.Controllers
             _toastNotification = toastNotification;
             _productRegisterHistoryService = productRegisterHistoryService;
             _productAssetService = productAssetService;
+            _locationService = locationService;
         }
 
         #region Getirme
         //Filtre nesnelerini query string üzerinden alıyoruz.
-        public IActionResult Index(string searchQuery, int filterByCategory, int pageSize = 10, int page = 1 )
+        public IActionResult Index(string searchQuery,int filterByLocation, int filterByCategory, int pageSize = 10, int page = 1)
         {
             //Index benden bir viewmodel bekliyor.
-            var productViewModel = new ProductViewModel();
             //Caselerime göre gerekli eklemeler ile paketi View'a gönderiyorum.
-            var categoryDtos = _mapper.Map<List<CategoryGetDto>>(_categoryService.TGet());
+            var products = _mapper.Map<List<ProductGetDto>>(_productService.TGetWithIncluded(page, pageSize));
+            var categories = _mapper.Map<List<CategoryGetDto>>(_categoryService.TGet());
+            var locations = _mapper.Map<List<LocationGetDto>>(_locationService.TGet());
             var geProductCount = _productService.TGet();
             var totalPage = (int)Math.Ceiling((decimal)geProductCount.Count / pageSize);
-            productViewModel.Categories= categoryDtos;
-            productViewModel.TotalPage = totalPage;
-            productViewModel.CurrentPage = page;
-        
+
             if (!string.IsNullOrEmpty(searchQuery))
             {
                 var productSearchResult = _productService.TGetWithIncludedSearch(searchQuery);
-                var productDtos = _mapper.Map<List<ProductGetDto>>(productSearchResult);
-                productViewModel.Products = productDtos;
+                products = _mapper.Map<List<ProductGetDto>>(productSearchResult);
             }
             //Category Indexlemesi 0 dan başlamıyor. 
             else if (filterByCategory != 0)
             {
                 var productFiterByCategory = _productService.TGetByCategory(filterByCategory);
-                var productDtos = _mapper.Map<List<ProductGetDto>>(productFiterByCategory);
-                productViewModel.Products = productDtos;
+                products = _mapper.Map<List<ProductGetDto>>(productFiterByCategory);
             }
-            else
+            else if (filterByLocation != 0)
             {
-                var productDtos = _mapper.Map<List<ProductGetDto>>(_productService.TGetWithIncluded(page, pageSize));
-                productViewModel.Products = productDtos;
+                var productFiterByLocation = _productService.TGetByCategory(filterByLocation);
+                products = _mapper.Map<List<ProductGetDto>>(productFiterByLocation);
             }
-            _mapper.Map<List<CategoryGetDto>>(_categoryService.TGet());
+
+            var productViewModel = new ProductViewModel
+            {
+                Products = products,
+                Categories = categories,
+                Locations = locations,
+                CurrentPage = page,
+                TotalPage = totalPage,
+            };
             return View(productViewModel);
         }
         public IActionResult Detail(int id)
         {
             //önce gelen ürünün varlığını kontrol ediyoruz. 
-            var productCheck = _mapper.Map<ProductGetDto>(_productService.TGet(id));
-            var values = _mapper.Map<List<ProductRegisterHistoryGetDto>>(_productRegisterHistoryService.TGetWithIncluded(id));
+            var hasProduct = _mapper.Map<ProductGetDto>(_productService.TGet(id));
+            var product = _mapper.Map<List<ProductRegisterHistoryGetDto>>(_productRegisterHistoryService.TGetWithIncluded(id));
             //Eğer null ise Toast Mesajı ile kullanıcıya hata gönderip Index'e yönlendiriyoruz.
-            if (productCheck == null)
+            if (hasProduct == null)
             {
                 _toastNotification.AddErrorToastMessageWithCustomTitle("Ürün bulunamadı");
                 return RedirectToAction("Index");
             }
-            return View(values);
+            return View(product);
         }
         #endregion
 
@@ -93,8 +100,10 @@ namespace TrackIT.UI.Controllers
         {
             //Kategorileri ekleme sayfasında select list olarak alacağım için viewmodel üzerine ekleyip view'a gönderiyorum.
             var categories = _mapper.Map<List<CategoryGetDto>>(_categoryService.TGet());
+            var locations = _mapper.Map<List<LocationGetDto>>(_locationService.TGet());
             var productViewModel = new ProductViewModel()
             {
+                Locations = locations,
                 Categories = categories,
             };
             return View(productViewModel);
@@ -167,6 +176,7 @@ namespace TrackIT.UI.Controllers
             //ürün - kategori - asset listelerini mapleyip gönderiyoruz.
             var product = _mapper.Map<ProductUpdateDto>(_productService.TGet(id));
             var categories = _mapper.Map<List<CategoryGetDto>>(_categoryService.TGet());
+            var locations = _mapper.Map<List<LocationGetDto>>(_locationService.TGet());
             var assets = _mapper.Map<List<ProductAssetGetDto>>(_productAssetService.TGetWithIncluded(id));
             //product eğer yoksa
             if (product == null)
@@ -179,6 +189,7 @@ namespace TrackIT.UI.Controllers
             var productViewModel = new ProductViewModel()
             {
                 Categories = categories,
+                Locations = locations,
                 ProductUpdate = product,
                 ProductAssets = assets
             };

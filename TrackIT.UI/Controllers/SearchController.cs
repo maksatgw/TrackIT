@@ -29,8 +29,9 @@ namespace TrackIT.UI.Controllers
         }
 
 
-        public IActionResult Index(string query)
+        public IActionResult Index(string query, string returnUrl)
         {
+            returnUrl = returnUrl ?? Url.Action("Index", "Home");
             if (!string.IsNullOrEmpty(query))
             {
                 var products = _mapper.Map<List<ProductGetDto>>(_productService.TGetWithIncludedSearch(query));
@@ -46,7 +47,7 @@ namespace TrackIT.UI.Controllers
                 };
                 return View(searchViewModel);
             }
-            return RedirectToAction("Index", "Home");
+            return Redirect(returnUrl);
         }
     }
 }

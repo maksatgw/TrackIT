@@ -65,11 +65,6 @@ namespace TrackIT.UI.Controllers
             return View(productRegisterViewModel);
         }
 
-        public IActionResult Update()
-        {
-            return View();
-        }
-
         [HttpPost]
         public async Task<IActionResult> ChangeRegister(ProductRegisterViewModel model)
         {

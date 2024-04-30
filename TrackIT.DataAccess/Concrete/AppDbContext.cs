@@ -18,6 +18,7 @@ namespace TrackIT.DataAccess.Concrete
         }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Product { get; set; }
+        public DbSet<Location> Locations { get; set; }
         public DbSet<ProductRegistiration> ProductRegistirations { get; set; }
         public DbSet<ProductRegistirationHistory> RegistirationHistorys { get; set; }
         public DbSet<ProductAsset> ProductAssets { get; set; }

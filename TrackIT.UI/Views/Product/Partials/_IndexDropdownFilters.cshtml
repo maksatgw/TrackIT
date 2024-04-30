@@ -39,27 +39,47 @@
             </div>
         </div>
     </div>
-    <div class="block-header block-header-default">
-        <div class="block-options">
-            <div class="dropdown">
-                <button type="button" class="btn btn-alt-secondary" id="dropdown-ecom-filters2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Kategori <i class="fa fa-angle-down ms-1"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-ecom-filters2">
-                    @if (Model.Categories.Count == 0)
-                    {
-                        <a class="dropdown-item d-flex align-items-center justify-content-between">
-                            Kategori yok.
-                        </a>
-                    }
-                    @foreach (var item in Model.Categories)
-                    {
-                        <a class="dropdown-item d-flex align-items-center justify-content-between" href="/product/index?filterByCategory=@item.CategoryId">
-                            @item.Name
-                        </a>
-                    }
-                </div>
+    <div class="block-options">
+        <div class="dropdown">
+            <button type="button" class="btn btn-alt-secondary" id="dropdown-ecom-filters2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Lokasyonlar <i class="fa fa-angle-down ms-1"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-ecom-filters2">
+                @if (Model.Locations.Count == 0)
+                {
+                    <a class="dropdown-item d-flex align-items-center justify-content-between">
+                        Lokasyon yok.
+                    </a>
+                }
+                @foreach (var item in Model.Locations)
+                {
+                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="/product/index?filterByLocation=@item.LocationId">
+                        @item.Name
+                    </a>
+                }
             </div>
         </div>
     </div>
+    <div class="block-options">
+        <div class="dropdown">
+            <button type="button" class="btn btn-alt-secondary" id="dropdown-ecom-filters2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Kategori <i class="fa fa-angle-down ms-1"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-ecom-filters2">
+                @if (Model.Categories.Count == 0)
+                {
+                    <a class="dropdown-item d-flex align-items-center justify-content-between">
+                        Kategori yok.
+                    </a>
+                }
+                @foreach (var item in Model.Categories)
+                {
+                    <a class="dropdown-item d-flex align-items-center justify-content-between" href="/product/index?filterByCategory=@item.CategoryId">
+                        @item.Name
+                    </a>
+                }
+            </div>
+        </div>
+    </div>
+
 </div>

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using TrackIT.Business.Model;
 using TrackIT.DTO.Dtos.CategoryDtos;
+using TrackIT.DTO.Dtos.LocationDtos;
 using TrackIT.DTO.Dtos.ProductAssetDtos;
 using TrackIT.DTO.Dtos.ProductDtos;
 using TrackIT.DTO.Dtos.ProductRegisterDtos;
@@ -80,6 +81,9 @@ namespace TrackIT.UI.Mappings.AutoMapperProfile
             //AppRole Map
             CreateMap<UserRoleGetDto, AppRole>();
             CreateMap<AppRole, UserRoleGetDto>();
+
+            CreateMap<Location, LocationGetDto>();
+            CreateMap<LocationGetDto, Location>();
 
         }
     }

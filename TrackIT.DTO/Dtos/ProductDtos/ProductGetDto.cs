@@ -17,9 +17,11 @@ namespace TrackIT.DTO.Dtos.ProductDtos
         public string Serial { get; set; }
         public string Description { get; set; }
         public int CategoryId { get; set; }
+        public int LocationId { get; set; }
         public bool isActive { get; set; } = true;
         public DateTime DateAdded { get; set; }
         public Entity.Model.Category Category { get; set; }
+        public Location Location { get; set; }
         public List<ProductRegistirationHistory> ProductRegistirationHistories { get; set; }
     }
 }

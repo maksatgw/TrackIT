@@ -16,5 +16,7 @@ namespace TrackIT.DTO.Dtos.ProductDtos
 
         [Required(ErrorMessage = "Kategori Boş Geçilemez.")]
         public int CategoryId { get; set; }
+
+        public int LocationId { get; set; }
     }
 }

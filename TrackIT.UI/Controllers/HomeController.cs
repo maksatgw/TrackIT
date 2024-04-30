@@ -10,37 +10,34 @@ namespace TrackIT.UI.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
 
-        private readonly IProductService _service;
+        private readonly IProductService _productService;
+        private readonly IProductRegisterService _registerService;
+        private readonly ICategoryService _categoryService;
+        private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
 
-        public HomeController(ILogger<HomeController> logger, IProductService service, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public HomeController(IProductService productService, IProductRegisterService registerService, SignInManager<AppUser> signInManager, UserManager<AppUser> userManager, ICategoryService categoryService)
         {
-            _logger = logger;
-            _service = service;
+            _productService = productService;
+            _registerService = registerService;
             _signInManager = signInManager;
+            _userManager = userManager;
+            _categoryService = categoryService;
         }
 
         public IActionResult Index()
         {
-            var values = _service.TGet();
+            ViewBag.ProductCount = _productService.TGet().Count;
+            ViewBag.RegisterCount = _registerService.TGet().Count;
+            ViewBag.UserCount = _userManager.Users.Where(x => x.isActive == true).Count();
+            ViewBag.CategoryCount = _categoryService.TGet().Count;
             return View();
         }
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
-        }
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

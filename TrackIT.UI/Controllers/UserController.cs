@@ -120,7 +120,6 @@ namespace TrackIT.UI.Controllers
                     item.QRData = QRData;
                 }
             }
-
             var userDto = new UserGetDto
             {
                 Id = user.Id,
@@ -128,7 +127,6 @@ namespace TrackIT.UI.Controllers
                 UserName = user.UserName,
                 ProductRegistirations = register,
             };
-
 
             if (userDto.ProductRegistirations.Count == 0)
             {
@@ -166,6 +164,8 @@ namespace TrackIT.UI.Controllers
                 {
                     UserName = model.UserAdd.UserName,
                     Email = model.UserAdd.Email,
+                    Name = model.UserAdd.Name,
+                    Surname= model.UserAdd.Surname
                 };
                 var findRole = await _roleManager.FindByNameAsync(model.UserAdd.RoleName);
                 var checkUserName = await _userManager.FindByNameAsync(model.UserAdd.UserName);
@@ -215,7 +215,7 @@ namespace TrackIT.UI.Controllers
             var user = await _userManager.FindByIdAsync(id);
             if (user != null)
             {
-                var roles = _mapper.Map<List<UserRoleGetDto>>(_roleManager.Roles.ToListAsync());
+                var roles = _mapper.Map<List<UserRoleGetDto>>(_roleManager.Roles.ToList());
                 var userDto = _mapper.Map<UserUpdateDto>(user);
 
                 var userViewModel = new UserViewModel

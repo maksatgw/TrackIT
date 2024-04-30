@@ -11,8 +11,10 @@ namespace TrackIT.Business.Abstract
     {
         List<Product> TGetWithIncludedSearch(string searchQuery);
         List<Product> TGetWithIncluded(int page, int pageSize);
+        List<Product> TGetWithIncluded();
         Product TGetWithIncluded(int id);
         public List<Product> TGetByCategory(int id);
         List<Product> TGetAvailableToRegistrate();
+        List<Product> TGetByLocation(int locationId);
     }
 }
