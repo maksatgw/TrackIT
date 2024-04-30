@@ -35,7 +35,7 @@ builder.Services.ConfigureApplicationCookie(opt =>
     var cookieBuilder = new CookieBuilder();
     opt.LoginPath = new PathString("/Login/Index");
     opt.LogoutPath = new PathString("/Home/Logout");
-    opt.AccessDeniedPath = "/Home/Index";
+    opt.AccessDeniedPath = "/Login/Index";
 });
 
 

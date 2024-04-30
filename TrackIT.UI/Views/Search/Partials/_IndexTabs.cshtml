@@ -1,22 +1,29 @@
-﻿<ul class="nav nav-tabs nav-tabs-block" role="tablist">
+﻿@model SearchViewModel
+
+<ul class="nav nav-tabs nav-tabs-block" role="tablist">
     <li class="nav-item">
         <button class="nav-link active" id="search-classic-tab" data-bs-toggle="tab" data-bs-target="#search-classic" role="tab" aria-controls="search-classic" aria-selected="true">
-            Ürünler
+            Ürünler 
+            <span class="nav-main-link-badge badge rounded-pill bg-primary">@Model.Products.Count</span>
         </button>
+
     </li>
     <li class="nav-item">
         <button class="nav-link" id="search-photos-tab" data-bs-toggle="tab" data-bs-target="#search-photos" role="tab" aria-controls="search-photos" aria-selected="false">
             Zimmetler
+            <span class="nav-main-link-badge badge rounded-pill bg-primary">@Model.ProductRegistrations.Count</span>
         </button>
     </li>
     <li class="nav-item">
         <button class="nav-link" id="search-customers-tab" data-bs-toggle="tab" data-bs-target="#search-customers" role="tab" aria-controls="search-customers" aria-selected="false">
             Kategoriler
+            <span class="nav-main-link-badge badge rounded-pill bg-primary">@Model.Categories.Count</span>
         </button>
     </li>
     <li class="nav-item">
         <button class="nav-link" id="search-projects-tab" data-bs-toggle="tab" data-bs-target="#search-projects" role="tab" aria-controls="search-projects" aria-selected="false">
             Kullanıcılar
+            <span class="nav-main-link-badge badge rounded-pill bg-primary">@Model.Users.Count</span>
         </button>
     </li>
 </ul>

@@ -13,7 +13,8 @@
                     <th class="d-none d-md-table-cell text-center">Seri No</th>
                     <th class="d-none d-md-table-cell text-center">Açıklama</th>
                     <th class="d-none d-md-table-cell text-center">Kategori</th>
-                    <th class="d-none d-md-table-cell text-center">Tarih</th>
+                    <th class="d-none d-md-table-cell text-center">Lokasyonu</th>
+                    <th class="d-none d-md-table-cell text-center">Zimmet Tarihi</th>
                     <th class="d-none d-md-table-cell text-center">Kullanıcı</th>
                     <th class="text-center">Aksiyonlar</th>
                 </tr>
@@ -22,7 +23,7 @@
                 @if (Model.ProductRegistrations.Count == 0)
                 {
                     <tr>
-                        <td colspan="8" class="d-none d-sm-table-cell text-center fs-sm">Veri yok</td>
+                        <td colspan="9" class="d-none d-sm-table-cell text-center fs-sm">Veri yok</td>
                     </tr>
                 }
                 @foreach (var item in Model.ProductRegistrations)
@@ -35,6 +36,7 @@
                         <td class="d-none d-sm-table-cell text-center fs-sm">@item.Product.Serial</td>
                         <td class="d-none d-sm-table-cell text-center fs-sm">@item.Product.Description</td>
                         <td class="d-none d-sm-table-cell text-center fs-sm">@item.Product.Category.Name</td>
+                        <td class="d-none d-sm-table-cell text-center fs-sm">@item.Product.Location.Name</td>
                         <td class="d-none d-sm-table-cell text-center fs-sm">@item.RegistirationDate.ToShortDateString()</td>
                         <td class="d-none d-sm-table-cell text-center fs-sm">@item.AppUser.Email</td>
                         <td class="text-center fs-sm">

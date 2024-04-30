@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TrackIT.Business.Abstract;
@@ -11,6 +12,7 @@ using TrackIT.UI.ViewModels;
 
 namespace TrackIT.UI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class SearchController : Controller
     {
         private readonly IProductService _productService;

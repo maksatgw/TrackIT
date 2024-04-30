@@ -19,5 +19,6 @@ namespace TrackIT.DTO.Dtos.UserDtos
         [Required(ErrorMessage = "Soyisim gereklidir")]
         public string Surname { get; set; }
         public string RoleName { get; set; }
+        public string Password { get; set; }
     }
 }

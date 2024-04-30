@@ -17,10 +17,11 @@ using TrackIT.Entity.Model;
 using TrackIT.DTO.Dtos.ProductRegisterDtos;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Drawing.Imaging;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace TrackIT.UI.Controllers
 {
-    [Authorize(Roles = "Admin")]
+
     public class UserController : Controller
     {
         //Kullanacağımı dependencyleri ekliyoruz.
@@ -248,13 +249,16 @@ namespace TrackIT.UI.Controllers
             existingUser.UserName = model.UserUpdate.UserName;
             existingUser.Name = model.UserUpdate.Name;
             existingUser.Surname = model.UserUpdate.Surname;
+            var newPasswordHash = _userManager.PasswordHasher.HashPassword(existingUser, model.UserUpdate.Password);
+            existingUser.PasswordHash = newPasswordHash;
 
             var updateResult = await _userManager.UpdateAsync(existingUser);
+            
             if (!updateResult.Succeeded)
             {
                 _toastNotification.AddErrorToastMessageWithCustomTitle("Kullanıcı Güncellenirken Bir Hata Oluştu");
                 return RedirectToAction("Index");
-            }
+            }   
             var getUserRole = _userManager.GetRolesAsync(existingUser);
             var roleToRemove = await _userManager.RemoveFromRoleAsync(existingUser, getUserRole.Result.First());
             var roleToAdd = await _userManager.AddToRoleAsync(existingUser, model.UserUpdate.RoleName);

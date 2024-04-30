@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Microsoft.IdentityModel.Tokens;
@@ -16,6 +17,7 @@ using TrackIT.UI.ViewModels;
 
 namespace TrackIT.UI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ProductController : Controller
     {
         //Dependency Injection Design Pattern'i kullanarak bağımlılıklarımızı dışardan enjekte ettik.

@@ -1,4 +1,5 @@
 ﻿using ClosedXML.Excel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
 using TrackIT.Business.Abstract;
@@ -6,6 +7,7 @@ using TrackIT.Entity.Model;
 
 namespace TrackIT.UI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ReportController : Controller
     {
         private readonly IProductService _productService;

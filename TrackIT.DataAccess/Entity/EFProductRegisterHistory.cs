@@ -38,6 +38,9 @@ namespace TrackIT.DataAccess.Entity
                 //ThenInclude ile producta category ekliyoruz.
                 .ThenInclude(x=>x.Category)
                 //Include ile appuser ekliyoruz.
+                .Include(x => x.Product)
+                //ThenInclude ile producta Lokasyon ekliyoruz.
+                .ThenInclude(x => x.Location)
                 .Include(x => x.AppUser)
                 //Where ile productId si parametreden gelen productId ye eşit olan
                 .Where(x=>x.ProductId == productId)

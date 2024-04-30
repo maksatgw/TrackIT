@@ -1,0 +1,143 @@
+﻿@model ProductRegisterViewModel
+@{
+    Layout = null;
+}
+<partial name="/Views/Shared/LayoutPartials/_LayoutHeader.cshtml" />
+
+<body>
+    <div id="page-container" class="enable-page-overlay side-scroll page-header-dark page-header-glass main-content-boxed">
+        <!-- Side Overlay-->
+        <!-- END Side Overlay -->
+        <!-- Header -->
+        <header id="page-header">
+            <!-- Header Content -->
+            <div class="content-header">
+                <!-- Left Section -->
+                <div>
+                    <!-- Logo -->
+                    <a class="fw-semibold text-dual tracking-wide">
+                        Track<span class="opacity-75">IT</span>
+                    </a>
+                    <!-- END Logo -->
+                </div>
+                <!-- END Left Section -->
+                <!-- Right Section -->
+                <div>
+                    <!-- Open Search Section -->
+                    <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+                    <a class="btn btn-sm btn-alt-secondary" asp-action="Logout" asp-controller="Home">
+                        <i class="fa fa-fw fa-arrow-right-from-bracket"></i>
+                    </a>
+                    <!-- END Open Search Section -->
+                    <!-- Toggle Side Overlay -->
+                    <!-- Layout API, functionality initialized in Template._uiApiLayout() -->
+                </div>
+                <!-- END Right Section -->
+            </div>
+            <!-- END Header Content -->
+
+        </header>
+        <!-- END Header -->
+        <!-- Main Container -->
+        <main id="main-container">
+
+            <!-- Hero -->
+            <div class="bg-image" style="background-image: url('/web/src/assets/media/photos/photo10@2x.jpg');">
+                <div class="bg-black-75">
+                    <div class="content content-full content-top text-center">
+                        <div class="pt-4 pb-3">
+                            <h1 class="fw-light text-white mb-2">Zimmetlerim</h1>
+                            <h2 class="h4 fw-light text-white-75">Merhaba, <span>@Model.AppUser.Name</span>.</h2>
+                            <h3 class="h6 fw-light text-white-75">Burada zimmetlerinizi görebilir, belgelerinizi indirebilirsiniz.</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END Hero -->
+            <!-- Page Content -->
+            <div class="content">
+                <div class="table-responsive">
+                    <table class="table table-borderless table-striped table-vcenter">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="width: 100px;">ID</th>
+                                <th class="d-none d-sm-table-cell text-center">Ürün İsmi</th>
+                                <th class="d-none d-md-table-cell text-center">Seri No</th>
+                                <th class="d-none d-md-table-cell text-center">Açıklama</th>
+                                <th class="d-none d-md-table-cell text-center">Kategori</th>
+                                <th class="d-none d-md-table-cell text-center">Lokasyon</th>
+                                <th class="d-none d-md-table-cell text-center">Zimmet Tarihi</th>
+                                <th class="d-none d-md-table-cell text-center">Kullanıcı</th>
+                                <th class="text-center">Aksiyonlar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.ProductRegisters.Count == 0)
+                            {
+                                <tr class="text-center">
+                                    <td colspan="9" class="d-none d-sm-table-cell text-center fs-sm">Öğe yok</td>
+                                </tr>
+                            }
+                            @foreach (var item in Model.ProductRegisters)
+                            {
+                                <tr>
+                                    <td class="text-center fs-sm">
+                                        <strong>@item.ProductId</strong>
+                                    </td>
+                                    <td class="d-none d-sm-table-cell text-center fs-sm">@item.Product.Name</td>
+                                    <td class="d-none d-sm-table-cell text-center fs-sm">@item.Product.Serial</td>
+                                    <td class="d-none d-sm-table-cell text-center fs-sm">@item.Product.Description</td>
+                                    <td class="d-none d-sm-table-cell text-center fs-sm">@item.Product.Category.Name</td>
+                                    <td class="d-none d-sm-table-cell text-center fs-sm">@item.Product.Location.Name</td>
+                                    <td class="d-none d-sm-table-cell text-center fs-sm">@item.RegistirationDate.ToShortDateString()</td>
+                                    <td class="d-none d-sm-table-cell text-center fs-sm">@item.AppUser.Email</td>
+                                    <td class="text-center fs-sm">
+                                        @if (!string.IsNullOrEmpty(item.FilePath))
+                                        {
+                                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="Ek Görüntüle" class="btn btn-sm btn-alt-secondary" target="_blank" href="~/assets/productregistration/@item.FilePath">
+                                                <i class="fa fa-fw fa-file-arrow-down"></i>
+                                            </a>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- END Page Content -->
+        </main>
+        <!-- END Main Container -->
+        <!-- Footer -->
+        <footer id="page-footer" class="bg-body-light">
+            <div class="content py-0">
+                <div class="row fs-sm">
+                    <div class="col-sm-6 order-sm-2 mb-1 mb-sm-0 text-center text-sm-end">
+                        Crafted with <i class="fa fa-heart text-danger"></i> by <a class="fw-semibold" href="https://pixelcave.com" target="_blank">pixelcave</a>
+                    </div>
+                    <div class="col-sm-6 order-sm-1 text-center text-sm-start">
+                        <a class="fw-semibold" href="https://pixelcave.com/products/dashmix" target="_blank">Dashmix 5.8</a> &copy; <span data-toggle="year-copy"></span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- END Footer -->
+    </div>
+    <!-- END Page Container -->
+    <!--
+      Dashmix JS
+
+      Core libraries and functionality
+      webpack is putting everything together at assets/_js/main/app.js
+    -->
+    <script src="assets/js/dashmix.app.min.js"></script>
+
+    <!-- jQuery (required for jQuery Sparkline plugin) -->
+    <script src="assets/js/lib/jquery.min.js"></script>
+
+    <!-- Page JS Plugins -->
+    <script src="assets/js/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
+
+    <!-- Page JS Helpers (jQuery Sparkline Plugin) -->
+    <script>Dashmix.helpersOnLoad('jq-sparkline');</script>
+</body>

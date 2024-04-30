@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 using NToastNotify;
 using TrackIT.Business.Abstract;
-using TrackIT.DataAccess.Entity;
-using TrackIT.DTO.Dtos.CategoryDtos;
+using TrackIT.DTO.Dtos.LocationDtos;
 using TrackIT.Entity.Model;
 using TrackIT.UI.Extensions;
 using TrackIT.UI.ViewModels;
@@ -13,39 +11,42 @@ using TrackIT.UI.ViewModels;
 namespace TrackIT.UI.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class CategoryController : Controller
+    public class LocationController : Controller
     {
+        private readonly ILocationService _locationService;
         private readonly IMapper _mapper;
         private readonly IToastNotification _toastNotification;
-        private readonly ICategoryService _categoryService;
 
-        public CategoryController(ICategoryService categoryService, IMapper mapper, IToastNotification toastNotification)
+        public LocationController(ILocationService locationService, IMapper mapper, IToastNotification toastNotification)
         {
-            _categoryService = categoryService;
+            _locationService = locationService;
             _mapper = mapper;
             _toastNotification = toastNotification;
         }
 
-        public IActionResult Index(string searchQuery)
+        public IActionResult Index  (string searchQuery)
         {
-            var categories = _mapper.Map<List<CategoryGetDto>>(_categoryService.TGetWithIncluded());
+            var locations = _locationService.TGetWithIncluded();
             if (!string.IsNullOrEmpty(searchQuery))
             {
-                categories = _mapper.Map<List<CategoryGetDto>>(_categoryService.TGetWithIncludedSearch(searchQuery));
+                locations = _locationService.TGetWithIncluded(searchQuery);
             }
-            var categoryViewModel = new CategoryViewModel
+
+            var map = _mapper.Map<List<LocationGetDto>>(locations);
+            var locationViewModel = new LocationViewModel
             {
-                Categories = categories,
+                Locations = map
             };
-            return View(categoryViewModel);
+            return View(locationViewModel);
         }
+
         [HttpPost]
-        public IActionResult New(CategoryViewModel model)
+        public IActionResult New(LocationViewModel model)
         {
             try
             {
-                var value = _mapper.Map<Category>(model.CategoryAdd);
-                _categoryService.TInsert(value);
+                var value = _mapper.Map<Location>(model.LocationAdd);
+                _locationService.TInsert(value);
                 _toastNotification.AddSuccessToastMessageWithCustomTitle($"{value.Name} sisteme eklemiştir");
                 return RedirectToAction("Index");
             }
@@ -57,12 +58,16 @@ namespace TrackIT.UI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(CategoryViewModel model)
+        public IActionResult Update(LocationViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Index");
+            }
             try
             {
-                var value = _mapper.Map<Category>(model.CategoryUpdate);
-                _categoryService.TUpdate(value);
+                var value = _mapper.Map<Location>(model.LocationUpdate);
+                _locationService.TUpdate(value);
                 _toastNotification.AddSuccessToastMessageWithCustomTitle($"{value.Name} güncellenmiştir.");
                 return RedirectToAction("Index");
             }
@@ -72,13 +77,12 @@ namespace TrackIT.UI.Controllers
                 return RedirectToAction("Index");
             }
         }
-
         public IActionResult Remove(int id)
         {
             try
             {
-                var value = _categoryService.TGet(id);
-                _categoryService.TDelete(value);
+                var value = _locationService.TGet(id);
+                _locationService.TDelete(value);
                 _toastNotification.AddSuccessToastMessageWithCustomTitle($"{value.Name} Silinmiştir.");
                 return RedirectToAction("Index");
             }

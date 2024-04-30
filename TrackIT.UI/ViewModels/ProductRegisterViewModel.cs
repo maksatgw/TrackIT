@@ -1,4 +1,5 @@
-﻿using TrackIT.DTO.Dtos.CategoryDtos;
+﻿using TrackIT.Business.Model;
+using TrackIT.DTO.Dtos.CategoryDtos;
 using TrackIT.DTO.Dtos.ProductDtos;
 using TrackIT.DTO.Dtos.ProductRegisterDtos;
 using TrackIT.DTO.Dtos.UserDtos;
@@ -13,6 +14,7 @@ namespace TrackIT.UI.ViewModels
         public List<UserGetDto>? Users { get; set; }
         public ProductRegisterUpdateDto? ProductRegisterUpdate { get; set; }
         public ProductRegisterAddDto? ProductRegisterAdd { get; set; }
+        public UserGetDto? AppUser { get; set; }
         public List<ProductGetDto>? ProductsGet { get; set; }
     }
 }

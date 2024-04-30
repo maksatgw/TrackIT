@@ -1,0 +1,27 @@
+﻿@model LocationViewModel
+
+<!-- Modal -->
+<div class="modal fade" id="location-update-modal" tabindex="-1" role="dialog" aria-labelledby="location-add-modal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- Başlık -->
+            <div class="modal-header">
+                <h5 class="modal-title">Lokasyon Düzenle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body pb-1">
+                <form asp-action="Update" asp-controller="Location" method="post" >
+                    <div class="mb-4">
+                        <input type="hidden" id="location_id_input" asp-for="LocationUpdate.LocationId" />
+                        <input type="text" id="location_name_input" class="form-control" asp-for="LocationUpdate.Name">
+                        <span class="badge bg-danger" asp-validation-for="LocationUpdate.Name"></span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-sm btn-primary">Ekle</button>
+                        <button type="button" class="btn btn-sm btn-alt-secondary" data-bs-dismiss="modal">Kapat</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

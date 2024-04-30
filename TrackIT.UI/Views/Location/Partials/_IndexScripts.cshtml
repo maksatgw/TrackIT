@@ -1,0 +1,11 @@
+﻿
+<script>
+    $('#location-update-modal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget); // Get the triggering button
+        var locationId = button.data('location-id'); // Get the ID from the button
+        var locationName = button.data('location-name');
+        // Set the value of the input field in the modal
+        $(this).find('#location_id_input').val(locationId);
+        $(this).find('#location_name_input').val(locationName);
+    });
+</script>

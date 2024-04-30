@@ -82,7 +82,7 @@ namespace TrackIT.DataAccess.Entity
 
         public Product GetWithIncluded(int id)
         {
-            return _appDbContext.Product
+            return _appDbContext.Product?
                 //Include ile category ekliyoruz
                 .Include(x => x.Category)
                 .Include(x => x.Location)

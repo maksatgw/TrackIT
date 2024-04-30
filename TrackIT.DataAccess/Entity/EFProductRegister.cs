@@ -32,6 +32,8 @@ namespace TrackIT.DataAccess.Entity
                 .Include(x => x.Product)
                 //ThenInclude ile eklediğimiz product'a category ekliyoruz.
                 .ThenInclude(p => p.Category)
+                .Include(x => x.Product)
+                .ThenInclude(p => p.Location)   
                 //Include ile appUser ekliyoruz.
                 .Include(x => x.AppUser)
                 //Where kullanarak appuser active değeri true olan değerleri getiriyoruz.
@@ -51,6 +53,8 @@ namespace TrackIT.DataAccess.Entity
                     .Include(x => x.Product)
                     //ThenInclude ile product'a category ekliyoruz.
                     .ThenInclude(p => p.Category)
+                    .Include(x => x.Product)
+                    .ThenInclude(p => p.Location)
                     //Include ile appuser ekliyoruz.
                     .Include(x => x.AppUser)
                     //Where ile product idsi parametreden gelen category id
@@ -66,6 +70,8 @@ namespace TrackIT.DataAccess.Entity
                     .Include(x => x.Product)
                     //ThenInclude ile product'a category ekliyoruz.
                     .ThenInclude(p => p.Category)
+                    .Include(x => x.Product)
+                    .ThenInclude(p => p.Location)
                     //Include ile appuser ekliyoruz.
                     .Include(x => x.AppUser)
                     //Where ile product name'i
@@ -91,6 +97,8 @@ namespace TrackIT.DataAccess.Entity
                     .Include(x => x.Product)
                     //thenInclude ile product'a category ekliyoruz.
                     .ThenInclude(p => p.Category)
+                    .Include(x => x.Product)
+                    .ThenInclude(p => p.Location)
                     //Include ile appUser ekliyoruz.
                     .Include(x => x.AppUser)
                     //Where ile appUserId'si parametreden gelen userId ye eşit olan

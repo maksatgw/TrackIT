@@ -1,0 +1,81 @@
+﻿@model LocationViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#location-add-modal">
+    Ekle
+</button>
+<br />
+<partial name="/Views/Location/Partials/_LocationAdd.cshtml" />
+<br />
+
+<div class="block block-rounded">
+    <div class="block-content bg-body-dark">
+        <form asp-action="Index" asp-controller="Location" method="GET">
+            <div class="mb-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="example-group3-input1" name="searchQuery" placeholder="Ara">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-search me-1"></i> Ara
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="block-content">
+
+        <div class="table-responsive">
+            <table class="table table-borderless table-striped table-vcenter">
+                <thead>
+                    <tr>
+                        <th class="text-center" style="width: 100px;">ID</th>
+                        <th class="d-none d-sm-table-cell text-center">Lokasyon İsmi</th>
+                        <th class="text-end">İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Locations.Count == 0)
+                    {
+                        <tr>
+                            <td colspan="7" class="d-none d-sm-table-cell text-center fs-sm">Veri yok</td>
+                        </tr>
+                    }
+                    @foreach (var item in Model.Locations)
+                    {
+                        <tr>
+                            <td class="text-center fs-sm">
+                                <strong>@item.LocationId</strong>
+                            </td>
+                            <td class="d-none d-sm-table-cell text-center fs-sm">@item.Name</td>
+                            <td class="text-end fs-sm">
+                                <button class="btn btn-sm btn-alt-secondary"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#location-update-modal"
+                                    data-location-name="@item.Name"
+                                    data-location-id="@item.LocationId">
+                                    <i class="fa fa-fw fa-pen"></i>
+                                </button>
+                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="Lokasyona Ait Ürünler" class="btn btn-sm btn-alt-secondary" href="/Product/Index?filterByLocationId=@item.LocationId">
+                                    <i class="fa fa-fw fa-clipboard-list"></i>
+                                </a>
+                                <a class="btn btn-sm btn-alt-secondary" onclick="confirmDelete(@item.LocationId, '/Location/Remove?id')">
+                                    <i class="fa fa-fw fa-times text-danger"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<partial name="/Views/Location/Partials/_LocationUpdate.cshtml" />
+
+
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    @await Html.PartialAsync("_SharedScripts")
+    <partial name="/Views/Location/Partials/_IndexScripts.cshtml" />
+}

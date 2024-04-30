@@ -14,7 +14,8 @@
                         <th class="d-none d-md-table-cell text-center">Seri Numarası</th>
                         <th class="d-none d-md-table-cell text-center">Açıklaması</th>
                         <th class="d-none d-md-table-cell text-center">Kategorisi</th>
-                        <th class="d-none d-md-table-cell text-center">Tarihi</th>
+                        <th class="d-none d-md-table-cell text-center">Lokasyonu</th>
+                        <th class="d-none d-md-table-cell text-center">Zimmet Tarihi</th>
                         <th class="d-none d-md-table-cell text-center">Kullanıcı</th>
                         <th class="d-none d-md-table-cell text-center">Dosya</th>
                     </tr>
@@ -36,6 +37,7 @@
                             <td class="d-none d-sm-table-cell text-center fs-sm">@item.Product.Serial</td>
                             <td class="d-none d-sm-table-cell text-center fs-sm">@item.Product.Description</td>
                             <td class="d-none d-sm-table-cell text-center fs-sm">@item.Product.Category.Name</td>
+                            <td class="d-none d-sm-table-cell text-center fs-sm">@item.Product.Location.Name</td>
                             <td class="d-none d-sm-table-cell text-center fs-sm">@item.RegistrationDate.ToShortDateString()</td>
                             <td class="d-none d-sm-table-cell text-center fs-sm">@item.AppUser.UserName</td>
                             @if (!string.IsNullOrEmpty(item.FilePath))

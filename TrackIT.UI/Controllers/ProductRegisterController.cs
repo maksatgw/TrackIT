@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using DocumentFormat.OpenXml.Spreadsheet;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
@@ -37,6 +39,7 @@ namespace TrackIT.UI.Controllers
             _productRegisterHistoryService = productRegisterHistoryService;
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Index(string? searchQuery, int? categoryId, string? userId)
         {
             var categories = _mapper.Map<List<CategoryGetDto>>(_categoryService.TGet());
@@ -64,7 +67,18 @@ namespace TrackIT.UI.Controllers
             };
             return View(productRegisterViewModel);
         }
-
+        [Authorize(Roles = "Kullanici")]
+        public async Task<IActionResult> SignedUsersRegister(string id)
+        {
+            var productRegisters = _mapper.Map<List<ProductRegisterGetDto>>(_productRegisterService.TGetWithIncludedSearch(userId: id));
+            var user =  _mapper.Map<UserGetDto>(await _userManager.FindByIdAsync(id));
+            var registerViewModel = new ProductRegisterViewModel { 
+                ProductRegisters = productRegisters,
+                AppUser= user
+            };
+            return View(registerViewModel);
+        }
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> ChangeRegister(ProductRegisterViewModel model)
         {
@@ -92,6 +106,7 @@ namespace TrackIT.UI.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult New()
         {
@@ -106,6 +121,8 @@ namespace TrackIT.UI.Controllers
             };
             return View(productRegisterViewModel);
         }
+
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<IActionResult> New(ProductRegisterViewModel model)
         {
@@ -138,7 +155,7 @@ namespace TrackIT.UI.Controllers
             }
 
         }
-
+        [Authorize(Roles = "Admin")]
         public IActionResult Remove(int id, string requestFrom)
         {
             var value = _productRegisterService.TGet(id);

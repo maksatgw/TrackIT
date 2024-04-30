@@ -84,6 +84,11 @@ namespace TrackIT.UI.Mappings.AutoMapperProfile
 
             CreateMap<Location, LocationGetDto>();
             CreateMap<LocationGetDto, Location>();
+            CreateMap<Location, LocationUpdateDto>();
+            CreateMap<LocationUpdateDto, Location>();
+
+            CreateMap<LocationAddDto, Location>();
+            CreateMap<Location, LocationAddDto>();
 
         }
     }

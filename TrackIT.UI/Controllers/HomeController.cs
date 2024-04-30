@@ -8,6 +8,7 @@ using TrackIT.UI.Models;
 
 namespace TrackIT.UI.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class HomeController : Controller
     {
 
@@ -25,7 +26,6 @@ namespace TrackIT.UI.Controllers
             _userManager = userManager;
             _categoryService = categoryService;
         }
-
         public IActionResult Index()
         {
             ViewBag.ProductCount = _productService.TGet().Count;
@@ -34,10 +34,13 @@ namespace TrackIT.UI.Controllers
             ViewBag.CategoryCount = _categoryService.TGet().Count;
             return View();
         }
+
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+
     }
 }

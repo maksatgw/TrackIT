@@ -73,17 +73,14 @@
   Core libraries and functionality
   webpack is putting everything together at assets/_js/main/app.js
 -->
-<script src="assets/js/dashmix.app.min.js"></script>
 
-<!-- jQuery (required for jQuery Validation plugin) -->
-<script src="assets/js/lib/jquery.min.js"></script>
 
-<!-- Page JS Plugins -->
-<script src="assets/js/plugins/jquery-validation/jquery.validate.min.js"></script>
-
-<!-- Page JS Code -->
-<script src="assets/js/pages/op_auth_signin.min.js"></script>
-
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+@*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
+@*<script src="~/js/site.js" asp-append-version="true"></script>*@
+<script src="~/web/src/assets/js/dashmix.app.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@await Component.InvokeAsync("NToastNotify")
 
 @await Html.PartialAsync("_ValidationScriptsPartial")
-
+@await Component.InvokeAsync("NToastNotify")

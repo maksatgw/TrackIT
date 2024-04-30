@@ -35,6 +35,11 @@
                                 class="form-select">
                         </select>
                     </div>
+                    <div class="mb-4">
+                        <label class="form-label" asp-for="UserUpdate.Password">Şifre</label>
+                        <input type="text" class="form-control" asp-for="UserUpdate.Password" placeholder="Şifre">
+                        <span class="badge bg-danger" asp-validation-for="UserUpdate.Password"></span>
+                    </div>
                     <div class="modal-footer">
                         <a href="/User/Index" class="btn btn-sm btn-alt-secondary">İptal</a>
                         <button type="submit" class="btn btn-sm btn-primary">Kaydet</button>
